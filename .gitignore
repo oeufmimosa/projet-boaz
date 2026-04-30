@@ -1,0 +1,49 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+playwright-report
+test-results
+
+# next.js
+.next
+out
+
+# typescript incremental cache
+*.tsbuildinfo
+
+# production
+build
+dist
+
+# misc
+.DS_Store
+*.pem
+.vscode
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# local env files
+.env
+.env*.local
+
+# database
+prisma/dev.db
+prisma/dev.db-journal
+
+# uploads (kept by .gitkeep)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# mailer dev fallback
+tmp/
+
+# Claude Code session metadata
+.claude/

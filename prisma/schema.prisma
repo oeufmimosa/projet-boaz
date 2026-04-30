@@ -1,0 +1,119 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  user      AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Content {
+  // SQLite ne supporte pas les enum Prisma : `type` est une string contrainte
+  // côté TS/zod (TEXT | RICHTEXT | JSON | IMAGE_REF).
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  type      String   @default("TEXT")
+  updatedAt DateTime @updatedAt
+}
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  key          String?  @unique
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  createdAt    DateTime @default(now())
+}
+
+model SimulatorStep {
+  // `fieldType` contraint côté TS/zod (RADIO | CHECKBOX | NUMBER | TEXT |
+  // EMAIL | TEL | SELECT | TEXTAREA), stocké en string car SQLite n'a pas d'enum.
+  id        String   @id @default(cuid())
+  order     Int      @unique
+  key       String   @unique
+  label     String
+  helpText  String?
+  fieldType String
+  required  Boolean  @default(true)
+  options   String?
+  config    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Quote {
+  id         String   @id @default(cuid())
+  answers    String
+  firstName  String?
+  lastName   String?
+  email      String?
+  phone      String?
+  postalCode String?
+  city       String?
+  emailSent  Boolean  @default(false)
+  emailError String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model ContactMessage {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  phone      String?
+  message    String
+  emailSent  Boolean  @default(false)
+  emailError String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Article {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String?
+  content     String
+  coverImage  String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, publishedAt])
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  ip        String
+  email     String?
+  success   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
+}
