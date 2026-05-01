@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Card";
+import { TricolorAccent } from "@/components/brand/TricolorBar";
 import { SimulatorWizard } from "@/components/simulator/SimulatorWizard";
 import { prisma } from "@/lib/prisma";
 import { getContent } from "@/lib/content";
@@ -10,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function SimulatorPage() {
   const [title, subtitle, rawSteps] = await Promise.all([
-    getContent("simulator.intro.title", "Simulateur"),
+    getContent("simulator.intro.title", "Estimez vos aides en quelques clics"),
     getContent("simulator.intro.subtitle"),
     prisma.simulatorStep.findMany({ orderBy: { order: "asc" } }),
   ]);
@@ -21,7 +22,6 @@ export default async function SimulatorPage() {
     key: s.key,
     label: s.label,
     helpText: s.helpText,
-    // fieldType est une string en DB; valeurs garanties par zod en écriture.
     fieldType: s.fieldType as FieldType,
     required: s.required,
     options: s.options ? JSON.parse(s.options) : undefined,
@@ -32,12 +32,14 @@ export default async function SimulatorPage() {
     <Section>
       <Container className="max-w-3xl">
         <header className="mb-8 text-center">
-          <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
-          <p className="mt-3 text-muted-fg">{subtitle}</p>
+          <h1 className="font-display text-display-lg">{title}</h1>
+          <TricolorAccent className="mx-auto mt-3" />
+          <p className="mt-4 text-body-lg text-text-muted">{subtitle}</p>
         </header>
-        <div className="rounded border border-border bg-white p-6 sm:p-8">
+
+        <div className="rounded-xl border border-border bg-surface p-6 shadow-md sm:p-10">
           {steps.length === 0 ? (
-            <p className="text-sm text-red-600">Le simulateur n'est pas configuré (aucune étape).</p>
+            <p className="text-body-sm text-error">Le simulateur n'est pas configuré (aucune étape).</p>
           ) : (
             <SimulatorWizard steps={steps} />
           )}

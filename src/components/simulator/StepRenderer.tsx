@@ -1,12 +1,19 @@
 "use client";
 
 import { SimulatorStepDTO, AnswerValue } from "@/types/simulator";
+import { ChoiceCardGroup } from "./ChoiceCardGroup";
 import { RadioField } from "./fields/RadioField";
 import { CheckboxField } from "./fields/CheckboxField";
 import { NumberField } from "./fields/NumberField";
 import { TextField } from "./fields/TextField";
 import { SelectField } from "./fields/SelectField";
 
+/**
+ * Choisit la représentation visuelle d'une étape :
+ *  - RADIO / CHECKBOX avec illustrations sur les options → ChoiceCardGroup
+ *  - RADIO / CHECKBOX sans illustration → fallback radio/checkbox compacts
+ *  - SELECT, NUMBER, TEXT, EMAIL, TEL, TEXTAREA → champs texte standards
+ */
 export function StepRenderer({
   step,
   value,
@@ -18,10 +25,18 @@ export function StepRenderer({
 }) {
   const opts = step.options ?? [];
   const cfg = step.config ?? {};
+  const hasIllus = opts.some((o) => Boolean(o.illustrationKey));
 
   switch (step.fieldType) {
     case "RADIO":
-      return (
+      return hasIllus ? (
+        <ChoiceCardGroup
+          name={step.key}
+          options={opts}
+          value={typeof value === "string" ? value : null}
+          onChange={(v) => onChange(v as AnswerValue)}
+        />
+      ) : (
         <RadioField
           name={step.key}
           options={opts}
@@ -30,7 +45,15 @@ export function StepRenderer({
         />
       );
     case "CHECKBOX":
-      return (
+      return hasIllus ? (
+        <ChoiceCardGroup
+          name={step.key}
+          options={opts}
+          multiple
+          value={Array.isArray(value) ? value : []}
+          onChange={(v) => onChange(v as AnswerValue)}
+        />
+      ) : (
         <CheckboxField
           name={step.key}
           options={opts}

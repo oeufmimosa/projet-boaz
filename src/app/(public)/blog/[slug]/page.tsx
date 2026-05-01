@@ -23,7 +23,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <Link href="/blog" className="text-sm text-primary">← Tous les articles</Link>
         <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{article.title}</h1>
         {article.publishedAt && (
-          <p className="mt-2 text-sm text-muted-fg">
+          <p className="mt-2 text-sm text-text-muted">
             Publié le {new Date(article.publishedAt).toLocaleDateString("fr-FR")}
           </p>
         )}

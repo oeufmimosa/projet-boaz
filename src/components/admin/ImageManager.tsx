@@ -79,9 +79,9 @@ export function ImageManager({ items: initial }: { items: Item[] }) {
 
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((it) => (
-          <li key={it.id} className="rounded border border-border bg-white p-3">
+          <li key={it.id} className="rounded-md border border-border bg-surface p-3">
             <img src={it.url} alt="" className="aspect-video w-full rounded object-cover" />
-            <p className="mt-2 truncate text-xs text-muted-fg">{it.originalName} — {Math.round(it.size / 1024)} Ko</p>
+            <p className="mt-2 truncate text-xs text-text-muted">{it.originalName} — {Math.round(it.size / 1024)} Ko</p>
             <div className="mt-2 flex gap-2">
               <Input
                 placeholder="Clé (ex: home.hero.image)"

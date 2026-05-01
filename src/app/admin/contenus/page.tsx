@@ -9,7 +9,7 @@ export default async function ContenusPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">Contenus éditables</h1>
-      <p className="mb-6 text-sm text-muted-fg">
+      <p className="mb-6 text-sm text-text-muted">
         Toutes les clés de contenu utilisées par le site. Modifiez la valeur, choisissez le type
         si nécessaire, puis enregistrez. Vous pouvez ajouter une nouvelle clé en bas.
       </p>

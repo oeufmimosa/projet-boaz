@@ -30,7 +30,7 @@ export function ContactStep({
           id="civility"
           value={value.civility}
           onChange={(e) => upd("civility", e.target.value as ContactInfo["civility"])}
-          className="w-full rounded border border-border bg-white px-3 py-2"
+          className="w-full rounded-md border border-border bg-surface px-3 py-2"
         >
           <option value="mr">M.</option>
           <option value="mme">Mme</option>

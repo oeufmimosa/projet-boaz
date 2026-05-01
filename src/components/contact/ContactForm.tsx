@@ -35,7 +35,7 @@ export function ContactForm() {
 
   if (done) {
     return (
-      <div role="status" className="rounded border border-accent bg-accent/10 p-4 text-sm">
+      <div role="status" className="rounded border border-accent-500 bg-primary-50 p-4 text-sm">
         Merci, votre message a bien été envoyé.
       </div>
     );

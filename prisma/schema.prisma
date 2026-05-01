@@ -51,17 +51,39 @@ model MediaAsset {
 model SimulatorStep {
   // `fieldType` contraint côté TS/zod (RADIO | CHECKBOX | NUMBER | TEXT |
   // EMAIL | TEL | SELECT | TEXTAREA), stocké en string car SQLite n'a pas d'enum.
-  id        String   @id @default(cuid())
-  order     Int      @unique
-  key       String   @unique
-  label     String
-  helpText  String?
-  fieldType String
-  required  Boolean  @default(true)
-  options   String?
-  config    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Le `label` peut contenir un fragment markdown `**...**` surligné côté rendu.
+  id              String   @id @default(cuid())
+  order           Int      @unique
+  key             String   @unique
+  label           String
+  helpText        String?
+  fieldType       String
+  required        Boolean  @default(true)
+  options         String?
+  config          String?
+  // Extensions phase 4 (dynamisation simulateur)
+  illustrationKey String?  // Illustration globale de l'étape (si pas par option)
+  encouragement   String?  // Message d'encouragement affiché sous le titre
+  helpTooltip     String?  // Texte du tooltip (i)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+/// Témoignages éditables, affichés dans le simulateur via TestimonialFlash
+/// et utilisables ailleurs sur le site. Filtrables par `context` (ex. "PAC").
+model Testimonial {
+  id         String   @id @default(cuid())
+  quote      String
+  authorName String
+  authorCity String
+  rating     Int      @default(5)
+  context    String?
+  active     Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([active, order])
 }
 
 model Quote {
@@ -106,6 +128,25 @@ model Article {
   updatedAt   DateTime  @updatedAt
 
   @@index([published, publishedAt])
+}
+
+/// Conversation chatbox abandonnée ou complétée. `completed=true` quand
+/// l'utilisateur a cliqué sur "Voir mes aides" pour passer au simulateur.
+/// Si `convertedToQuoteId` est posé, la conversion a été suivie d'une vraie
+/// soumission du simulateur (rapprochement par clé `chatbox.leadId` en
+/// sessionStorage côté client lors du submit du Quote).
+model ChatLead {
+  id                 String   @id @default(cuid())
+  answers            String   // JSON {step1, step2, step3, step4}
+  postalCode         String?
+  city               String?
+  completed          Boolean  @default(false)
+  convertedToQuoteId String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([completed])
 }
 
 model LoginAttempt {

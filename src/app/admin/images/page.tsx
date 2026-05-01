@@ -9,7 +9,7 @@ export default async function ImagesPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">Images</h1>
-      <p className="mb-6 text-sm text-muted-fg">
+      <p className="mb-6 text-sm text-text-muted">
         Uploadez des images puis associez-les à une clé (ex : <code>home.hero.image</code>) pour qu'elles s'affichent automatiquement.
       </p>
       <ImageManager items={items.map((i) => ({

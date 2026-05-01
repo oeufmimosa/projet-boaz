@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Modal } from "@/components/ui/Modal";
-import { SimulatorWizard } from "./SimulatorWizard";
+import { SimulatorShell } from "./SimulatorShell";
 import { SimulatorStepDTO } from "@/types/simulator";
 
 export function SimulatorModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -16,17 +15,13 @@ export function SimulatorModal({ open, onClose }: { open: boolean; onClose: () =
       .catch(() => setSteps([]));
   }, [open, steps]);
 
-  return (
-    <Modal open={open} onClose={onClose} title="Simulateur">
-      <div className="p-6">
-        {steps == null ? (
-          <p className="text-sm text-muted-fg">Chargement…</p>
-        ) : steps.length === 0 ? (
-          <p className="text-sm text-red-600">Le simulateur n'est pas configuré.</p>
-        ) : (
-          <SimulatorWizard steps={steps} onSubmitted={onClose} />
-        )}
+  if (!open) return null;
+  if (steps === null) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ background: "rgba(10, 42, 26, 0.6)" }}>
+        <p className="rounded-md bg-surface px-4 py-3 text-body-sm">Chargement…</p>
       </div>
-    </Modal>
-  );
+    );
+  }
+  return <SimulatorShell open={open} onClose={onClose} steps={steps} />;
 }

@@ -15,7 +15,7 @@ export default async function LoginPage({
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="w-full max-w-sm rounded border border-border bg-white p-6 shadow-sm">
+      <div className="w-full max-w-sm rounded-md border border-border bg-surface p-6 shadow-sm">
         <h1 className="mb-6 text-2xl font-bold">Connexion admin</h1>
         <LoginForm next={searchParams.next} />
       </div>

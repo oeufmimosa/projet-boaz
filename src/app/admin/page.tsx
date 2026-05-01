@@ -27,8 +27,8 @@ export default async function AdminDashboardPage() {
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c, i) => (
           <li key={i}>
-            <Link href={c.href} className="block rounded border border-border bg-white p-6 hover:border-primary">
-              <p className="text-sm text-muted-fg">{c.label}</p>
+            <Link href={c.href} className="block rounded-md border border-border bg-surface p-6 hover:border-primary">
+              <p className="text-sm text-text-muted">{c.label}</p>
               <p className="mt-2 text-3xl font-bold">{c.value}</p>
             </Link>
           </li>

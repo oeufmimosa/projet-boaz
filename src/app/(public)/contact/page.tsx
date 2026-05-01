@@ -16,14 +16,14 @@ export default async function ContactPage() {
       <Container className="grid max-w-5xl gap-10 md:grid-cols-2">
         <div>
           <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
-          <p className="mt-3 text-muted-fg">{subtitle}</p>
+          <p className="mt-3 text-text-muted">{subtitle}</p>
           <ul className="mt-8 space-y-3 text-sm">
             <li><strong>Email :</strong> contact@example.com</li>
             <li><strong>Téléphone :</strong> 01 23 45 67 89</li>
             <li><strong>Horaires :</strong> Lun-Ven 9h-18h</li>
           </ul>
         </div>
-        <div className="rounded border border-border bg-white p-6">
+        <div className="rounded-md border border-border bg-surface p-6">
           <ContactForm />
         </div>
       </Container>

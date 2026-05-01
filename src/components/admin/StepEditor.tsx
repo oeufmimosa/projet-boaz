@@ -73,10 +73,10 @@ export function StepEditor({ steps: initial }: { steps: Step[] }) {
 
   return (
     <div className="space-y-4">
-      {msg && <p className="text-sm text-accent">{msg}</p>}
+      {msg && <p className="text-sm text-accent-500">{msg}</p>}
       <ul className="space-y-3">
         {steps.sort((a, b) => a.order - b.order).map((s) => (
-          <li key={s.id} className="rounded border border-border bg-white p-4">
+          <li key={s.id} className="rounded-md border border-border bg-surface p-4">
             <div className="grid gap-3 md:grid-cols-4">
               <FieldWrap label="Ordre" htmlFor={`order-${s.id}`}>
                 <Input id={`order-${s.id}`} type="number" value={s.order}
@@ -88,7 +88,7 @@ export function StepEditor({ steps: initial }: { steps: Step[] }) {
               <FieldWrap label="Type" htmlFor={`type-${s.id}`}>
                 <select id={`type-${s.id}`} value={s.fieldType}
                   onChange={(e) => update(s.id, { fieldType: e.target.value as FieldType })}
-                  className="w-full rounded border border-border bg-white px-3 py-2">
+                  className="w-full rounded-md border border-border bg-surface px-3 py-2">
                   {TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </FieldWrap>
@@ -127,7 +127,7 @@ export function StepEditor({ steps: initial }: { steps: Step[] }) {
           </li>
         ))}
       </ul>
-      <Button variant="secondary" onClick={addStep}>+ Ajouter une étape</Button>
+      <Button variant="outline" onClick={addStep}>+ Ajouter une étape</Button>
     </div>
   );
 }

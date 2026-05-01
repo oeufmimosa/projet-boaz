@@ -39,7 +39,8 @@ export function Modal({
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(10, 42, 26, 0.6)" }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -47,7 +48,8 @@ export function Modal({
       <div
         ref={ref}
         className={cn(
-          "relative w-full max-w-3xl max-h-[90vh] overflow-auto rounded bg-white shadow-xl",
+          "relative w-full max-w-3xl max-h-[90vh] overflow-auto",
+          "rounded-xl bg-surface shadow-lg",
           className,
         )}
       >
@@ -55,9 +57,11 @@ export function Modal({
           type="button"
           onClick={onClose}
           aria-label="Fermer"
-          className="absolute right-3 top-3 rounded p-2 text-muted-fg hover:bg-muted"
+          className="absolute right-4 top-4 rounded-md p-2 text-text-muted hover:bg-surface-2"
         >
-          ✕
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" />
+          </svg>
         </button>
         {children}
       </div>

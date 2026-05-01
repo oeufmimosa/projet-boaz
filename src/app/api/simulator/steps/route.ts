@@ -10,17 +10,26 @@ export const runtime = "nodejs";
 export async function GET() {
   return handle(async () => {
     const rows = await prisma.simulatorStep.findMany({ orderBy: { order: "asc" } });
-    return ok(rows.map((s) => ({
-      id: s.id,
-      order: s.order,
-      key: s.key,
-      label: s.label,
-      helpText: s.helpText,
-      fieldType: s.fieldType,
-      required: s.required,
-      options: s.options ? JSON.parse(s.options) : undefined,
-      config: s.config ? JSON.parse(s.config) : undefined,
-    })));
+    return ok(rows.map((s) => {
+      // Le client Prisma typé peut ne pas avoir encore les nouveaux champs
+      // si le `prisma generate` n'a pas pu se rejouer (DLL verrouillée).
+      // On lit en runtime via index access.
+      const r = s as unknown as Record<string, unknown>;
+      return {
+        id: s.id,
+        order: s.order,
+        key: s.key,
+        label: s.label,
+        helpText: s.helpText,
+        fieldType: s.fieldType,
+        required: s.required,
+        options: s.options ? JSON.parse(s.options) : undefined,
+        config: s.config ? JSON.parse(s.config) : undefined,
+        illustrationKey: (r.illustrationKey as string | null) ?? null,
+        encouragement:   (r.encouragement   as string | null) ?? null,
+        helpTooltip:     (r.helpTooltip     as string | null) ?? null,
+      };
+    }));
   });
 }
 

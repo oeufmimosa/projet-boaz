@@ -47,6 +47,14 @@ export async function POST(req: Request) {
       data: { emailSent: ok_, emailError: error },
     });
 
+    // Conversion chatbox → simulateur : rattacher le lead s'il a été passé.
+    if (data.chatLeadId) {
+      await prisma.chatLead.update({
+        where: { id: data.chatLeadId },
+        data: { completed: true, convertedToQuoteId: created.id },
+      }).catch(() => null);
+    }
+
     return ok({ id: created.id });
   });
 }

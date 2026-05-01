@@ -9,5 +9,16 @@ export function Container({
   className?: string;
   as?: keyof JSX.IntrinsicElements;
 }) {
-  return <Tag className={cn("mx-auto w-full max-w-6xl px-4 sm:px-6", className)}>{children}</Tag>;
+  return (
+    <Tag
+      className={cn(
+        "mx-auto w-full max-w-container",
+        // padding latéral fluide via token
+        className,
+      )}
+      style={{ paddingLeft: "var(--container-padding)", paddingRight: "var(--container-padding)" }}
+    >
+      {children}
+    </Tag>
+  );
 }

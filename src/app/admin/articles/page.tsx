@@ -13,14 +13,14 @@ export default async function AdminArticlesPage() {
         <h1 className="text-2xl font-bold">Articles</h1>
         <LinkButton href="/admin/articles/nouveau">+ Nouvel article</LinkButton>
       </div>
-      <ul className="divide-y divide-border rounded border border-border bg-white">
+      <ul className="divide-y divide-border rounded-md border border-border bg-surface">
         {articles.map((a) => (
           <li key={a.id} className="flex items-center justify-between gap-3 p-4">
             <div>
               <Link href={`/admin/articles/${a.id}`} className="font-medium hover:text-primary">{a.title}</Link>
-              <p className="text-xs text-muted-fg">/{a.slug} — {a.published ? "Publié" : "Brouillon"}</p>
+              <p className="text-xs text-text-muted">/{a.slug} — {a.published ? "Publié" : "Brouillon"}</p>
             </div>
-            <p className="text-xs text-muted-fg">{new Date(a.updatedAt).toLocaleDateString("fr-FR")}</p>
+            <p className="text-xs text-text-muted">{new Date(a.updatedAt).toLocaleDateString("fr-FR")}</p>
           </li>
         ))}
       </ul>

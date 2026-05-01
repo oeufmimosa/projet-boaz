@@ -11,6 +11,8 @@ export type FieldType =
 export interface SimulatorOption {
   value: string;
   label: string;
+  helper?: string;
+  illustrationKey?: string;
 }
 
 export interface SimulatorStepDTO {
@@ -23,6 +25,10 @@ export interface SimulatorStepDTO {
   required: boolean;
   options?: SimulatorOption[];
   config?: Record<string, unknown>;
+  // Extensions phase 4
+  illustrationKey?: string | null;
+  encouragement?: string | null;
+  helpTooltip?: string | null;
 }
 
 export type AnswerValue = string | number | string[] | boolean | null;

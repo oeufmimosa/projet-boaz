@@ -47,18 +47,18 @@ export function ContentEditor({ items: initial }: { items: Item[] }) {
           onChange={(e) => setFilter(e.target.value)}
           className="max-w-md"
         />
-        {saved && <p className="text-sm text-accent">{saved}</p>}
+        {saved && <p className="text-sm text-accent-500">{saved}</p>}
       </div>
 
       <ul className="space-y-3">
         {filtered.map((item) => (
-          <li key={item.id} className="rounded border border-border bg-white p-4">
+          <li key={item.id} className="rounded-md border border-border bg-surface p-4">
             <div className="mb-2 flex flex-wrap items-center gap-3">
-              <code className="text-xs text-muted-fg">{item.key}</code>
+              <code className="text-xs text-text-muted">{item.key}</code>
               <select
                 value={item.type}
                 onChange={(e) => updateLocal(item.id, { type: e.target.value as ContentType })}
-                className="rounded border border-border bg-white px-2 py-1 text-sm"
+                className="rounded-md border border-border bg-surface px-2 py-1 text-sm"
               >
                 <option value="TEXT">TEXT</option>
                 <option value="RICHTEXT">RICHTEXT (markdown)</option>
@@ -113,7 +113,7 @@ function NewKey({ onCreate }: { onCreate: (item: Item) => void }) {
           <Input id="new-key" placeholder="ex: home.hero.title" value={key} onChange={(e) => setKey(e.target.value)} />
         </FieldWrap>
         <FieldWrap label="Type" htmlFor="new-type">
-          <select id="new-type" value={type} onChange={(e) => setType(e.target.value as ContentType)} className="w-full rounded border border-border bg-white px-3 py-2">
+          <select id="new-type" value={type} onChange={(e) => setType(e.target.value as ContentType)} className="w-full rounded-md border border-border bg-surface px-3 py-2">
             <option value="TEXT">TEXT</option>
             <option value="RICHTEXT">RICHTEXT</option>
             <option value="JSON">JSON</option>

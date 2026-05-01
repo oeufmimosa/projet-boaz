@@ -27,6 +27,7 @@
     "@prisma/client": "^5.20.0",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
     "next": "^14.2.15",
     "nodemailer": "^6.9.15",
     "pino": "^9.4.0",

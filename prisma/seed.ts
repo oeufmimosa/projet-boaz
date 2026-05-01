@@ -168,6 +168,39 @@ async function seedContent() {
   await upsertContent("legal.cookies.title", "Politique cookies");
   await upsertContent("legal.cookies.body", "[CONTENU COOKIES]", ContentType.RICHTEXT);
 
+  // Chatbox — éditable côté admin via /admin/chatbox
+  await upsertContent("chatbox.advisor.name", "Camille — Climat Hexagon");
+  await upsertContent("chatbox.advisor.initials", "CH");
+  await upsertContent("chatbox.preview", "Discutez avec nous de votre projet");
+  await upsertContent("chatbox.autoopen.enabled", "true");
+  await upsertContent("chatbox.autoopen.delay_seconds", "0");
+  await upsertContent("chatbox.step1.message", "👋 Bonjour ! Je suis Camille de Climat Hexagon. Pour mieux vous orienter, quel est votre projet de rénovation ?");
+  await upsertContent("chatbox.step1.followup", "Quels travaux vous intéressent ?");
+  await upsertContent("chatbox.step1.options", JSON.stringify([
+    { value: "isolation",  label: "🏠 Isolation (combles, murs, sols)" },
+    { value: "pac",        label: "🔥 Pompe à chaleur" },
+    { value: "solaire",    label: "☀️ Panneaux solaires" },
+    { value: "fenetres",   label: "🪟 Fenêtres / menuiseries" },
+    { value: "plusieurs",  label: "🧰 Plusieurs travaux" },
+    { value: "indecis",    label: "🤔 Je ne sais pas encore" },
+  ]), "JSON");
+  await upsertContent("chatbox.step2.message", "Très bien ! Vous habitez :");
+  await upsertContent("chatbox.step2.options", JSON.stringify([
+    { value: "maison",       label: "🏡 Une maison individuelle" },
+    { value: "appartement",  label: "🏢 Un appartement" },
+  ]), "JSON");
+  await upsertContent("chatbox.step3.message", "Et vous êtes :");
+  await upsertContent("chatbox.step3.options", JSON.stringify([
+    { value: "proprietaire-occupant", label: "👤 Propriétaire occupant" },
+    { value: "bailleur",              label: "🔑 Propriétaire bailleur" },
+    { value: "locataire",             label: "🏠 Locataire" },
+  ]), "JSON");
+  await upsertContent("chatbox.step4.message", "Parfait ! Quel est le code postal de votre projet ?");
+  await upsertContent("chatbox.handoff.message", "Super, j'ai tout ce qu'il faut pour vous orienter. Je vous prépare une estimation personnalisée avec **les aides auxquelles vous avez droit**. C'est parti ?");
+  await upsertContent("chatbox.handoff.cta", "Voir mes aides 🪙");
+  await upsertContent("chatbox.handoff.later", "Plus tard");
+  await upsertContent("chatbox.resume", "Bon retour ! On continue ?");
+
   // Simulateur
   await upsertContent("simulator.intro.title", "Estimez vos aides en quelques clics");
   await upsertContent("simulator.intro.subtitle", "[SOUS-TITRE SIMULATEUR]");
@@ -178,63 +211,94 @@ async function seedContent() {
 }
 
 async function seedSimulatorSteps() {
-  // Wipe existing then recreate to keep order consistent
   await prisma.simulatorStep.deleteMany({});
 
-  const steps = [
+  // Mapping illustrations pour la liste des travaux
+  const TRAVAUX_ILLUS: Record<string, string> = {
+    "isolation-combles": "insulation-attic",
+    "isolation-murs": "insulation-walls",
+    "isolation-sols": "insulation-floor",
+    "pompe-a-chaleur-air-eau": "heat-pump-air-water",
+    "pompe-a-chaleur-air-air": "heat-pump-air-air",
+    "chaudiere": "boiler",
+    "photovoltaique": "solar",
+    "fenetres": "windows",
+    "vmc-double-flux": "vmc",
+    "audit-energetique": "audit",
+  };
+
+  const steps: Array<{
+    key: string;
+    label: string;          // peut contenir **fragment** à surligner
+    helpText?: string;
+    encouragement?: string;
+    helpTooltip?: string;
+    fieldType: FieldType;
+    required: boolean;
+    options?: Array<{ value: string; label: string; helper?: string; illustrationKey?: string }>;
+    config?: Record<string, unknown>;
+  }> = [
     {
       key: "logement_type",
-      label: "Quel est votre type de logement ?",
+      label: "Parlez-nous de **votre logement**",
+      helpText: "Votre projet concerne :",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
-        { value: "maison", label: "Maison" },
-        { value: "appartement", label: "Appartement" },
+        { value: "maison",      label: "Maison",       helper: "Le plus courant", illustrationKey: "house" },
+        { value: "appartement", label: "Appartement",                              illustrationKey: "apartment" },
       ],
     },
     {
       key: "statut",
-      label: "Quel est votre statut ?",
+      label: "Et vous êtes **propriétaire ou locataire** ?",
+      encouragement: "🎉 Parfait, déjà 1 minute restante !",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
-        { value: "proprietaire-occupant", label: "Propriétaire occupant" },
-        { value: "bailleur", label: "Propriétaire bailleur" },
-        { value: "locataire", label: "Locataire" },
+        { value: "proprietaire-occupant", label: "Propriétaire occupant", illustrationKey: "owner-living" },
+        { value: "bailleur",              label: "Propriétaire bailleur", illustrationKey: "owner-renting" },
+        { value: "locataire",             label: "Locataire",             illustrationKey: "tenant" },
       ],
     },
     {
       key: "travaux",
-      label: "Quels travaux envisagez-vous ?",
+      label: "Quels **travaux** vous intéressent ?",
       helpText: "Plusieurs choix possibles.",
       fieldType: FieldType.CHECKBOX,
       required: true,
-      options: TRAVAUX.map((t) => ({ value: t.slug, label: t.title })),
+      options: TRAVAUX.map((t) => ({
+        value: t.slug,
+        label: t.title,
+        illustrationKey: TRAVAUX_ILLUS[t.slug],
+      })),
     },
     {
       key: "surface",
-      label: "Quelle est la surface de votre logement (m²) ?",
+      label: "Quelle **surface** fait votre logement ?",
+      helpText: "En mètres carrés habitables.",
       fieldType: FieldType.NUMBER,
       required: true,
       config: { min: 10, max: 1000, placeholder: "Ex : 95" },
     },
     {
       key: "chauffage_actuel",
-      label: "Quel est votre chauffage actuel ?",
-      fieldType: FieldType.SELECT,
+      label: "Votre **chauffage actuel** est :",
+      encouragement: "✨ Vous y êtes presque !",
+      fieldType: FieldType.RADIO,
       required: true,
       options: [
-        { value: "fioul", label: "Fioul" },
-        { value: "gaz", label: "Gaz" },
-        { value: "electrique", label: "Électrique" },
-        { value: "bois", label: "Bois / biomasse" },
-        { value: "pac", label: "Pompe à chaleur" },
-        { value: "autre", label: "Autre" },
+        { value: "gaz",        label: "Gaz",            illustrationKey: "heating-gas" },
+        { value: "electrique", label: "Électrique",     illustrationKey: "heating-electric" },
+        { value: "fioul",      label: "Fioul",          illustrationKey: "heating-fuel" },
+        { value: "bois",       label: "Bois / biomasse",illustrationKey: "heating-wood" },
+        { value: "pac",        label: "Pompe à chaleur",illustrationKey: "heating-pump" },
+        { value: "autre",      label: "Autre",          illustrationKey: "heating-other" },
       ],
     },
     {
       key: "annee_construction",
-      label: "Année de construction du logement",
+      label: "**Année de construction** du logement",
       fieldType: FieldType.SELECT,
       required: true,
       options: [
@@ -247,35 +311,44 @@ async function seedSimulatorSteps() {
     },
     {
       key: "foyer_personnes",
-      label: "Combien de personnes composent votre foyer ?",
-      fieldType: FieldType.NUMBER,
-      required: true,
-      config: { min: 1, max: 15, placeholder: "Ex : 4" },
-    },
-    {
-      key: "revenus",
-      label: "Quelle est votre tranche de revenus fiscaux ?",
-      helpText: "Cette information sert uniquement à estimer vos aides.",
+      label: "Combien de **personnes** dans votre foyer ?",
+      encouragement: "🪙 Vos aides arrivent...",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
-        { value: "tres-modeste", label: "Très modestes" },
-        { value: "modeste", label: "Modestes" },
+        { value: "1",     label: "1 personne",      illustrationKey: "household-1" },
+        { value: "2",     label: "2 personnes",     illustrationKey: "household-2" },
+        { value: "3",     label: "3 personnes",     illustrationKey: "household-3" },
+        { value: "4",     label: "4 personnes",     illustrationKey: "household-4" },
+        { value: "5plus", label: "5 ou plus",       illustrationKey: "household-5plus" },
+      ],
+    },
+    {
+      key: "revenus",
+      label: "Votre **tranche de revenus fiscaux**",
+      helpText: "Sert uniquement à estimer le montant de vos aides.",
+      helpTooltip: "Vous trouvez votre RFR sur votre dernier avis d'imposition (case 25).",
+      fieldType: FieldType.RADIO,
+      required: true,
+      options: [
+        { value: "tres-modeste",  label: "Très modestes" },
+        { value: "modeste",       label: "Modestes" },
         { value: "intermediaire", label: "Intermédiaires" },
-        { value: "superieur", label: "Supérieurs" },
+        { value: "superieur",     label: "Supérieurs" },
       ],
     },
     {
       key: "code_postal",
-      label: "Code postal et ville",
+      label: "**Code postal** du logement",
+      helpText: "Format attendu : 75001 Paris.",
       fieldType: FieldType.TEXT,
       required: true,
       config: { placeholder: "Ex : 75001 Paris" },
     },
     {
       key: "coordonnees",
-      label: "Vos coordonnées",
-      helpText: "Nous vous recontactons sous 24-48h.",
+      label: "Vos **coordonnées**",
+      helpText: "🔒 Vos données sont protégées (RGPD). Nous vous recontactons sous 24-48h.",
       fieldType: FieldType.TEXT,
       required: true,
       config: { compound: true },
@@ -284,6 +357,9 @@ async function seedSimulatorSteps() {
 
   for (let i = 0; i < steps.length; i++) {
     const s = steps[i];
+    // Cast `as any` : le client Prisma typé peut ne pas avoir les nouveaux
+    // champs si `prisma generate` n'a pas pu se rejouer (DLL Windows verrouillée
+    // par le dev server). Les colonnes existent en DB grâce à la migration.
     await prisma.simulatorStep.create({
       data: {
         order: i + 1,
@@ -294,10 +370,32 @@ async function seedSimulatorSteps() {
         required: s.required,
         options: s.options ? JSON.stringify(s.options) : null,
         config: s.config ? JSON.stringify(s.config) : null,
-      },
+        encouragement: s.encouragement ?? null,
+        helpTooltip: s.helpTooltip ?? null,
+      } as never,
     });
   }
   console.log(`✓ ${steps.length} simulator steps`);
+}
+
+async function seedTestimonials() {
+  // Cast en any : modèle Testimonial peut ne pas être encore typé.
+  const tm = (prisma as unknown as {
+    testimonial: {
+      deleteMany: (a: unknown) => Promise<unknown>;
+      create: (a: unknown) => Promise<unknown>;
+    };
+  }).testimonial;
+  await tm.deleteMany({});
+  const items = [
+    { quote: "J'ai obtenu 8 200 € d'aides pour ma PAC, en 3 semaines !", authorName: "Marc", authorCity: "Lyon", rating: 5, context: "PAC" },
+    { quote: "Isolation des combles posée en 1 jour, facture divisée par 2.", authorName: "Sophie", authorCity: "Bordeaux", rating: 5, context: "Isolation" },
+    { quote: "Très bien accompagnée du devis aux travaux, transparence totale.", authorName: "Émilie", authorCity: "Nantes", rating: 5, context: "Photovoltaïque" },
+  ];
+  for (let i = 0; i < items.length; i++) {
+    await tm.create({ data: { ...items[i], order: i, active: true } });
+  }
+  console.log(`✓ ${items.length} testimonials`);
 }
 
 async function seedArticles() {
@@ -344,6 +442,7 @@ async function main() {
   await seedContent();
   await seedSimulatorSteps();
   await seedArticles();
+  await seedTestimonials();
 }
 
 main()

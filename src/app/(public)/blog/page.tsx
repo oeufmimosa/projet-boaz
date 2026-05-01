@@ -18,12 +18,12 @@ export default async function BlogIndexPage() {
       <Container>
         <h1 className="mb-10 text-3xl font-bold sm:text-4xl">Blog</h1>
         {articles.length === 0 ? (
-          <p className="text-muted-fg">Aucun article pour le moment.</p>
+          <p className="text-text-muted">Aucun article pour le moment.</p>
         ) : (
           <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((a) => (
               <li key={a.id}>
-                <Link href={`/blog/${a.slug}`} className="block rounded border border-border bg-white hover:border-primary">
+                <Link href={`/blog/${a.slug}`} className="block rounded-md border border-border bg-surface hover:border-primary">
                   {a.coverImage ? (
                     <img src={a.coverImage} alt="" className="aspect-video w-full rounded-t object-cover" />
                   ) : (
@@ -31,9 +31,9 @@ export default async function BlogIndexPage() {
                   )}
                   <div className="p-4">
                     <h2 className="text-lg font-semibold">{a.title}</h2>
-                    {a.excerpt && <p className="mt-1 text-sm text-muted-fg line-clamp-3">{a.excerpt}</p>}
+                    {a.excerpt && <p className="mt-1 text-sm text-text-muted line-clamp-3">{a.excerpt}</p>}
                     {a.publishedAt && (
-                      <p className="mt-3 text-xs text-muted-fg">
+                      <p className="mt-3 text-xs text-text-muted">
                         {new Date(a.publishedAt).toLocaleDateString("fr-FR")}
                       </p>
                     )}

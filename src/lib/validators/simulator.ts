@@ -24,6 +24,8 @@ export const quoteSubmissionSchema = z.object({
     .regex(/^\d{5}$/, "Code postal invalide"),
   city: z.string().trim().min(1, "Ville requise").max(100),
   consent: z.literal(true, { errorMap: () => ({ message: "Consentement requis" }) }),
+  /** ID du ChatLead à rattacher (conversion chatbox → simulateur). */
+  chatLeadId: z.string().optional(),
 });
 
 export type QuoteSubmissionInput = z.infer<typeof quoteSubmissionSchema>;

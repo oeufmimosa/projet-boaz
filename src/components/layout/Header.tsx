@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { LinkButton } from "@/components/ui/Button";
+import { Logo } from "@/components/brand/Logo";
+import { FrenchBadge } from "@/components/brand/FrenchBadge";
+import { TricolorBar } from "@/components/brand/TricolorBar";
 import { MobileMenu } from "./MobileMenu";
+import { ScrollAwareHeader } from "./ScrollAwareHeader";
 import { getContent } from "@/lib/content";
 
 export const NAV_LINKS = [
@@ -13,43 +17,53 @@ export const NAV_LINKS = [
 ];
 
 export async function Header() {
-  const [siteName, ctaLabel] = await Promise.all([
-    getContent("site.name", "Projet Boaz"),
-    getContent("header.cta", "Simuler mes aides"),
-  ]);
+  const ctaLabel = await getContent("header.cta", "Simuler mes travaux");
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-bg/95 backdrop-blur">
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-          <span className="placeholder-block flex h-8 w-8 items-center justify-center rounded">
-            B
-          </span>
-          <span>{siteName}</span>
-        </Link>
+    <>
+      <TricolorBar />
+      <ScrollAwareHeader>
+        <Container className="flex h-16 lg:h-20 items-center justify-between gap-4">
+          {/* Logo : wordmark masqué sous 380 px pour gagner de la place */}
+          <Link href="/" aria-label="Accueil — Groupe Climat Hexagon" className="shrink-0">
+            <span className="block sm:hidden"><Logo size={32} withWordmark={false} /></span>
+            <span className="hidden sm:block"><Logo size={36} /></span>
+          </Link>
 
-        <nav aria-label="Navigation principale" className="hidden md:flex items-center gap-6">
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-sm font-medium text-fg hover:text-primary"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+          {/* Nav desktop — centrée */}
+          <nav
+            aria-label="Navigation principale"
+            className="hidden lg:flex items-center gap-7 absolute left-1/2 -translate-x-1/2"
+          >
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="text-body-sm font-semibold transition-colors duration-150 nav-link hover:text-primary-600"
+                data-nav
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
 
-        <div className="hidden md:block">
-          <LinkButton href="/simulateur" size="sm">
-            {ctaLabel}
-          </LinkButton>
-        </div>
+          {/* Bloc droit : badge + CTA */}
+          <div className="hidden lg:flex items-center gap-4">
+            <FrenchBadge />
+            <LinkButton href="/simulateur" variant="primary" size="md">
+              {ctaLabel}
+            </LinkButton>
+          </div>
 
-        <div className="md:hidden">
-          <MobileMenu links={NAV_LINKS} ctaLabel={ctaLabel} />
-        </div>
-      </Container>
-    </header>
+          {/* Mobile : mini-CTA + burger */}
+          <div className="flex lg:hidden items-center gap-2">
+            <LinkButton href="/simulateur" variant="accent" size="sm" className="px-3">
+              Simuler
+            </LinkButton>
+            <MobileMenu links={NAV_LINKS} ctaLabel={ctaLabel} />
+          </div>
+        </Container>
+      </ScrollAwareHeader>
+    </>
   );
 }

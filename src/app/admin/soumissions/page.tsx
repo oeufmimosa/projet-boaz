@@ -51,14 +51,14 @@ export default async function SubmissionsPage({
 }
 
 function tabClass(active: boolean) {
-  return `px-4 py-2 text-sm border-b-2 ${active ? "border-primary text-primary" : "border-transparent text-muted-fg"}`;
+  return `px-4 py-2 text-sm border-b-2 ${active ? "border-primary-700 text-primary-700" : "border-transparent text-text-muted"}`;
 }
 
 function QuotesTable({ items }: { items: { id: string; firstName: string | null; lastName: string | null; email: string | null; phone: string | null; postalCode: string | null; city: string | null; emailSent: boolean; createdAt: Date }[] }) {
-  if (items.length === 0) return <p className="text-muted-fg">Aucune simulation.</p>;
+  if (items.length === 0) return <p className="text-text-muted">Aucune simulation.</p>;
   return (
-    <table className="w-full overflow-hidden rounded border border-border bg-white text-sm">
-      <thead className="bg-muted/50 text-left">
+    <table className="w-full overflow-hidden rounded-md border border-border bg-surface text-sm">
+      <thead className="bg-surface-2 text-left">
         <tr>
           <th className="p-3">Date</th><th className="p-3">Nom</th>
           <th className="p-3">Email</th><th className="p-3">Téléphone</th>
@@ -84,10 +84,10 @@ function QuotesTable({ items }: { items: { id: string; firstName: string | null;
 }
 
 function MessagesTable({ items }: { items: { id: string; name: string; email: string; phone: string | null; createdAt: Date }[] }) {
-  if (items.length === 0) return <p className="text-muted-fg">Aucun message.</p>;
+  if (items.length === 0) return <p className="text-text-muted">Aucun message.</p>;
   return (
-    <table className="w-full overflow-hidden rounded border border-border bg-white text-sm">
-      <thead className="bg-muted/50 text-left">
+    <table className="w-full overflow-hidden rounded-md border border-border bg-surface text-sm">
+      <thead className="bg-surface-2 text-left">
         <tr>
           <th className="p-3">Date</th><th className="p-3">Nom</th>
           <th className="p-3">Email</th><th className="p-3">Téléphone</th>

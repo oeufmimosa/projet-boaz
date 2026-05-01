@@ -9,7 +9,7 @@ export default async function AdminSimulatorPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">Étapes du simulateur</h1>
-      <p className="mb-6 text-sm text-muted-fg">
+      <p className="mb-6 text-sm text-text-muted">
         Réordonnez en modifiant le champ "ordre", puis enregistrez chaque étape. Les options sont
         en JSON (ex : <code>[{`{"value":"oui","label":"Oui"}`}]</code>).
       </p>
