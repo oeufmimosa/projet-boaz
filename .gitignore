@@ -47,6 +47,7 @@ tmp/
 
 # Claude Code session metadata
 .claude/
+skills-lock.json
 
 # Markdown (docs internes, prompts, audits, reviews)
 *.md
