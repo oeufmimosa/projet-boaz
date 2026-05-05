@@ -47,3 +47,4 @@ tmp/
 
 # Claude Code session metadata
 .claude/
+.md
