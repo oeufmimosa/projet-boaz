@@ -38,9 +38,11 @@ pnpm-debug.log*
 prisma/dev.db
 prisma/dev.db-journal
 
-# uploads (kept by .gitkeep)
-public/uploads/*
-!public/uploads/.gitkeep
+# Uploads : on commit les images pour qu'elles soient déployées sur Vercel
+# (le filesystem Vercel est éphémère / read-only à l'exécution, donc tout
+# ce qui n'est pas dans le repo n'arrive pas en prod).
+# Limite : tout nouvel upload via l'admin en prod ne sera PAS persistant
+# tant qu'on n'a pas migré vers Vercel Blob / S3 / R2.
 
 # mailer dev fallback
 tmp/
