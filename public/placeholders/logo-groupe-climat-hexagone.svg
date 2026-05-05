@@ -1,0 +1,84 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Groupe Climat Hexagone"
+>
+  <!-- ============================================ -->
+  <!-- Logo Groupe Climat Hexagone                   -->
+  <!-- Reproduction vectorielle fidèle du logo PNG   -->
+  <!-- ============================================ -->
+
+  <defs>
+    <style>
+      .navy { fill: #1A2C5B; }
+      .navy-stroke { stroke: #1A2C5B; fill: none; }
+      .green { fill: #4A8F3D; }
+      .fr-blue { fill: #002395; }
+      .fr-white { fill: #FFFFFF; }
+      .fr-red { fill: #ED2939; }
+    </style>
+  </defs>
+
+  <!-- Cercle navy (presque complet, ouverture en haut à droite pour laisser passer le drapeau) -->
+  <path
+    class="navy-stroke"
+    stroke-width="14"
+    stroke-linecap="round"
+    d="M 392 76
+       A 220 220 0 1 0 432 156"
+  />
+
+  <!-- Feuille verte (enrobe le bas du cercle, pointe vers la droite) -->
+  <path
+    class="green"
+    d="M 140 360
+       C 130 320 145 295 175 295
+       C 215 295 245 320 280 325
+       C 320 330 360 320 395 305
+       C 425 295 445 305 450 330
+       C 460 380 430 430 380 455
+       C 330 475 270 475 220 460
+       C 175 445 145 410 140 360
+       Z
+       M 380 320
+       C 410 310 430 320 425 345
+       C 420 365 405 375 380 380
+       C 405 365 410 345 380 320
+       Z"
+  />
+
+  <!-- Maison : toit en chevron + cheminée -->
+  <!-- Toit (forme triangulaire creuse pour ne montrer que les pans) -->
+  <path
+    class="navy"
+    d="M 130 286
+       L 256 162
+       L 382 286
+       L 358 286
+       L 256 187
+       L 154 286
+       Z"
+  />
+
+  <!-- Cheminée (rectangle sur le pan gauche du toit) -->
+  <rect class="navy" x="175" y="200" width="28" height="48" />
+
+  <!-- Petit triangle de raccord cheminée → toit -->
+  <path class="navy" d="M 175 240 L 203 240 L 203 250 L 175 250 Z" />
+
+  <!-- Fenêtre 2×2 (centrée sous le toit) -->
+  <g class="navy">
+    <rect x="231" y="252" width="22" height="28" />
+    <rect x="259" y="252" width="22" height="28" />
+    <rect x="231" y="286" width="22" height="28" />
+    <rect x="259" y="286" width="22" height="28" />
+  </g>
+
+  <!-- Drapeau tricolore (3 bandes horizontales légèrement inclinées, sortent à droite du cercle) -->
+  <g transform="rotate(14, 415, 130)">
+    <rect class="fr-blue" x="345" y="78" width="135" height="20" rx="2" />
+    <rect class="fr-white" x="345" y="102" width="135" height="20" rx="2" />
+    <rect class="fr-red" x="345" y="126" width="135" height="20" rx="2" />
+  </g>
+</svg>

@@ -21,14 +21,14 @@ export function FrenchBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-body-sm font-semibold",
+        "inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-1.5 text-body-sm font-semibold",
         bg,
         text,
         className,
       )}
     >
       <Flag />
-      <span>{label}</span>
+      <span style={{ whiteSpace: "nowrap" }}>{label}</span>
     </span>
   );
 }

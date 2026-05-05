@@ -129,6 +129,16 @@ export function useChatbox(config: ChatConfig | null) {
       if (!config) return;
       pushUser(label);
       const stepKey = STEPS[state.step];
+
+      // Court-circuit : à l'étape 1, l'option "parrainer" redirige immédiatement
+      // vers la page parrainage au lieu de continuer le flow simulateur.
+      if (stepKey === "step1" && value === "parrainer") {
+        if (typeof window !== "undefined") {
+          window.location.href = "/parrainage";
+        }
+        return;
+      }
+
       const newAnswers: ChatAnswers = { ...state.answers, [stepKey]: value };
       const nextStep = state.step + 1;
 

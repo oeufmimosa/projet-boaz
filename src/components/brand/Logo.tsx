@@ -1,46 +1,94 @@
 import { cn } from "@/components/ui/cn";
 
 type Variant = "default" | "white" | "dark";
+type Layout = "mark" | "wordmark" | "compact";
+type Size = "sm" | "md" | "lg";
+
+const SIZE_PX: Record<Size, number> = { sm: 32, md: 40, lg: 56 };
 
 /**
- * Logo Groupe Climat Hexagon — symbole hexagonal rempli du drapeau français
- * + wordmark à côté.
+ * Logo Groupe Climat Hexagone — symbole = PNG officiel transparent
+ * (`/placeholders/image.png`, fond blanc retiré via remove-white-bg.ts).
  *
- * - default : hexagone drapeau, bordure vert foncé, wordmark teinte texte
- * - white   : hexagone drapeau (couleurs conservées), bordure blanche, wordmark blanc
- *             (réservé aux fonds verts foncés)
- * - dark    : hexagone vert foncé monochrome (sans drapeau), wordmark vert foncé
+ * Le symbole est colorimétriquement fixe (navy + green + tricolore). Les
+ * variants n'affectent QUE la couleur du wordmark texte :
+ *   - default : texte foncé (sur fonds clairs)
+ *   - white   : texte blanc (sur fonds verts foncés / image)
+ *   - dark    : texte navy (sur fonds clairs, version monochrome assumée)
+ *
+ * Layouts :
+ *   - mark            : symbole seul (favicon, FAB chatbox, espaces réduits)
+ *   - wordmark        : symbole + « Groupe Climat » / « HEXAGONE » sur 2 lignes
+ *   - compact         : symbole + « Groupe Climat Hexagone » sur 1 ligne
+ *
+ * Sizes : sm (32 px), md (40 px), lg (56 px) — appliqué au symbole.
  */
 export function Logo({
   variant = "default",
+  layout = "wordmark",
+  size = "md",
   className,
-  withWordmark = true,
-  size = 36,
 }: {
   variant?: Variant;
+  layout?: Layout;
+  size?: Size;
   className?: string;
-  withWordmark?: boolean;
-  size?: number;
 }) {
   const colors = getColors(variant);
-  const idSuffix = `${variant}-${size}`;
+  const px = SIZE_PX[size];
+
+  if (layout === "mark") {
+    return (
+      <span className={cn("inline-block", className)}>
+        <Symbol size={px} />
+      </span>
+    );
+  }
 
   return (
-    <span className={cn("inline-flex items-center gap-3", className)}>
-      <Symbol colors={colors} size={size} idSuffix={idSuffix} />
-      {withWordmark && (
+    <span
+      className={cn(
+        "inline-flex min-w-0 items-center",
+        layout === "compact" ? "gap-2" : "gap-3",
+        className,
+      )}
+    >
+      <Symbol size={px} />
+      {layout === "compact" ? (
+        <span
+          className="font-display whitespace-nowrap overflow-hidden text-ellipsis"
+          style={{
+            color: colors.text,
+            fontSize: size === "sm" ? "0.7rem" : size === "lg" ? "1rem" : "0.875rem",
+            fontWeight: 700,
+            letterSpacing: "0.04em",
+            lineHeight: 1.1,
+            textTransform: "uppercase",
+          }}
+        >
+          Groupe Climat Hexagone
+        </span>
+      ) : (
         <span className="leading-none flex flex-col">
           <span
-            className="text-[0.6875rem] uppercase tracking-[0.18em] font-body font-semibold"
-            style={{ color: colors.subtle }}
+            className="uppercase font-body font-semibold whitespace-nowrap"
+            style={{
+              color: colors.subtle,
+              fontSize: px <= 32 ? "0.625rem" : "0.6875rem",
+              letterSpacing: "0.18em",
+            }}
           >
             Groupe Climat
           </span>
           <span
-            className="font-display font-extrabold tracking-tight text-[1.125rem] sm:text-[1.25rem]"
-            style={{ color: colors.text }}
+            className="font-display font-extrabold tracking-tight whitespace-nowrap"
+            style={{
+              color: colors.text,
+              fontSize: px <= 32 ? "1rem" : px >= 56 ? "1.5rem" : "1.25rem",
+              marginTop: "2px",
+            }}
           >
-            HEXAGON
+            HEXAGONE
           </span>
         </span>
       )}
@@ -48,85 +96,68 @@ export function Logo({
   );
 }
 
-function Symbol({
-  colors,
-  size,
-  idSuffix,
+/**
+ * Symbole seul, exposé pour le favicon, l'OG image, le FAB chatbox.
+ */
+export function LogoMark({
+  size = "md",
+  className,
 }: {
-  colors: ReturnType<typeof getColors>;
-  size: number;
-  idSuffix: string;
+  /** Variant non utilisé : le PNG officiel est colorimétriquement fixe.
+   *  On garde la signature pour compat — le param est ignoré. */
+  variant?: Variant;
+  size?: Size;
+  className?: string;
 }) {
-  const clipId = `bz-logo-clip-${idSuffix}`;
+  const px = SIZE_PX[size];
   return (
-    <svg
-      width={size}
-      height={(size * 64) / 56}
-      viewBox="0 0 56 64"
-      role="img"
-      aria-label="Groupe Climat Hexagon"
-      className="shrink-0"
-    >
-      <defs>
-        <clipPath id={clipId}>
-          <path d="M28 2 52 16v32L28 62 4 48V16Z" />
-        </clipPath>
-      </defs>
-
-      {colors.flagInside ? (
-        <>
-          {/* Drapeau français découpé en hexagone */}
-          <g clipPath={`url(#${clipId})`}>
-            <rect x="0" y="0" width="18.667" height="64" fill="var(--color-fr-blue)" />
-            <rect x="18.667" y="0" width="18.667" height="64" fill="var(--color-fr-white)" />
-            <rect x="37.333" y="0" width="18.667" height="64" fill="var(--color-fr-red)" />
-          </g>
-          {/* Bordure de l'hexagone par-dessus pour bien découper la silhouette */}
-          <path
-            d="M28 2 52 16v32L28 62 4 48V16Z"
-            fill="none"
-            stroke={colors.symbolStroke}
-            strokeWidth="2"
-          />
-        </>
-      ) : (
-        <path
-          d="M28 2 52 16v32L28 62 4 48V16Z"
-          fill={colors.symbolFill}
-          stroke={colors.symbolStroke}
-          strokeWidth="1.5"
-        />
-      )}
-    </svg>
+    <span className={cn("inline-block", className)}>
+      <Symbol size={px} />
+    </span>
   );
 }
 
-function getColors(variant: Variant) {
+function Symbol({ size }: { size: number }) {
+  // PNG officiel transparent (généré via scripts/remove-white-bg.ts).
+  // Pas de next/image ici car le composant est utilisé dans des contextes
+  // mixés server/client et à des tailles fixes très petites — un <img>
+  // simple est suffisant et évite les contraintes Image SSR.
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/placeholders/image.png"
+      alt=""
+      aria-hidden
+      width={size}
+      height={size}
+      className="shrink-0"
+      style={{ width: size, height: size, objectFit: "contain" }}
+    />
+  );
+}
+
+type LogoColors = {
+  text: string;
+  subtle: string;
+};
+
+function getColors(variant: Variant): LogoColors {
   switch (variant) {
     case "white":
       return {
-        flagInside: true,
-        symbolFill: "transparent",
-        symbolStroke: "var(--color-text-inverse)",
         text: "var(--color-text-inverse)",
-        subtle: "rgba(255,255,255,0.7)",
+        subtle: "rgba(255,255,255,0.72)",
       };
     case "dark":
       return {
-        flagInside: false,
-        symbolFill: "var(--color-primary-700)",
-        symbolStroke: "var(--color-primary-900)",
-        text: "var(--color-primary-700)",
-        subtle: "var(--color-primary-500)",
+        text: "var(--color-brand-navy)",
+        subtle: "rgba(26,44,91,0.7)",
       };
     case "default":
     default:
       return {
-        flagInside: true,
-        symbolFill: "transparent",
-        symbolStroke: "var(--color-primary-800)",
         text: "var(--color-text)",
-        subtle: "var(--color-primary-600)",
+        subtle: "var(--color-brand-navy)",
       };
   }
 }

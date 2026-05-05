@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { TricolorAccent } from "@/components/brand/TricolorBar";
 
-type Item = { name: string; city: string; quote: string; rating: number };
+type Item = { name: string; city: string; quote: string; rating: number; placeholder?: boolean };
 
 export function Testimonials({ title, items }: { title: string; items: Item[] }) {
   const [idx, setIdx] = useState(0);
@@ -18,7 +18,14 @@ export function Testimonials({ title, items }: { title: string; items: Item[] })
           <h2 className="text-display-md font-display">{title}</h2>
           <TricolorAccent className="mt-3" />
         </div>
-        <div className="relative overflow-hidden rounded-lg border border-border bg-surface p-8 shadow-sm sm:p-12">
+        {/* TODO client : remplacer par vrais témoignages avec consentement écrit RGPD
+            avant toute mise en production publique. Cf. docs/seo.md. */}
+        <div
+          data-content={cur.placeholder ? "placeholder" : undefined}
+          className={`relative overflow-hidden rounded-lg border bg-surface p-8 shadow-sm sm:p-12 ${
+            cur.placeholder ? "border-accent-500/50 ring-1 ring-accent-500/30" : "border-border"
+          }`}
+        >
           {/* Guillemet décoratif vert clair */}
           <span aria-hidden className="absolute -right-4 -top-4 font-display text-[10rem] leading-none text-primary-100 select-none pointer-events-none">
             &rdquo;

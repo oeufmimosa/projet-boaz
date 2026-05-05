@@ -24,32 +24,44 @@ export default function StyleGuidePage() {
           <h1 className="mt-2 text-display-xl font-display">Style Guide</h1>
           <p className="mt-3 max-w-2xl text-body-lg text-text-muted">
             Tous les tokens, composants de marque et primitives UI du
-            <strong className="font-semibold"> Groupe Climat Hexagon</strong>.
+            <strong className="font-semibold"> Groupe Climat Hexagone</strong>.
             Cette page sert de référence et de QA visuelle ; elle n'est pas
             liée depuis la navigation publique.
           </p>
         </header>
 
         {/* ============================================================ */}
-        <Block title="1. Logos">
+        <Block title="1. Logos — variants × layouts">
           <div className="grid gap-6 md:grid-cols-3">
             <Card className="bg-surface">
-              <p className="text-body-sm text-text-muted mb-4">Default</p>
-              <Logo variant="default" />
+              <p className="text-body-sm text-text-muted mb-4">Default · wordmark</p>
+              <Logo variant="default" layout="wordmark" size="md" />
             </Card>
             <Card className="bg-primary-800 border-primary-700">
-              <p className="text-body-sm text-primary-200 mb-4">White (sur vert foncé)</p>
-              <Logo variant="white" />
+              <p className="text-body-sm text-primary-200 mb-4">White · wordmark</p>
+              <Logo variant="white" layout="wordmark" size="md" />
             </Card>
             <Card>
-              <p className="text-body-sm text-text-muted mb-4">Dark monochrome</p>
-              <Logo variant="dark" />
+              <p className="text-body-sm text-text-muted mb-4">Dark · wordmark</p>
+              <Logo variant="dark" layout="wordmark" size="md" />
+            </Card>
+            <Card className="bg-surface">
+              <p className="text-body-sm text-text-muted mb-4">Default · mark</p>
+              <Logo variant="default" layout="mark" size="md" />
+            </Card>
+            <Card className="bg-primary-800 border-primary-700">
+              <p className="text-body-sm text-primary-200 mb-4">White · mark</p>
+              <Logo variant="white" layout="mark" size="md" />
+            </Card>
+            <Card>
+              <p className="text-body-sm text-text-muted mb-4">Default · compact (navbar)</p>
+              <Logo variant="default" layout="compact" size="md" />
             </Card>
           </div>
           <div className="mt-6 flex items-center gap-6 flex-wrap">
-            <Logo variant="default" size={28} withWordmark={false} />
-            <Logo variant="default" size={36} />
-            <Logo variant="default" size={48} />
+            <Logo variant="default" layout="mark" size="sm" />
+            <Logo variant="default" layout="mark" size="md" />
+            <Logo variant="default" layout="mark" size="lg" />
           </div>
         </Block>
 

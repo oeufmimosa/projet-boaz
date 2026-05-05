@@ -14,7 +14,7 @@ export async function loadChatConfig(): Promise<ChatConfig> {
     s2msg, s2opts, s3msg, s3opts, s4msg,
     handoffMessage, handoffCta, handoffLater, resume,
   ] = await Promise.all([
-    getContent("chatbox.advisor.name", "Camille — Climat Hexagon"),
+    getContent("chatbox.advisor.name", "Camille — Climat Hexagone"),
     getContent("chatbox.advisor.initials", "CH"),
     getContent("chatbox.preview", "👋 Bonjour ! Quel est votre projet ?"),
     getContent("chatbox.autoopen.enabled", "true"),

@@ -1,35 +1,28 @@
-import { getSessionUser } from "@/lib/auth";
-import { AdminSidebar } from "@/components/layout/AdminSidebar";
+import type { Metadata } from "next";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 
 export const dynamic = "force-dynamic";
 
+// Defense-in-depth : empêche tout indexage des routes /admin/**
+// (les middlewares redirigent déjà les non-authentifiés, mais
+// si une route fuite via un lien externe on évite l'indexation).
+export const metadata: Metadata = {
+  robots: { index: false, follow: false, nocache: true },
+};
+
 /**
- * Admin layout. Middleware redirige les visites non authentifiées vers
- * /admin/login. Ici on affiche la sidebar quand une session existe.
- * Filet tricolore tout en haut pour cohérence avec le reste du site.
+ * Layout racine admin. Volontairement minimal : juste le filet tricolore.
+ * - Les routes "panel" (dashboard, contenus, images…) sont sous le route
+ *   group `(panel)` qui ajoute la sidebar AdminSidebar.
+ * - Les routes "editor" (mode éditeur visuel + iframe d'aperçu) sont sous
+ *   `editor/` qui ne porte PAS la sidebar (la toolbar de l'éditeur la
+ *   remplace).
  */
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const user = await getSessionUser();
-
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-bg">
-        <TricolorBar />
-        {children}
-      </div>
-    );
-  }
-
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-bg">
       <TricolorBar />
-      <div className="flex flex-col md:flex-row">
-        <AdminSidebar email={user.email} />
-        <div className="flex-1 p-4 sm:p-8 max-w-full overflow-x-auto">
-          {children}
-        </div>
-      </div>
+      {children}
     </div>
   );
 }

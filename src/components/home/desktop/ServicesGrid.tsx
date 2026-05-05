@@ -58,7 +58,7 @@ export function ServicesGrid({
           {services.map((s) => (
             <li key={s.slug}>
               <Link
-                href={`/travaux/${s.slug}`}
+                href={`/services/${s.slug}`}
                 className="group flex h-full flex-col gap-4 rounded-lg border border-border bg-surface p-5 transition duration-150 hover:-translate-y-1 hover:shadow-md hover:border-primary-300"
               >
                 <HexIcon tone="soft" size="md">{iconFor(s.slug)}</HexIcon>

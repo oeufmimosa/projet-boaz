@@ -7,6 +7,7 @@ import { Logo } from "@/components/brand/Logo";
 
 const ITEMS = [
   { href: "/admin", label: "Tableau de bord" },
+  { href: "/admin/editor", label: "Éditeur visuel" },
   { href: "/admin/contenus", label: "Contenus" },
   { href: "/admin/images", label: "Images" },
   { href: "/admin/simulateur", label: "Simulateur" },
@@ -14,6 +15,7 @@ const ITEMS = [
   { href: "/admin/temoignages", label: "Témoignages" },
   { href: "/admin/chatbox", label: "Chatbox" },
   { href: "/admin/soumissions", label: "Soumissions" },
+  { href: "/admin/parrainages", label: "Parrainages" },
 ];
 
 export function AdminSidebar({ email }: { email: string }) {
@@ -22,7 +24,7 @@ export function AdminSidebar({ email }: { email: string }) {
     <aside className="w-full border-b border-primary-700 bg-primary-800 text-text-inverse md:w-64 md:shrink-0 md:border-b-0 md:border-r md:min-h-screen">
       <div className="px-5 pt-5 pb-3">
         <Link href="/" className="inline-block">
-          <Logo variant="white" size={32} />
+          <Logo variant="white" layout="wordmark" size="sm" />
         </Link>
         <p className="mt-3 text-body-sm text-primary-200 break-all">{email}</p>
       </div>

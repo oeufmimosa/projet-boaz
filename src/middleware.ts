@@ -59,6 +59,7 @@ function requiresAdminApi(pathname: string): boolean {
     "/api/articles",
     "/api/submissions",
     "/api/simulator/steps",
+    "/api/admin",
   ];
   return protectedPrefixes.some((p) => pathname.startsWith(p));
 }

@@ -10,7 +10,7 @@ const sizeMap: Record<Size, { box: string; iconSize: number }> = {
 };
 
 /**
- * Icône inscrite dans un hexagone — clin d'œil au nom Hexagon + L'Hexagone.
+ * Icône inscrite dans un hexagone — clin d'œil au nom Hexagone + L'Hexagone.
  * - soft    : fond primary-100, contenu primary-700 (cards services)
  * - solid   : fond primary-700, contenu blanc (étapes "Comment ça marche")
  * - outline : fond transparent, bordure primary-300, contenu primary-700

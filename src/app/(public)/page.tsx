@@ -1,10 +1,26 @@
+import type { Metadata } from "next";
 import { HomeDesktop } from "@/components/home/HomeDesktop";
 import { HomeMobile } from "@/components/home/HomeMobile";
 import type { HomeData } from "@/components/home/types";
-import { getContent, getJsonContent, getContentsByPrefix } from "@/lib/content";
-import { TRAVAUX_LIST } from "@/lib/travaux";
+import { getContent, getJsonContent } from "@/lib/content";
+import { SERVICES_LIST } from "@/lib/services";
+import { WebSiteJsonLd, FaqJsonLd } from "@/components/seo/StructuredData";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Rénovation énergétique en France — Aides cumulées 2025",
+  description:
+    "Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique : faites estimer vos aides en 2 minutes et profitez d'un accompagnement clé en main par des artisans RGE.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Rénovation énergétique en France — Aides cumulées 2025",
+    description:
+      "Pompe à chaleur, isolation, photovoltaïque : estimez vos aides en 2 minutes et profitez d'un accompagnement par des artisans RGE.",
+    url: "/",
+    type: "website",
+  },
+};
 
 export default async function HomePage() {
   const [
@@ -15,7 +31,6 @@ export default async function HomePage() {
     testiTitle, testiItems,
     partnersTitle, partnersItems,
     faqTitle, faqItems,
-    travauxContent,
     advisorName, advisorInitials,
   ] = await Promise.all([
     getContent("home.hero.title"),
@@ -34,15 +49,14 @@ export default async function HomePage() {
     getJsonContent<{ name: string }[]>("home.partners.items", []),
     getContent("home.faq.title"),
     getJsonContent<{ q: string; a: string }[]>("home.faq.items", []),
-    getContentsByPrefix("travaux."),
-    getContent("chatbox.advisor.name", "Camille — Climat Hexagon"),
+    getContent("chatbox.advisor.name", "Camille — Climat Hexagone"),
     getContent("chatbox.advisor.initials", "CH"),
   ]);
 
-  const services = TRAVAUX_LIST.map((t) => ({
-    slug: t.slug,
-    title: travauxContent.get(`travaux.${t.slug}.title`) ?? t.title,
-    short: travauxContent.get(`travaux.${t.slug}.short`) ?? "",
+  const services = SERVICES_LIST.map((s) => ({
+    slug: s.slug,
+    title: s.label,
+    short: s.short,
   }));
 
   const data: HomeData = {
@@ -57,6 +71,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <WebSiteJsonLd />
+      {data.faq.items.length > 0 && <FaqJsonLd items={data.faq.items} />}
       <HomeDesktop data={data} />
       <HomeMobile data={data} advisorName={advisorName} advisorInitials={advisorInitials} />
     </>

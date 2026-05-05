@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Groupe Climat Hexagone">
+  <circle cx="32" cy="32" r="30" fill="#1A2C5B"/>
+  <path d="M14 36 L32 20 L50 36 Z" fill="#FFFFFF"/>
+  <rect x="19" y="34" width="26" height="16" fill="#FFFFFF"/>
+  <rect x="29" y="40" width="6" height="10" fill="#1A2C5B"/>
+  <path d="M14 22 Q 14 12 24 12 Q 24 22 14 22 Z" fill="#1F6A40"/>
+  <path d="M14 22 Q 19 17 24 12" stroke="#0F3D26" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <g transform="translate(42 8)">
+    <rect width="4.5" height="9" fill="#002395"/>
+    <rect x="4.5" width="4.5" height="9" fill="#FFFFFF"/>
+    <rect x="9" width="4.5" height="9" fill="#ED2939"/>
+    <rect width="13.5" height="9" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.6"/>
+  </g>
+</svg>

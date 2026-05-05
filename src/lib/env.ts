@@ -56,6 +56,15 @@ export const env = {
     url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   },
 
+  // Clés des API d'images stock (optionnelles en dev — si absentes, l'onglet
+  // "Photos libres" de la modale d'upload est désactivé gracieusement).
+  // Sources légales uniquement : Unsplash + Pexels (pas de Google Images,
+  // pas de scraping de sites tiers). Cf. docs/seo.md.
+  stockImages: {
+    unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY ?? "",
+    pexelsApiKey:      process.env.PEXELS_API_KEY ?? "",
+  },
+
   isProd: process.env.NODE_ENV === "production",
   logLevel: process.env.LOG_LEVEL ?? "info",
 };

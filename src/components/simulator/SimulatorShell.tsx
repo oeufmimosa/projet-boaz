@@ -54,7 +54,7 @@ export function SimulatorShell({
           style={{ paddingTop: "env(safe-area-inset-top)" }}
         >
           <div className="flex items-center justify-between gap-3 px-4 py-3">
-            <Logo variant="white" size={28} withWordmark={false} />
+            <Logo variant="white" layout="mark" size="sm" />
             <p className="font-display text-body font-semibold">Simulateur</p>
             <button
               type="button"

@@ -10,7 +10,7 @@ test("chatbox opens and shows the two intro bubbles before options", async ({ pa
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible({ timeout: 3000 });
 
-  await expect(dialog.getByText(/Je suis Camille de Climat Hexagon/)).toBeVisible({ timeout: 5000 });
+  await expect(dialog.getByText(/Je suis Camille de Climat Hexagone/)).toBeVisible({ timeout: 5000 });
   await expect(dialog.getByText(/Quels travaux vous intéressent/)).toBeVisible({ timeout: 5000 });
   await expect(dialog.getByRole("button", { name: /Isolation/ })).toBeVisible();
 });

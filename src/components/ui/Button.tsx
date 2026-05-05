@@ -2,12 +2,15 @@ import Link from "next/link";
 import { forwardRef, ButtonHTMLAttributes } from "react";
 import { cn } from "./cn";
 
-type Variant = "primary" | "accent" | "outline" | "ghost" | "inverse" | "danger";
+type Variant = "primary" | "accent" | "outline" | "outline-inverse" | "ghost" | "inverse" | "danger";
 type Size = "sm" | "md" | "lg";
 
 /**
  * Tous les variants pointent exclusivement sur les tokens de couleur Tailwind
  * (primary-*, accent-*, surface, border…). Aucun hex ici.
+ *
+ * - `outline`         : pour fonds CLAIRS (texte + bordure vert foncé)
+ * - `outline-inverse` : pour fonds SOMBRES (texte + bordure blancs, hover white/10)
  */
 const variantClasses: Record<Variant, string> = {
   primary:
@@ -16,6 +19,8 @@ const variantClasses: Record<Variant, string> = {
     "bg-accent-500 text-primary-800 hover:bg-accent-600 active:bg-accent-600",
   outline:
     "bg-transparent text-primary-700 border-1.5 border-primary-700 hover:bg-primary-50",
+  "outline-inverse":
+    "bg-transparent text-text-inverse border-1.5 border-white/80 hover:bg-white/10 hover:border-white",
   ghost:
     "bg-transparent text-primary-700 hover:bg-primary-50",
   inverse:
@@ -62,17 +67,20 @@ export function LinkButton({
   size = "md",
   className,
   children,
+  onClick,
 }: {
   href: string;
   variant?: Variant;
   size?: Size;
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }) {
   return (
     <Link
       href={href}
       className={cn(baseClasses, variantClasses[variant], sizeClasses[size], className)}
+      onClick={onClick}
     >
       {children}
     </Link>

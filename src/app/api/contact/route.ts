@@ -1,13 +1,23 @@
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/validators/contact";
 import { sendContactMessage } from "@/lib/mailer";
-import { handle, ok } from "@/lib/api";
+import { handle, ok, fail } from "@/lib/api";
+import { rateLimit, ipFromHeaders } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   return handle(async () => {
+    // Rate-limit anti-spam : 3 soumissions / IP / minute
+    const ip = ipFromHeaders(req.headers);
+    const rl = rateLimit(`contact:${ip}`, 3, 60 * 1000);
+    if (!rl.ok) {
+      return fail(429, "Trop de soumissions, réessayez dans une minute.", {
+        retryAfterMs: rl.retryAfterMs,
+      });
+    }
+
     const body = await req.json();
     const data = contactSchema.parse(body);
 

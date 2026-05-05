@@ -79,15 +79,119 @@ async function seedContent() {
   await upsertContent("footer.newsletter.description", "[DESCRIPTION NEWSLETTER]");
 
   // Home — Hero
-  await upsertContent("home.hero.title", "[TITRE HERO — proposition de valeur principale]");
-  await upsertContent("home.hero.subtitle", "[SOUS-TITRE HERO — argument principal en une phrase]");
-  await upsertContent("home.hero.cta_primary", "Simuler mes travaux");
-  await upsertContent("home.hero.cta_secondary", "Découvrir les aides");
+  // ⚠️ Formulation prudente : pas de chiffre absolu sans source publique
+  // vérifiable. Les barèmes MaPrimeRénov' + CEE + Éco-PTZ varient selon le
+  // profil de revenus, le type de travaux et la zone climatique. Pour viser
+  // une requête SEO précise (« aides 2025 jusqu'à X € »), le client doit
+  // fournir un montant validé sur france-renov.gouv.fr ou maprimerenov.gouv.fr
+  // (avec date de vérification dans le commentaire). En attendant, on dit
+  // « plusieurs milliers d'euros » qui reste vrai dans tous les cas.
+  // TODO client/SEO : remplacer par le montant chiffré validé une fois sourcé.
+  await upsertContent(
+    "home.hero.title",
+    "Vos travaux de rénovation énergétique, jusqu'à plusieurs milliers d'euros d'aides cumulées",
+  );
+  await upsertContent(
+    "home.hero.subtitle",
+    "Pompe à chaleur, isolation, photovoltaïque : nous calculons vos aides MaPrimeRénov' et CEE, puis confions vos travaux à un artisan RGE de notre réseau.",
+  );
+  await upsertContent("home.hero.cta_primary", "Estimer mes aides en 2 min");
+  await upsertContent("home.hero.cta_secondary", "Découvrir nos services");
   await upsertContent("home.hero.image", "https://placehold.co/1200x600?text=Hero", ContentType.IMAGE_REF);
 
-  // Home — Services (utilise les TRAVAUX réels)
-  await upsertContent("home.services.title", "Nos catégories de travaux");
-  await upsertContent("home.services.subtitle", "[SOUS-TITRE SECTION SERVICES]");
+  // Home — Services
+  await upsertContent("home.services.label",   "Nos solutions");
+  await upsertContent("home.services.title",   "Des solutions pour chaque besoin énergétique");
+  await upsertContent(
+    "home.services.subtitle",
+    "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2025.",
+  );
+
+  // Home — Cards services interactives (6) : shortLabel + description (30-50 mots)
+  // + benefits[] (3 puces). Tout est éditable côté admin via les clés Content.
+  const SERVICE_CARDS: Array<{
+    slug: string;
+    shortLabel: string;
+    description: string;
+    benefits: string[];
+  }> = [
+    {
+      slug: "pompe-a-chaleur",
+      shortLabel: "Air-Eau / Air-Air",
+      description:
+        "Solution de chauffage performante qui exploite les calories de l'air ou de l'eau. Jusqu'à 3 fois plus efficace qu'un chauffage électrique classique.",
+      benefits: [
+        "Économies d'énergie jusqu'à 70 %",
+        "Éligible à MaPrimeRénov' & CEE",
+        "Confort thermique toute l'année",
+      ],
+    },
+    {
+      slug: "panneau-photovoltaique",
+      shortLabel: "Production d'électricité solaire",
+      description:
+        "Production d'électricité solaire pour autoconsommer ou revendre le surplus. Rentabilité moyenne en 8 à 12 ans selon votre exposition.",
+      benefits: [
+        "Autoconsommation jusqu'à 60 %",
+        "Prime à l'autoconsommation incluse",
+        "Garantie 25 ans sur les panneaux",
+      ],
+    },
+    {
+      slug: "isolation-thermique-exterieure",
+      shortLabel: "ITE — façades & murs",
+      description:
+        "Enveloppe isolante posée sur la façade extérieure de votre logement. Réduction des déperditions de chaleur jusqu'à 25 %.",
+      benefits: [
+        "Aucune perte de surface habitable",
+        "Ravalement de façade inclus",
+        "Aides cumulées jusqu'à plusieurs milliers d'euros",
+      ],
+    },
+    {
+      slug: "chauffe-eau-solaire-individuel",
+      shortLabel: "CESI individuel",
+      description:
+        "Production d'eau chaude par capteurs solaires. Couvre 50 à 70 % des besoins d'un foyer sur une année.",
+      benefits: [
+        "Économies durables sur l'eau chaude",
+        "Énergie 100 % renouvelable",
+        "Fonctionne toute l'année",
+      ],
+    },
+    {
+      slug: "ballon-thermodynamique",
+      shortLabel: "Eau chaude économique",
+      description:
+        "Chauffe-eau qui capte les calories de l'air ambiant. Trois à quatre fois plus économique qu'un cumulus électrique classique.",
+      benefits: [
+        "Installation rapide en 1 journée",
+        "Compatible avec une cave ou un garage",
+        "Aides MaPrimeRénov' applicables",
+      ],
+    },
+    {
+      slug: "systeme-solaire-combine",
+      shortLabel: "SSC chauffage + ECS",
+      description:
+        "Capteurs solaires qui assurent à la fois le chauffage du logement et la production d'eau chaude sanitaire. La solution la plus complète.",
+      benefits: [
+        "Couvre jusqu'à 50 % des besoins en chauffage",
+        "ECS solaire incluse",
+        "Aides élevées disponibles",
+      ],
+    },
+  ];
+
+  for (const c of SERVICE_CARDS) {
+    await upsertContent(`home.services.cards.${c.slug}.shortLabel`, c.shortLabel);
+    await upsertContent(`home.services.cards.${c.slug}.description`, c.description);
+    await upsertContent(
+      `home.services.cards.${c.slug}.benefits`,
+      JSON.stringify(c.benefits),
+      ContentType.JSON,
+    );
+  }
   for (const t of TRAVAUX) {
     await upsertContent(`travaux.${t.slug}.title`, t.title);
     await upsertContent(`travaux.${t.slug}.short`, `[DESCRIPTION COURTE — ${t.title}]`);
@@ -101,49 +205,147 @@ async function seedContent() {
     await upsertContent(`travaux.${t.slug}.image`, `https://placehold.co/800x500?text=${encodeURIComponent(t.title)}`, ContentType.IMAGE_REF);
   }
 
-  // Home — How it works
-  await upsertContent("home.how.title", "Comment ça marche");
+  // Home — How it works (4 étapes pédagogiques courtes)
+  await upsertContent("home.how.title", "Votre projet en 4 étapes claires");
   await upsertContent("home.how.steps", JSON.stringify([
-    { title: "Étape 1 — Simulez", description: "[DESCRIPTION ÉTAPE 1]" },
-    { title: "Étape 2 — Recevez votre estimation", description: "[DESCRIPTION ÉTAPE 2]" },
-    { title: "Étape 3 — Choisissez un artisan RGE", description: "[DESCRIPTION ÉTAPE 3]" },
-    { title: "Étape 4 — Lancez vos travaux", description: "[DESCRIPTION ÉTAPE 4]" },
+    {
+      title: "1. Estimation en ligne",
+      description: "Vous décrivez votre logement et vos travaux ; un premier diagnostic d'éligibilité aux aides s'affiche en 2 minutes.",
+    },
+    {
+      title: "2. Étude personnalisée",
+      description: "Un conseiller analyse votre dossier, calcule MaPrimeRénov' + CEE et vous propose un plan de financement.",
+    },
+    {
+      title: "3. Devis et installation",
+      description: "Un artisan RGE de notre réseau vous fournit un devis détaillé puis intervient dans les règles de l'art.",
+    },
+    {
+      title: "4. Suivi long terme",
+      description: "Garantie décennale, entretien et accompagnement administratif jusqu'au versement de vos aides.",
+    },
   ]), ContentType.JSON);
 
-  // Home — Key figures
-  await upsertContent("home.figures.title", "Ils nous font confiance");
+  // Home — Chiffres clés.
+  // ⚠️ TOUS les chiffres spécifiques sont des placeholders bloquants `[X]`.
+  // Ils doivent être remplacés par le client AVANT toute mise en production
+  // publique : publier "1 200 chantiers réalisés" sans pouvoir le justifier
+  // exposerait juridiquement (publicité trompeuse). Le composant
+  // <KeyFigures>/<KeyFiguresCompact> détecte ces patterns `[X]` et les rend
+  // en mode `placeholderHighlight` (doré clignotant) en admin/editor.
+  await upsertContent("home.figures.title", "Notre savoir-faire en chiffres");
   await upsertContent("home.figures.items", JSON.stringify([
-    { value: "100 000+", label: "[Particuliers accompagnés]" },
-    { value: "1 500+", label: "[Artisans partenaires RGE]" },
-    { value: "500 M€", label: "[Aides versées]" },
-    { value: "4,7/5", label: "[Note moyenne clients]" },
+    { value: "[X]+",    label: "Chantiers réalisés" },
+    { value: "[X] ans", label: "D'expérience cumulée" },
+    { value: "[X] %",   label: "Clients satisfaits" },
+    { value: "100 %",   label: "Artisans RGE certifiés" }, // OK : engagement, pas un chiffre
   ]), ContentType.JSON);
 
-  // Home — Testimonials
-  await upsertContent("home.testimonials.title", "Ils témoignent");
+  // Home — Témoignages.
+  // ⚠️ ZONE DE RISQUE JURIDIQUE/ÉTHIQUE.
+  // Les 6 entrées ci-dessous sont des PLACEHOLDERS FICTIFS à but de mise
+  // en page uniquement (chacune marquée `placeholder: true`). Avant toute
+  // mise en production publique du site, le client doit IMPÉRATIVEMENT :
+  //   1. Recueillir le consentement écrit RGPD des vrais clients qui
+  //      acceptent de témoigner (article 6 RGPD).
+  //   2. Remplacer les 6 entrées ci-dessous par des avis vérifiables.
+  //   3. Ne PAS publier des avis fictifs : risque de pratique commerciale
+  //      trompeuse (article L121-2 Code de la consommation, sanctions
+  //      jusqu'à 300 000 € ou 10 % du CA).
+  // Le flag `placeholder: true` est lu côté composant et propage un
+  // attribut `data-content="placeholder"` sur la card pour visibilité.
+  // Cf. docs/seo.md "Checklist pré-publication".
+  await upsertContent("home.testimonials.title", "Ce qu'en disent nos clients");
   await upsertContent("home.testimonials.items", JSON.stringify([
-    { name: "[NOM 1]", city: "[VILLE 1]", quote: "[CITATION 1 — lorem ipsum dolor sit amet.]", rating: 5 },
-    { name: "[NOM 2]", city: "[VILLE 2]", quote: "[CITATION 2 — lorem ipsum dolor sit amet.]", rating: 5 },
-    { name: "[NOM 3]", city: "[VILLE 3]", quote: "[CITATION 3 — lorem ipsum dolor sit amet.]", rating: 4 },
+    {
+      name: "Marie L.",
+      city: "Lille (59)",
+      quote:
+        "Nous avions peur de la complexité administrative. L'équipe a tout pris en charge : devis, dossier MaPrimeRénov', primes CEE. Notre pompe à chaleur a été installée en deux jours, sans surprise.",
+      rating: 5,
+      placeholder: true,
+    },
+    {
+      name: "Hervé G.",
+      city: "Bordeaux (33)",
+      quote:
+        "Conseil clair, pas de pression à la vente. On nous a expliqué que l'isolation extérieure était plus rentable que les fenêtres dans notre cas. Trois ans après, la facture de gaz a fondu.",
+      rating: 5,
+      placeholder: true,
+    },
+    {
+      name: "Sophie D.",
+      city: "Rennes (35)",
+      quote:
+        "Très bon accompagnement pour notre installation photovoltaïque. Les économies annoncées sont au rendez-vous, et le suivi à un an a été apprécié.",
+      rating: 4,
+      placeholder: true,
+    },
+    {
+      name: "Patrick et Anne M.",
+      city: "Lyon (69)",
+      quote:
+        "Maison de 1978, factures qui partaient en fumée. ITE + ballon thermodynamique, on a divisé notre consommation par deux. L'équipe a tenu les délais.",
+      rating: 5,
+      placeholder: true,
+    },
+    {
+      name: "Karim B.",
+      city: "Toulouse (31)",
+      quote:
+        "On hésitait entre PAC air-air et air-eau. L'étude faite à la maison a tranché clairement, devis honnête et installation propre.",
+      rating: 5,
+      placeholder: true,
+    },
+    {
+      name: "Élodie P.",
+      city: "Strasbourg (67)",
+      quote:
+        "Système solaire combiné posé l'an dernier. Bon retour sur investissement attendu, l'équipe est restée disponible après le chantier pour les démarches administratives.",
+      rating: 4,
+      placeholder: true,
+    },
   ]), ContentType.JSON);
 
-  // Home — Partners
-  await upsertContent("home.partners.title", "Nos partenaires");
+  // Home — Partenaires (placeholders)
+  await upsertContent("home.partners.title", "Certifications et partenaires");
   await upsertContent("home.partners.items", JSON.stringify([
-    { name: "[Partenaire 1]", logo: "https://placehold.co/200x80?text=Logo+1" },
-    { name: "[Partenaire 2]", logo: "https://placehold.co/200x80?text=Logo+2" },
-    { name: "[Partenaire 3]", logo: "https://placehold.co/200x80?text=Logo+3" },
-    { name: "[Partenaire 4]", logo: "https://placehold.co/200x80?text=Logo+4" },
-    { name: "[Partenaire 5]", logo: "https://placehold.co/200x80?text=Logo+5" },
+    { name: "Qualibat", logo: "https://placehold.co/200x80?text=Qualibat" }, // TODO client : logo officiel
+    { name: "RGE",      logo: "https://placehold.co/200x80?text=RGE" },
+    { name: "QualiPV",  logo: "https://placehold.co/200x80?text=QualiPV" },
+    { name: "Qualibois", logo: "https://placehold.co/200x80?text=Qualibois" },
+    { name: "France Rénov'", logo: "https://placehold.co/200x80?text=France+Renov" },
   ]), ContentType.JSON);
 
-  // Home — FAQ
-  await upsertContent("home.faq.title", "Questions fréquentes");
+  // Home — FAQ (questions ciblées requêtes Google long-tail, chiffres 2025
+  // — sources : france-renov.gouv.fr, maprimerenov.gouv.fr, ademe.fr.
+  // TODO client/SEO : revérifier annuellement les barèmes mentionnés.)
+  await upsertContent("home.faq.title", "Vos questions, nos réponses");
   await upsertContent("home.faq.items", JSON.stringify([
-    { q: "[QUESTION 1] ?", a: "[RÉPONSE 1 — lorem ipsum.]" },
-    { q: "[QUESTION 2] ?", a: "[RÉPONSE 2 — lorem ipsum.]" },
-    { q: "[QUESTION 3] ?", a: "[RÉPONSE 3 — lorem ipsum.]" },
-    { q: "[QUESTION 4] ?", a: "[RÉPONSE 4 — lorem ipsum.]" },
+    {
+      q: "Quelles aides pour la rénovation énergétique en 2025 ?",
+      a: "Trois dispositifs principaux sont cumulables : MaPrimeRénov' (forfait variant selon vos revenus et le type de travaux), les primes CEE versées par les fournisseurs d'énergie, et l'éco-prêt à taux zéro (jusqu'à 50 000 €). S'y ajoutent la TVA réduite à 5,5 % sur les travaux d'efficacité énergétique et certaines aides locales. Notre conseiller vous calcule votre montant maximum cumulable lors de l'étude personnalisée.",
+    },
+    {
+      q: "Quel est le prix d'une pompe à chaleur air-eau ?",
+      a: "Selon l'ADEME, comptez en moyenne 9 000 à 18 000 € posée pour une pompe à chaleur air-eau, hors aides. Le prix dépend de la puissance, de la complexité de la pose et de la qualité des équipements. Avec MaPrimeRénov' et les primes CEE, la dépense réelle peut être divisée par deux à trois pour un foyer aux revenus modestes.",
+    },
+    {
+      q: "Combien coûte une isolation thermique extérieure ?",
+      a: "L'isolation thermique extérieure (ITE) coûte en moyenne 100 à 220 € le m² selon l'isolant choisi et la finition (enduit, bardage). Pour une maison de 100 m² de façade, prévoyez 12 000 à 25 000 € avant aides. C'est l'un des travaux les plus efficaces pour réduire vos pertes de chaleur, jusqu'à 25 % sur la facture annuelle.",
+    },
+    {
+      q: "Suis-je éligible à MaPrimeRénov' ?",
+      a: "MaPrimeRénov' est ouverte à tous les propriétaires (occupants ou bailleurs) dont le logement a plus de 15 ans, occupé en résidence principale au moins 8 mois par an. Le montant de l'aide dépend de votre catégorie de revenus (Bleu / Jaune / Violet / Rose) et du type de travaux. Vous pouvez vérifier votre éligibilité gratuitement via notre simulateur.",
+    },
+    {
+      q: "Combien de temps dure une installation ?",
+      a: "Cela dépend du chantier : 1 à 2 jours pour un chauffe-eau ou un ballon thermodynamique, 2 à 4 jours pour une pompe à chaleur air-eau, 1 à 2 semaines pour une isolation thermique extérieure ou une installation photovoltaïque. Notre planificateur s'adapte à votre disponibilité et nos artisans s'engagent sur des créneaux fermes.",
+    },
+    {
+      q: "Que comprend votre accompagnement ?",
+      a: "Étude personnalisée, calcul des aides, sélection d'un artisan RGE certifié de notre réseau, suivi du chantier et accompagnement administratif jusqu'au versement de vos aides. Notre objectif : que vous n'ayez aucun dossier à monter vous-même. Le devis et l'étude sont gratuits et sans engagement.",
+    },
   ]), ContentType.JSON);
 
   // Aides
@@ -169,20 +371,22 @@ async function seedContent() {
   await upsertContent("legal.cookies.body", "[CONTENU COOKIES]", ContentType.RICHTEXT);
 
   // Chatbox — éditable côté admin via /admin/chatbox
-  await upsertContent("chatbox.advisor.name", "Camille — Climat Hexagon");
+  await upsertContent("chatbox.advisor.name", "Camille — Climat Hexagone");
   await upsertContent("chatbox.advisor.initials", "CH");
   await upsertContent("chatbox.preview", "Discutez avec nous de votre projet");
   await upsertContent("chatbox.autoopen.enabled", "true");
   await upsertContent("chatbox.autoopen.delay_seconds", "0");
-  await upsertContent("chatbox.step1.message", "👋 Bonjour ! Je suis Camille de Climat Hexagon. Pour mieux vous orienter, quel est votre projet de rénovation ?");
+  await upsertContent("chatbox.step1.message", "👋 Bonjour ! Je suis Camille de Climat Hexagone. Pour mieux vous orienter, quel est votre projet de rénovation ?");
   await upsertContent("chatbox.step1.followup", "Quels travaux vous intéressent ?");
   await upsertContent("chatbox.step1.options", JSON.stringify([
-    { value: "isolation",  label: "🏠 Isolation (combles, murs, sols)" },
-    { value: "pac",        label: "🔥 Pompe à chaleur" },
-    { value: "solaire",    label: "☀️ Panneaux solaires" },
-    { value: "fenetres",   label: "🪟 Fenêtres / menuiseries" },
-    { value: "plusieurs",  label: "🧰 Plusieurs travaux" },
-    { value: "indecis",    label: "🤔 Je ne sais pas encore" },
+    { value: "photovoltaique", label: "☀️ Panneau photovoltaïque" },
+    { value: "pac",            label: "🔥 Pompe à chaleur (Air-Eau / Air-Air)" },
+    { value: "ite",            label: "🧱 Isolation thermique extérieure (ITE)" },
+    { value: "cesi",           label: "💧 Chauffe-eau solaire" },
+    { value: "ballon",         label: "🛢️ Ballon thermodynamique" },
+    { value: "ssc",            label: "🔆 Système solaire combiné" },
+    { value: "plusieurs",      label: "🧰 Plusieurs travaux / Je ne sais pas" },
+    { value: "parrainer",      label: "🤝 Je veux parrainer un proche" },
   ]), "JSON");
   await upsertContent("chatbox.step2.message", "Très bien ! Vous habitez :");
   await upsertContent("chatbox.step2.options", JSON.stringify([
@@ -213,19 +417,15 @@ async function seedContent() {
 async function seedSimulatorSteps() {
   await prisma.simulatorStep.deleteMany({});
 
-  // Mapping illustrations pour la liste des travaux
-  const TRAVAUX_ILLUS: Record<string, string> = {
-    "isolation-combles": "insulation-attic",
-    "isolation-murs": "insulation-walls",
-    "isolation-sols": "insulation-floor",
-    "pompe-a-chaleur-air-eau": "heat-pump-air-water",
-    "pompe-a-chaleur-air-air": "heat-pump-air-air",
-    "chaudiere": "boiler",
-    "photovoltaique": "solar",
-    "fenetres": "windows",
-    "vmc-double-flux": "vmc",
-    "audit-energetique": "audit",
-  };
+  // Mapping illustrations aligné sur les 6 services réels du catalogue.
+  const SERVICES_FOR_SIMULATOR = [
+    { slug: "panneau-photovoltaique",          title: "Panneau photovoltaïque",         illus: "solar" },
+    { slug: "pompe-a-chaleur",                 title: "Pompe à chaleur",                illus: "heat-pump-air-water" },
+    { slug: "isolation-thermique-exterieure",  title: "Isolation thermique extérieure", illus: "insulation-walls" },
+    { slug: "chauffe-eau-solaire-individuel",  title: "Chauffe-eau solaire (CESI)",     illus: "solar" },
+    { slug: "ballon-thermodynamique",          title: "Ballon thermodynamique",         illus: "boiler" },
+    { slug: "systeme-solaire-combine",         title: "Système solaire combiné",        illus: "solar" },
+  ];
 
   const steps: Array<{
     key: string;
@@ -267,10 +467,10 @@ async function seedSimulatorSteps() {
       helpText: "Plusieurs choix possibles.",
       fieldType: FieldType.CHECKBOX,
       required: true,
-      options: TRAVAUX.map((t) => ({
-        value: t.slug,
-        label: t.title,
-        illustrationKey: TRAVAUX_ILLUS[t.slug],
+      options: SERVICES_FOR_SIMULATOR.map((s) => ({
+        value: s.slug,
+        label: s.title,
+        illustrationKey: s.illus,
       })),
     },
     {
@@ -399,42 +599,48 @@ async function seedTestimonials() {
 }
 
 async function seedArticles() {
+  // Articles éditoriaux SEO — Phase 3 complète (8 articles).
+  // Sources publiques commentées en tête de chaque fichier prisma/articles/*.ts.
+  // Dates échelonnées sur ~7 mois (sept 2025 → avril 2026) pour ne pas avoir
+  // tous les articles à la même date — antériorité réaliste pour le pied du blog.
+  const { articleMaprimerenov2025 }          = await import("./articles/maprimerenov-2025");
+  const { articlePacAirEauVsAirAir }         = await import("./articles/pac-air-eau-vs-air-air");
+  const { articleIteGuide }                  = await import("./articles/ite-guide-prix-aides");
+  const { articlePhotovoltaiqueRentabilite } = await import("./articles/photovoltaique-rentabilite");
+  const { articleBallonThermoVsCesi }        = await import("./articles/ballon-thermo-vs-cesi");
+  const { articleChoisirArtisanRge }         = await import("./articles/choisir-artisan-rge");
+  const { articleSystemeSolaireCombine }     = await import("./articles/systeme-solaire-combine");
+  const { article5ErreursDevis }             = await import("./articles/5-erreurs-devis-renovation");
+
   const articles = [
-    {
-      slug: "isolation-combles-prime",
-      title: "Comment financer l'isolation de ses combles en 2026",
-      excerpt: "[EXTRAIT ARTICLE 1 — lorem ipsum dolor sit amet.]",
-      content: "# [TITRE H1 ARTICLE]\n\n[INTRODUCTION en quelques lignes.]\n\n## Première section\n\n[CONTENU LOREM IPSUM]\n\n## Seconde section\n\n[CONTENU LOREM IPSUM]\n",
-      coverImage: "https://placehold.co/1200x600?text=Article+1",
-    },
-    {
-      slug: "pompe-chaleur-guide",
-      title: "Pompe à chaleur : le guide complet pour bien choisir",
-      excerpt: "[EXTRAIT ARTICLE 2 — lorem ipsum.]",
-      content: "# [TITRE H1 ARTICLE]\n\n[INTRO]\n\n## Avantages\n\n- [Point 1]\n- [Point 2]\n- [Point 3]\n",
-      coverImage: "https://placehold.co/1200x600?text=Article+2",
-    },
-    {
-      slug: "maprimerenov-2026",
-      title: "MaPrimeRénov' en 2026 : ce qui change",
-      excerpt: "[EXTRAIT ARTICLE 3 — lorem ipsum.]",
-      content: "# [TITRE H1 ARTICLE]\n\n[INTRO]\n\n## Nouveautés\n\n[CONTENU]\n",
-      coverImage: "https://placehold.co/1200x600?text=Article+3",
-    },
+    { ...articleMaprimerenov2025,          publishedAt: new Date("2025-09-15T10:00:00Z") },
+    { ...articlePacAirEauVsAirAir,         publishedAt: new Date("2025-10-12T10:00:00Z") },
+    { ...articleIteGuide,                  publishedAt: new Date("2025-11-08T10:00:00Z") },
+    { ...articlePhotovoltaiqueRentabilite, publishedAt: new Date("2025-12-05T10:00:00Z") },
+    { ...articleBallonThermoVsCesi,        publishedAt: new Date("2026-01-09T10:00:00Z") },
+    { ...articleChoisirArtisanRge,         publishedAt: new Date("2026-02-06T10:00:00Z") },
+    { ...articleSystemeSolaireCombine,     publishedAt: new Date("2026-03-08T10:00:00Z") },
+    { ...article5ErreursDevis,             publishedAt: new Date("2026-04-04T10:00:00Z") },
   ];
 
   for (const a of articles) {
     await prisma.article.upsert({
       where: { slug: a.slug },
-      update: {},
+      update: {
+        title: a.title,
+        excerpt: a.excerpt,
+        content: a.content,
+        coverImage: a.coverImage,
+        published: true,
+        publishedAt: a.publishedAt,
+      },
       create: {
         ...a,
         published: true,
-        publishedAt: new Date(),
       },
     });
   }
-  console.log(`✓ ${articles.length} articles`);
+  console.log(`✓ ${articles.length} article(s) seedé(s)`);
 }
 
 async function main() {

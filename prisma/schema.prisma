@@ -30,22 +30,83 @@ model Session {
 model Content {
   // SQLite ne supporte pas les enum Prisma : `type` est une string contrainte
   // côté TS/zod (TEXT | RICHTEXT | JSON | IMAGE_REF).
-  id        String   @id @default(cuid())
-  key       String   @unique
-  value     String
-  type      String   @default("TEXT")
-  updatedAt DateTime @updatedAt
+  // Workflow draft → publication : `draftValue` contient la prochaine valeur
+  // en attente. `value` est ce qui est servi au public. Au publish, draft → value.
+  id             String    @id @default(cuid())
+  key            String    @unique
+  value          String
+  type           String    @default("TEXT")
+  draftValue     String?
+  draftUpdatedAt DateTime?
+  draftUpdatedBy String?
+  publishedAt    DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model MediaAsset {
-  id           String   @id @default(cuid())
-  key          String?  @unique
-  filename     String
-  originalName String
-  mimeType     String
-  size         Int
-  url          String
-  createdAt    DateTime @default(now())
+  // Mêmes principes draft/publish que Content. Les champs `draft*` portent
+  // l'image en attente de publication ; `url` est servi au public.
+  // Variantes responsive générées par sharp et stockées en JSON dans `variants`.
+  id              String    @id @default(cuid())
+  key             String?   @unique
+  filename        String
+  originalName    String
+  mimeType        String
+  size            Int
+  url             String
+  width           Int?
+  height          Int?
+  blurDataURL     String?
+  variants        String?   // JSON {"webp": {"1x":"...","2x":"...","0.5x":"..."}}
+  // Draft pendant
+  draftFilename   String?
+  draftUrl        String?
+  draftWidth      Int?
+  draftHeight     Int?
+  draftBlurDataURL String?
+  draftVariants   String?
+  draftUpdatedAt  DateTime?
+  draftUpdatedBy  String?
+  // Attribution stock — null si l'image vient d'un upload local
+  attribution     String?   // ex. "Photo de John Doe sur Unsplash"
+  attributionUrl  String?   // lien vers la page source de l'image
+  licenseType     String?   // ex. "Unsplash License", "Pexels License"
+  createdAt       DateTime  @default(now())
+  inlineUsages    ArticleInlineImage[]
+}
+
+/// Images insérées entre les sections H2 d'un article (markdown du blog).
+/// Le contenu de l'article référence les images via tokens `{{img:1}}`,
+/// `{{img:2}}` etc. — le `<MarkdownRenderer>` les remplace au rendu par
+/// une `<figure>` complète avec figcaption + attribution.
+model ArticleInlineImage {
+  id               String     @id @default(cuid())
+  articleId        String
+  article          Article    @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  mediaAssetId     String
+  mediaAsset       MediaAsset @relation(fields: [mediaAssetId], references: [id])
+  position         Int        // ordre d'apparition dans l'article (1, 2, 3…)
+  caption          String?    // légende éditoriale (différente de l'attribution stock)
+  placeholderToken String     // token markdown ex. "{{img:1}}" remplacé au rendu
+  createdAt        DateTime   @default(now())
+
+  @@unique([articleId, position])
+  @@index([articleId])
+}
+
+/// Journal d'audit des modifications de contenu (draft/publish/discard/upload).
+/// Lecture seule, paginée dans /admin/audit (à venir).
+model AuditLog {
+  id         String   @id @default(cuid())
+  adminEmail String
+  action     String   // 'draft_set' | 'publish' | 'discard' | 'upload' | 'delete'
+  key        String?
+  before     String?
+  after      String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([adminEmail])
 }
 
 model SimulatorStep {
@@ -127,6 +188,8 @@ model Article {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  inlineImages ArticleInlineImage[]
+
   @@index([published, publishedAt])
 }
 
@@ -157,4 +220,52 @@ model LoginAttempt {
   createdAt DateTime @default(now())
 
   @@index([ip, createdAt])
+}
+
+/// Soumissions du formulaire de parrainage (page /parrainage).
+/// `status` est contraint côté TS/zod : PENDING | CONTACTED | ELIGIBLE |
+/// CONVERTED | PAID | REJECTED. Stocké en string car SQLite n'a pas d'enum.
+/// Workflow admin manuel (changement de statut, ajout de notes, marquage prime).
+model Referral {
+  id                String    @id @default(cuid())
+
+  // Parrain
+  sponsorTitle      String?
+  sponsorLastName   String
+  sponsorFirstName  String
+  sponsorEmail      String
+  sponsorPhone      String?
+
+  // Filleul
+  refereeFirstName  String
+  refereeLastName   String
+  refereeEmail      String?
+  refereePhone      String?
+  refereePostalCode String
+  projectType       String    // slug du service ou 'autre'
+  message           String?
+
+  // Consentement et tracking
+  consentGiven      Boolean
+  consentTimestamp  DateTime
+  ipAddress         String?
+
+  // Statut et workflow
+  status            String    @default("PENDING")
+  rewardAmount      Int?      // en euros TTC, défaut 250
+  rewardPaidAt      DateTime?
+  internalNotes     String?
+
+  // Emails
+  adminEmailSent    Boolean   @default(false)
+  sponsorEmailSent  Boolean   @default(false)
+  refereeEmailSent  Boolean   @default(false)
+  emailErrors       String?
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([status, createdAt])
+  @@index([sponsorEmail])
+  @@index([refereeEmail])
 }

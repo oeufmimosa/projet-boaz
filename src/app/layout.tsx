@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { env } from "@/lib/env";
+import { OrganizationJsonLd } from "@/components/seo/StructuredData";
 
-// Inter pour le texte courant : 2 graisses (limite mobile).
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600"],
@@ -11,7 +11,6 @@ const inter = Inter({
   display: "swap",
 });
 
-// Plus Jakarta Sans pour les titres : 2 graisses (700/800 d'après le brief).
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["700", "800"],
@@ -19,16 +18,85 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+const SITE_NAME = "Groupe Climat Hexagone";
+const DEFAULT_DESCRIPTION =
+  "Pompe à chaleur, isolation, photovoltaïque : faites estimer vos aides en 2 minutes et profitez d'un accompagnement clé en main par des artisans RGE.";
+
 export const metadata: Metadata = {
-  title: { default: env.site.name, template: `%s — ${env.site.name}` },
-  description: "Rénovation énergétique : aides, isolation, pompes à chaleur, photovoltaïque.",
+  title: {
+    default: `${SITE_NAME} — Rénovation énergétique, aides cumulées`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
   metadataBase: new URL(env.site.url),
+  alternates: { canonical: "/" },
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  category: "rénovation énergétique",
+  keywords: [
+    "rénovation énergétique",
+    "MaPrimeRénov'",
+    "pompe à chaleur",
+    "isolation thermique extérieure",
+    "photovoltaïque",
+    "ballon thermodynamique",
+    "chauffe-eau solaire",
+    "système solaire combiné",
+    "artisan RGE",
+    "aides rénovation 2025",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Rénovation énergétique, aides cumulées`,
+    description: DEFAULT_DESCRIPTION,
+    url: env.site.url,
+    images: [
+      {
+        url: "/icon.svg",
+        width: 1200,
+        height: 630,
+        alt: `Logo ${SITE_NAME}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Rénovation énergétique`,
+    description: DEFAULT_DESCRIPTION,
+    images: ["/icon.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0F3D26",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${inter.variable} ${jakarta.variable}`}>
-      <body className="font-body bg-bg text-text">{children}</body>
+      <body className="font-body bg-bg text-text">
+        <OrganizationJsonLd />
+        {children}
+      </body>
     </html>
   );
 }

@@ -23,7 +23,7 @@ export interface HomeData {
   };
   testi: {
     title: string;
-    items: { name: string; city: string; quote: string; rating: number }[];
+    items: { name: string; city: string; quote: string; rating: number; placeholder?: boolean }[];
   };
   partners: {
     title: string;

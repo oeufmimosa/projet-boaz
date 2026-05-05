@@ -47,4 +47,6 @@ tmp/
 
 # Claude Code session metadata
 .claude/
-.md
+
+# Markdown (docs internes, prompts, audits, reviews)
+*.md

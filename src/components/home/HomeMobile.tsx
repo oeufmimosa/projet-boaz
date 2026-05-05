@@ -6,6 +6,8 @@ import { HowItWorksCompact } from "./mobile/HowItWorksCompact";
 import { TestimonialSingle } from "./mobile/TestimonialSingle";
 import { RelaunchCTA } from "./mobile/RelaunchCTA";
 import { MiniFAQ } from "./mobile/MiniFAQ";
+import { ParrainageSection } from "./ParrainageSection";
+import { ExpertiseSection } from "./ExpertiseSection";
 import type { HomeData } from "./types";
 
 /**
@@ -28,7 +30,9 @@ export function HomeMobile({
       <KeyFiguresCompact />
       <ChatHomeInvite advisorName={advisorName} advisorInitials={advisorInitials} />
       <ServicesGridCompact services={data.services.items} />
+      <ExpertiseSection />
       <HowItWorksCompact />
+      <ParrainageSection />
       <TestimonialSingle item={data.testi.items[0]} />
       <RelaunchCTA />
       <MiniFAQ items={data.faq.items} />

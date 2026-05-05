@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* =========================================================================
-   Design tokens — Groupe Climat Hexagon
+   Design tokens — Groupe Climat Hexagone
    Toute valeur visuelle (couleur, radius, shadow) DOIT venir d'ici. Pas de
    hex en dur dans les composants ; toujours via classes Tailwind tokenisées.
    ========================================================================= */
@@ -24,6 +24,9 @@
   --color-fr-blue:  #002395;
   --color-fr-white: #FFFFFF;
   --color-fr-red:   #ED2939;
+
+  /* --- Bleu marine du logo (signal d'identité, pas la couleur dominante) - */
+  --color-brand-navy: #1A2C5B;
 
   /* --- Accent doré sobre : CTA hero, highlights réassurance --------------- */
   --color-accent-500: #E8B043;

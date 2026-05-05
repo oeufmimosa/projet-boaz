@@ -1,13 +1,23 @@
 import { prisma } from "@/lib/prisma";
 import { quoteSubmissionSchema } from "@/lib/validators/simulator";
 import { sendQuoteToAdmin, sendQuoteConfirmationToUser } from "@/lib/mailer";
-import { handle, ok } from "@/lib/api";
+import { handle, ok, fail } from "@/lib/api";
+import { rateLimit, ipFromHeaders } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   return handle(async () => {
+    // Rate-limit anti-spam : 5 soumissions / IP / 10 min
+    const ip = ipFromHeaders(req.headers);
+    const rl = rateLimit(`simulator:${ip}`, 5, 10 * 60 * 1000);
+    if (!rl.ok) {
+      return fail(429, "Trop de soumissions, réessayez plus tard.", {
+        retryAfterMs: rl.retryAfterMs,
+      });
+    }
+
     const body = await req.json();
     const data = quoteSubmissionSchema.parse(body);
 

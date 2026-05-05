@@ -31,6 +31,10 @@ const config: Config = {
           white: "var(--color-fr-white)",
           red:   "var(--color-fr-red)",
         },
+        // Bleu marine du logo — usage strict : composant <Logo /> uniquement.
+        brand: {
+          navy: "var(--color-brand-navy)",
+        },
         // Accent doré — CTA hero / highlights
         accent: {
           500: "var(--color-accent-500)",
@@ -104,6 +108,19 @@ const config: Config = {
         container: "var(--container-max)",
       },
 
+      // Breakpoints custom pour la navbar (disposition Effy-style flush left) :
+      // - xs     (360px)   : seuil d'apparition du wordmark `compact` en mobile.
+      //   En dessous (cas dégradé < 360 px), seul le symbole reste affiché.
+      // - narrow (900px)   : seuil d'apparition du CTA primary plein
+      //   (en dessous : mini-CTA accent condensé "Simuler").
+      // - midnav (1100px)  : seuil de bascule burger → menu horizontal desktop.
+      // (xl = 1280px, défaut Tailwind, active le compact md plus large.)
+      screens: {
+        xs:     "360px",
+        narrow: "900px",
+        midnav: "1100px",
+      },
+
       spacing: {
         "container-x": "var(--container-padding)",
         "safe-top":    "env(safe-area-inset-top)",
@@ -111,7 +128,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;

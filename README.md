@@ -114,6 +114,81 @@ tests/
 - **Rate-limit** in-memory sur `/api/auth/login` (sliding window) — bascule possible vers Redis/DB.
 - **CSRF double-submit cookie** sur toutes les routes admin mutantes (POST/PUT/PATCH/DELETE).
 
+## Configurer les API d'images stock (optionnel)
+
+L'admin permet de chercher des photos libres de droits via Unsplash et Pexels
+directement depuis la modale d'upload (onglet « Photos libres »). Aucune image
+n'est téléchargée depuis Google Images ou des sites tiers — sources légales
+uniquement.
+
+Pour activer cette fonctionnalité, créez deux comptes développeurs gratuits :
+
+1. **Unsplash** — https://unsplash.com/developers
+   - Créer une "New Application", choisir "Demo" (limite 50 requêtes/heure suffit)
+   - Récupérer l'**Access Key** dans la fiche de l'application
+   - Ajouter dans `.env` : `UNSPLASH_ACCESS_KEY="…"`
+
+2. **Pexels** — https://www.pexels.com/api/
+   - "Get Started" → générer une clé d'API
+   - Ajouter dans `.env` : `PEXELS_API_KEY="…"`
+
+Si l'une ou les deux clés sont absentes, l'onglet « Photos libres » est
+désactivé gracieusement côté UI (message explicite, pas d'erreur). Vous
+pouvez toujours uploader des images locales via les onglets standards.
+
+> ⚠️ Les images téléchargées via les API stock sont automatiquement persistées
+> avec une attribution complète (auteur + lien source + type de licence) dans
+> les champs `attribution`, `attributionUrl`, `licenseType` de `MediaAsset`.
+> L'attribution est rendue visible côté public sur la page `/credits` (à
+> venir, sous-bloc 4.2).
+
+## Vidéo de fond du hero (home)
+
+Le hero desktop joue une vidéo courte (≤ 6 s) qui se fige sur la dernière
+frame, ne se rejoue pas dans la même session, et respecte les préférences
+utilisateur (reduced-motion, saveData, 2G/slow-2G).
+
+**Fichiers attendus** dans `public/placeholders/` :
+
+| Fichier | Description | Statut |
+|---|---|---|
+| `hero-background.mp4` | source MP4 H.264, ≤ 3 Mo, sans audio | ✅ déjà en place |
+| `hero-background.webm` | VP9, meilleure compression Chrome/Firefox | ⏳ à générer |
+| `hero-background-poster.jpg` | image = **dernière frame** de la vidéo | ⏳ à générer |
+
+Tant que `.webm` ou `-poster.jpg` ne sont pas générés, le composant
+`<HeroVideoBackground>` fonctionne quand même : il sert le MP4 seul et
+utilise l'image de fond `home.hero.background` (MediaAsset) comme poster
+fallback.
+
+### Générer les versions optimisées
+
+Pré-requis : ffmpeg installé localement (`brew install ffmpeg`,
+`apt install ffmpeg`, `choco install ffmpeg`, ou téléchargé depuis
+https://ffmpeg.org/).
+
+```bash
+# 1. Ré-encode MP4 H.264 (faststart) + WebM VP9 — sans audio
+bash scripts/optimize-hero-video.sh "video/video accueil.mp4"
+
+# 2. Génère le poster (= dernière frame de la vidéo)
+bash scripts/generate-poster.sh
+```
+
+Le composant détecte automatiquement la présence des fichiers au render
+serveur et bascule en mode optimisé : WebM servi en priorité aux
+navigateurs compatibles, poster JPG identique à la dernière frame pour une
+transition invisible video→poster.
+
+### Comportements gérés par `<HeroVideoBackground>`
+
+- ✅ Lecture une seule fois par session (mémorisée dans `sessionStorage`)
+- ✅ Pause sur la dernière frame à la fin (pas de boucle)
+- ✅ `prefers-reduced-motion: reduce` → poster seul, pas de lecture
+- ✅ `navigator.connection.saveData` ou effective type `2g`/`slow-2g` → poster seul
+- ✅ Échec autoplay (politique navigateur) → poster reste visible, log dev
+- ✅ `muted` + `playsInline` + `preload="metadata"` pour iOS Safari + LCP
+
 ## Mailer dev
 
 Si `SMTP_HOST` est vide en dev, le module `lib/mailer.ts` :

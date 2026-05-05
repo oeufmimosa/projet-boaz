@@ -158,6 +158,115 @@ export async function sendQuoteConfirmationToUser(quote: {
   });
 }
 
+// ─── Parrainage ────────────────────────────────────────────────────────────
+
+export interface ReferralMail {
+  id: string;
+  sponsorTitle?: string | null;
+  sponsorLastName: string;
+  sponsorFirstName: string;
+  sponsorEmail: string;
+  sponsorPhone?: string | null;
+  refereeFirstName: string;
+  refereeLastName: string;
+  refereeEmail?: string | null;
+  refereePhone?: string | null;
+  refereePostalCode: string;
+  projectType: string;
+  message?: string | null;
+}
+
+const PROJECT_LABELS: Record<string, string> = {
+  "panneau-photovoltaique": "Panneau photovoltaïque",
+  "isolation-thermique-exterieure": "Isolation thermique extérieure (ITE)",
+  "chauffe-eau-solaire-individuel": "Chauffe-eau solaire individuel (CESI)",
+  "ballon-thermodynamique": "Ballon thermodynamique",
+  "systeme-solaire-combine": "Système solaire combiné (SSC)",
+  "pompe-a-chaleur": "Pompe à chaleur (Air-Eau / Air-Air)",
+  autre: "Autre / Plusieurs travaux",
+};
+
+function projectLabel(slug: string): string {
+  return PROJECT_LABELS[slug] ?? slug;
+}
+
+export async function sendReferralToAdmin(r: ReferralMail): Promise<SendResult> {
+  const html = `
+    <h2 style="font-family:system-ui;">Nouveau parrainage #${escape(r.id)}</h2>
+    <h3 style="font-family:system-ui;margin-top:16px;">Parrain</h3>
+    <p style="font-family:system-ui;font-size:14px;">
+      ${escape(r.sponsorTitle ?? "")} <strong>${escape(r.sponsorFirstName)} ${escape(r.sponsorLastName)}</strong><br/>
+      ${escape(r.sponsorEmail)} — ${escape(r.sponsorPhone) || "—"}
+    </p>
+    <h3 style="font-family:system-ui;margin-top:16px;">Filleul</h3>
+    <p style="font-family:system-ui;font-size:14px;">
+      <strong>${escape(r.refereeFirstName)} ${escape(r.refereeLastName)}</strong><br/>
+      Email : ${escape(r.refereeEmail) || "—"}<br/>
+      Téléphone : ${escape(r.refereePhone) || "—"}<br/>
+      Code postal : ${escape(r.refereePostalCode)}
+    </p>
+    <h3 style="font-family:system-ui;margin-top:16px;">Projet</h3>
+    <p style="font-family:system-ui;font-size:14px;">${escape(projectLabel(r.projectType))}</p>
+    ${
+      r.message
+        ? `<h3 style="font-family:system-ui;margin-top:16px;">Message</h3>
+           <pre style="font-family:system-ui;font-size:14px;white-space:pre-wrap;background:#f5f5f5;padding:12px;border-radius:6px;">${escape(r.message)}</pre>`
+        : ""
+    }
+  `;
+  return sendMail({
+    to: env.smtp.adminEmail,
+    subject: `Parrainage — ${r.sponsorFirstName} ${r.sponsorLastName} → ${r.refereeFirstName} ${r.refereeLastName}`,
+    html,
+    replyTo: r.sponsorEmail,
+  });
+}
+
+export async function sendReferralConfirmationToSponsor(r: ReferralMail): Promise<SendResult> {
+  const html = `
+    <p style="font-family:system-ui;font-size:14px;">Bonjour ${escape(r.sponsorFirstName)},</p>
+    <p style="font-family:system-ui;font-size:14px;">
+      Nous avons bien reçu votre parrainage pour <strong>${escape(r.refereeFirstName)} ${escape(r.refereeLastName)}</strong>.
+      Notre équipe contactera votre filleul sous <strong>48 heures</strong>.
+    </p>
+    <p style="font-family:system-ui;font-size:14px;">
+      Une fois les travaux réalisés, votre prime de <strong>jusqu'à 1 000 €</strong> vous sera versée dans un délai de 30 jours maximum.
+    </p>
+    <p style="font-family:system-ui;font-size:14px;">Merci pour votre confiance,<br/>L'équipe ${escape(env.site.name)}</p>
+  `;
+  return sendMail({
+    to: r.sponsorEmail,
+    subject: "Confirmation de votre parrainage",
+    html,
+  });
+}
+
+export async function sendReferralIntroductionToReferee(r: ReferralMail): Promise<SendResult> {
+  if (!r.refereeEmail) return { ok: false, error: "no-email" };
+  const html = `
+    <p style="font-family:system-ui;font-size:14px;">Bonjour ${escape(r.refereeFirstName)},</p>
+    <p style="font-family:system-ui;font-size:14px;">
+      ${escape(r.sponsorFirstName)} ${escape(r.sponsorLastName)} nous a transmis vos coordonnées
+      car vous envisagez un projet de rénovation énergétique (${escape(projectLabel(r.projectType))}).
+    </p>
+    <p style="font-family:system-ui;font-size:14px;">
+      Nous sommes ${escape(env.site.name)}, spécialistes français de la rénovation énergétique
+      (pompe à chaleur, photovoltaïque, isolation). Un conseiller prendra contact avec vous très prochainement
+      pour évaluer votre projet, sans engagement.
+    </p>
+    <p style="font-family:system-ui;font-size:14px;">
+      En attendant, vous pouvez estimer vos aides en quelques clics :<br/>
+      <a href="${escape(env.site.url)}/simulateur" style="color:#1F6A40;">Démarrer une simulation gratuite</a>
+    </p>
+    <p style="font-family:system-ui;font-size:14px;">À très bientôt,<br/>L'équipe ${escape(env.site.name)}</p>
+  `;
+  return sendMail({
+    to: r.refereeEmail,
+    subject: `${env.site.name} — votre projet de rénovation énergétique`,
+    html,
+  });
+}
+
 export async function sendContactMessage(msg: {
   id: string;
   name: string;
