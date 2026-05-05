@@ -15,14 +15,15 @@ const LOGO_URL = `${SITE_URL}/icon.svg`;
 
 // Echappement défense en profondeur : si un titre d'article contient
 // littéralement "</script>" l'analyseur HTML couperait le bloc et
-// exécuterait ce qui suit. On encode aussi `<` et `>` au cas où.
+// exécuterait ce qui suit. On encode aussi `<` et `>` au cas où, plus
+// les séparateurs de ligne U+2028 / U+2029 qui cassent JSONP en JS strict.
 function safeJsonForScript(data: object): string {
   return JSON.stringify(data)
     .replace(/</g, "\\u003c")
     .replace(/>/g, "\\u003e")
     .replace(/&/g, "\\u0026")
-    .replace(/ /g, "\\u2028")
-    .replace(/ /g, "\\u2029");
+    .replace(new RegExp(String.fromCharCode(0x2028), "g"), "\\u2028")
+    .replace(new RegExp(String.fromCharCode(0x2029), "g"), "\\u2029");
 }
 
 function jsonLd(data: object) {
