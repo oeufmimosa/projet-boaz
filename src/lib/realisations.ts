@@ -152,6 +152,102 @@ export const REALISATIONS: Realisation[] = [
     placeholder: true,
   },
 
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: "appartement-1968-paris-ballon-thermo-isolation-toiture",
+    title: "Appartement de 1968, Paris — Ballon thermodynamique + isolation toiture-terrasse",
+    location: "Paris 14e (75)",
+    region: "Île-de-France",
+    housingType: "Appartement",
+    surface: 72,
+    yearBuilt: 1968,
+    works: [
+      "Remplacement du chauffe-eau électrique par un ballon thermodynamique 250 L",
+      "Isolation par l'extérieur de la toiture-terrasse (en copropriété)",
+      "Coordination avec le syndic pour la quote-part copro",
+    ],
+    totalCostEuros: 8400,
+    aidesObtainedEuros: 4200,
+    yearlySavingsEuros: 480,
+    durationDays: 4,
+    profileMpr: "Jaune",
+    aidesDetail: [
+      { name: "MaPrimeRénov' ballon thermodynamique", amount: "≈ 1 200 €" },
+      { name: "MaPrimeRénov' Copropriété (quote-part)", amount: "≈ 2 100 €" },
+      { name: "Prime CEE", amount: "≈ 700 €" },
+      { name: "TVA réduite à 5,5 %", amount: "≈ 200 €" },
+    ],
+    quote:
+      "On avait peur que la copro bloque l'isolation de la toiture. Le conseiller a accompagné le syndic dans le dossier et on a fini par voter le chantier en assemblée. Combiné au ballon thermodynamique, on a senti la différence dès le premier hiver.",
+    customerName: "Mme D.",
+    coverImage: "/realisations/paris.jpg",
+    placeholder: true,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: "maison-2002-strasbourg-systeme-solaire-combine",
+    title: "Maison de 2002, Strasbourg — Système solaire combiné + chaudière granulés en appoint",
+    location: "Strasbourg (67)",
+    region: "Grand Est",
+    housingType: "Maison",
+    surface: 165,
+    yearBuilt: 2002,
+    works: [
+      "Pose de 12 m² de capteurs solaires thermiques",
+      "Installation d'un ballon tampon de 800 L",
+      "Chaudière à granulés en appoint (Flamme Verte 7★)",
+      "Régulation et programmation centralisée",
+    ],
+    totalCostEuros: 28500,
+    aidesObtainedEuros: 13000,
+    yearlySavingsEuros: 1500,
+    durationDays: 12,
+    profileMpr: "Bleu",
+    aidesDetail: [
+      { name: "MaPrimeRénov' SSC",     amount: "≈ 8 000 €" },
+      { name: "MaPrimeRénov' chaudière granulés", amount: "≈ 4 000 €" },
+      { name: "Prime CEE",              amount: "≈ 1 000 €" },
+      { name: "TVA réduite à 5,5 %",     amount: "≈ 1 100 € d'économie" },
+    ],
+    quote:
+      "On avait une vieille chaudière fioul. Le SSC + granulés couvre maintenant l'essentiel de notre chauffage et de l'eau chaude. La première année hivernale a été plus exigeante en granulés que prévu, mais l'été le solaire fait tout le boulot.",
+    customerName: "Famille R.",
+    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    placeholder: true,
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: "maison-1990-nantes-cesi-isolation-combles",
+    title: "Maison de 1990, Nantes — Chauffe-eau solaire individuel + isolation des combles",
+    location: "Nantes (44)",
+    region: "Pays de la Loire",
+    housingType: "Maison",
+    surface: 95,
+    yearBuilt: 1990,
+    works: [
+      "Pose de 4 m² de capteurs solaires thermiques pour l'eau chaude sanitaire",
+      "Ballon CESI 300 L avec appoint électrique",
+      "Isolation des combles perdus (40 m², ouate de cellulose, R = 8 m².K/W)",
+    ],
+    totalCostEuros: 11200,
+    aidesObtainedEuros: 5800,
+    yearlySavingsEuros: 800,
+    durationDays: 6,
+    profileMpr: "Jaune",
+    aidesDetail: [
+      { name: "MaPrimeRénov' CESI", amount: "≈ 3 000 €" },
+      { name: "MaPrimeRénov' isolation combles (40 €/m²)", amount: "≈ 1 600 €" },
+      { name: "Prime CEE", amount: "≈ 900 €" },
+      { name: "TVA réduite à 5,5 %", amount: "≈ 300 €" },
+    ],
+    quote:
+      "On a démarré par les combles parce que c'était le geste le plus rentable. Le CESI s'est ajouté l'année suivante. Notre facture d'eau chaude a chuté, et la maison reste fraîche en été.",
+    customerName: "M. et Mme V.",
+    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    placeholder: true,
+  },
 ];
 
 export const REALISATION_SLUGS = REALISATIONS.map((r) => r.slug);

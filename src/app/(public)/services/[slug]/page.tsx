@@ -32,10 +32,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
+/**
+ * Mapping slug → image servie a gauche du bloc "Avantages" sur la page produit.
+ * Si pas d'entree pour un slug, le bloc reste en 2 colonnes (avantages | aides).
+ * Pour ajouter une marque : depose le fichier dans public/services/<slug>-advantages.jpg
+ * et ajoute l'entree ci-dessous.
+ */
+const ADVANTAGES_IMAGES: Record<string, string> = {
+  "isolation-thermique-exterieure": "/services/isolation-thermique-exterieure-advantages.jpg",
+};
+
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
   if (!isValidServiceSlug(params.slug)) notFound();
   const service = getService(params.slug)!;
   const others = SERVICES_LIST.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const advantagesImg = ADVANTAGES_IMAGES[service.slug];
   // Image hero : on tente d'abord la clé dédiée services.<slug>.hero, puis on
   // retombe sur celle de la card home `home.services.cards.<slug>.image` (déjà
   // déposée et utilisée dans la grille « Nos solutions »).
@@ -117,7 +128,24 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
       </section>
 
       <Section>
-        <Container className="grid gap-10 md:grid-cols-2">
+        <Container
+          className={
+            advantagesImg
+              ? "grid gap-8 md:grid-cols-3 md:items-stretch"
+              : "grid gap-10 md:grid-cols-2"
+          }
+        >
+          {advantagesImg && (
+            <div className="relative h-full min-h-[200px] overflow-hidden rounded-lg border border-border shadow-sm">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={advantagesImg}
+                alt={`Illustration ${service.label}`}
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
           <div>
             <h2 className="font-display text-2xl font-bold text-primary-800">Avantages</h2>
             <ul className="mt-4 space-y-3">
