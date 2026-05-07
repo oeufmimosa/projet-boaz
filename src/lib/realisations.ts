@@ -117,7 +117,7 @@ export const REALISATIONS: Realisation[] = [
     quote:
       "On hésitait entre changer les fenêtres et l'isolation des murs. Le conseiller a chiffré les deux et nous a expliqué que l'ITE était dix fois plus rentable dans notre cas. On confirme : la maison ne refroidit plus la nuit.",
     customerName: "M. et Mme B.",
-    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    coverImage: "/uploads/isolation-exterieure-6b7f7ec5.jpg",
     placeholder: true,
   },
 
@@ -148,7 +148,7 @@ export const REALISATIONS: Realisation[] = [
     quote:
       "Autoconsommation à 65 % la première année. On lance lave-linge et lave-vaisselle en journée, et on revend le surplus. Le retour sur investissement est tenable, surtout avec l'augmentation des tarifs EDF.",
     customerName: "Famille G.",
-    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    coverImage: "/realisations/bordeaux.jpg",
     placeholder: true,
   },
 

@@ -172,6 +172,9 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
         </Section>
       )}
 
+      {/* Marques proposées — uniquement sur les pages PAC */}
+      {service.slug.startsWith("pompe-a-chaleur") && <BrandsMarquee />}
+
       {service.faq.length > 0 && (
         <Section className="bg-primary-50">
           <Container className="max-w-3xl">
@@ -206,8 +209,6 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
           </Container>
         </Section>
       )}
-
-      <BrandsMarquee />
 
       <Section tone="muted">
         <Container>

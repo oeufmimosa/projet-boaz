@@ -35,15 +35,14 @@ type Brand = {
 };
 
 const BRANDS: Brand[] = [
-  { slug: "enphase",     display: "ENPHASE",     color: "#F36F21", tracking: "0.06em",                                  ext: "webp" },
-  { slug: "recom",       display: "RECOM",       color: "#111111", tracking: "0.10em",                                  ext: "png" },
-  { slug: "thaleos",     display: "Thaleos",     color: "#1a3c70", weight: 900, tracking: "-0.01em", imgScale: 1.45,    ext: "png" },
+  { slug: "thaleos",     display: "Thaleos",     color: "#1a3c70", weight: 900, tracking: "-0.01em", imgScale: 1.7,     ext: "png" },
   { slug: "daikin",      display: "DAIKIN",      color: "#003D89", tracking: "0.06em",                                  ext: "png" },
   { slug: "mitsubishi",  display: "MITSUBISHI",  color: "#E60012", tracking: "0.04em", scale: 0.92,                     ext: "png" },
   { slug: "viessmann",   display: "VIESSMANN",   color: "#D31027", tracking: "0.04em", scale: 0.92,                     ext: "png" },
   { slug: "de-dietrich", display: "De Dietrich", color: "#1a1a1a", weight: 700, tracking: "-0.01em",                    ext: "png" },
-  { slug: "atlantic",    display: "Atlantic",    color: "#0050A0", weight: 900, tracking: "-0.01em",                    ext: "png" },
-  { slug: "frisquet",    display: "FRISQUET",    color: "#003E80", tracking: "0.05em",                                  ext: "png" },
+  { slug: "atlantic",    display: "Atlantic",    color: "#0050A0", weight: 900, tracking: "-0.01em", imgScale: 1.55,    ext: "png" },
+  { slug: "frisquet",    display: "FRISQUET",    color: "#003E80", tracking: "0.05em",               imgScale: 1.55,    ext: "png" },
+  { slug: "ariston",     display: "ARISTON",     color: "#005CAB", tracking: "0.04em",               imgScale: 2.4,     ext: "webp" },
 ];
 
 function BrandWordmark({ brand }: { brand: Brand }) {
