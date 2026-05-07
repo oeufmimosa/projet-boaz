@@ -2,16 +2,15 @@ import { ChatAnswers, ChatPrefill } from "@/types/chatbox";
 
 /**
  * Mapping chatbox.step1 (projet) → slugs simulator de l'étape `travaux`.
- * Aligné sur les 6 services réels du catalogue (cf. SERVICES_LIST).
+ * Aligné sur les services réels du catalogue (cf. SERVICES_LIST).
  * "plusieurs" / "indecis" → aucun pré-cochage. "parrainer" est traité
  * en amont par le hook chatbox (redirect vers /parrainage), ne mappe
  * donc rien ici.
  */
 const STEP1_TO_TRAVAUX: Record<string, string[]> = {
-  photovoltaique:    ["panneau-photovoltaique"],
-  pac:               ["pompe-a-chaleur"],
+  "pac-air-eau":     ["pompe-a-chaleur-air-eau"],
+  "pac-air-air":     ["pompe-a-chaleur-air-air"],
   ite:               ["isolation-thermique-exterieure"],
-  cesi:              ["chauffe-eau-solaire-individuel"],
   ballon:            ["ballon-thermodynamique"],
   ssc:               ["systeme-solaire-combine"],
   plusieurs:         [],

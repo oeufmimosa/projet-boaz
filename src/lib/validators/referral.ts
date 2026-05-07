@@ -1,12 +1,11 @@
 import { z } from "zod";
 
 export const REFERRAL_PROJECT_SLUGS = [
-  "panneau-photovoltaique",
+  "pompe-a-chaleur-air-eau",
+  "pompe-a-chaleur-air-air",
   "isolation-thermique-exterieure",
-  "chauffe-eau-solaire-individuel",
   "ballon-thermodynamique",
   "systeme-solaire-combine",
-  "pompe-a-chaleur",
   "autre",
 ] as const;
 

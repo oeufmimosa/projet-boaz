@@ -18,19 +18,17 @@ import { getAssetByKey } from "@/lib/media";
  */
 
 const SLUGS = [
-  "pompe-a-chaleur",
-  "panneau-photovoltaique",
+  "pompe-a-chaleur-air-eau",
+  "pompe-a-chaleur-air-air",
   "isolation-thermique-exterieure",
-  "chauffe-eau-solaire-individuel",
   "ballon-thermodynamique",
   "systeme-solaire-combine",
 ] as const;
 
 const DEFAULT_TITLES: Record<typeof SLUGS[number], string> = {
-  "pompe-a-chaleur":               "Pompe à chaleur",
-  "panneau-photovoltaique":         "Panneau photovoltaïque",
+  "pompe-a-chaleur-air-eau":        "Pompe à chaleur Air/Eau",
+  "pompe-a-chaleur-air-air":        "Pompe à chaleur Air/Air",
   "isolation-thermique-exterieure": "Isolation thermique extérieure",
-  "chauffe-eau-solaire-individuel": "Chauffe-eau solaire",
   "ballon-thermodynamique":         "Ballon thermodynamique",
   "systeme-solaire-combine":        "Système solaire combiné",
 };
@@ -88,9 +86,12 @@ export async function ServicesGridInteractive({
           </header>
         )}
 
-        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="flex flex-wrap justify-center gap-6">
           {cards.map((card) => (
-            <li key={card.slug}>
+            <li
+              key={card.slug}
+              className="w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]"
+            >
               <ServiceCard service={card} />
             </li>
           ))}

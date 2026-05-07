@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Card";
 import { TricolorBar } from "@/components/brand/TricolorBar";
@@ -5,6 +6,7 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { LinkButton } from "@/components/ui/Button";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { getContent } from "@/lib/content";
+import { getAssetByKey } from "@/lib/media";
 
 export const metadata = {
   title: "Contact",
@@ -37,8 +39,9 @@ const COORDONNEES = [
 ];
 
 export default async function ContactPage() {
-  const [title] = await Promise.all([
+  const [title, heroImg] = await Promise.all([
     getContent("contact.hero.title", "Contactez-nous"),
+    getAssetByKey("contact.hero"),
   ]);
 
   return (
@@ -50,9 +53,32 @@ export default async function ContactPage() {
         ]}
       />
 
-      {/* Hero */}
-      <section className="bg-primary-800 py-16 text-text-inverse">
-        <Container>
+      {/* Hero — fond image (asset key contact.hero) avec overlay vert pour lisibilité */}
+      <section className="relative isolate overflow-hidden bg-primary-800 py-16 text-text-inverse">
+        {heroImg && (
+          <Image
+            src={heroImg.url}
+            alt=""
+            aria-hidden
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 -z-10 object-cover"
+            {...(heroImg.blurDataURL
+              ? { placeholder: "blur" as const, blurDataURL: heroImg.blurDataURL }
+              : {})}
+          />
+        )}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background: heroImg
+              ? "linear-gradient(90deg, rgba(6,26,16,0.92) 0%, rgba(6,26,16,0.78) 40%, rgba(6,26,16,0.55) 100%)"
+              : "var(--color-primary-800)",
+          }}
+        />
+        <Container className="relative">
           <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-500">
             Une question, un projet&nbsp;?
           </p>

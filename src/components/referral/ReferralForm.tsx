@@ -9,12 +9,11 @@ import { Input, Textarea, Select, FieldWrap } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
 const PROJECT_LABELS: Record<typeof REFERRAL_PROJECT_SLUGS[number], string> = {
-  "panneau-photovoltaique": "Panneau photovoltaïque",
+  "pompe-a-chaleur-air-eau": "Pompe à chaleur Air/Eau",
+  "pompe-a-chaleur-air-air": "Pompe à chaleur Air/Air",
   "isolation-thermique-exterieure": "Isolation thermique extérieure (ITE)",
-  "chauffe-eau-solaire-individuel": "Chauffe-eau solaire individuel (CESI)",
   "ballon-thermodynamique": "Ballon thermodynamique",
   "systeme-solaire-combine": "Système solaire combiné (SSC)",
-  "pompe-a-chaleur": "Pompe à chaleur (Air-Eau / Air-Air)",
   autre: "Autre / Plusieurs travaux",
 };
 

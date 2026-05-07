@@ -115,25 +115,25 @@ async function seedContent() {
     benefits: string[];
   }> = [
     {
-      slug: "pompe-a-chaleur",
-      shortLabel: "Air-Eau / Air-Air",
+      slug: "pompe-a-chaleur-air-eau",
+      shortLabel: "PAC Air/Eau",
       description:
-        "Solution de chauffage performante qui exploite les calories de l'air ou de l'eau. Jusqu'à 3 fois plus efficace qu'un chauffage électrique classique.",
+        "Chauffage central et eau chaude par captation des calories de l'air extérieur. Solution la plus performante pour remplacer une chaudière fioul ou gaz.",
       benefits: [
-        "Économies d'énergie jusqu'à 70 %",
-        "Éligible à MaPrimeRénov' & CEE",
-        "Confort thermique toute l'année",
+        "Jusqu'à 75 % d'économies de chauffage",
+        "Compatible plancher chauffant et radiateurs",
+        "Éligible MaPrimeRénov' + CEE",
       ],
     },
     {
-      slug: "panneau-photovoltaique",
-      shortLabel: "Production d'électricité solaire",
+      slug: "pompe-a-chaleur-air-air",
+      shortLabel: "PAC Air/Air",
       description:
-        "Production d'électricité solaire pour autoconsommer ou revendre le surplus. Rentabilité moyenne en 8 à 12 ans selon votre exposition.",
+        "Climatisation réversible : chauffage en hiver, rafraîchissement en été. Idéale pour les logements sans chauffage central.",
       benefits: [
-        "Autoconsommation jusqu'à 60 %",
-        "Prime à l'autoconsommation incluse",
-        "Garantie 25 ans sur les panneaux",
+        "Chauffage ET climatisation",
+        "Installation rapide multi-split",
+        "Économies jusqu'à 70 % vs chauffage électrique",
       ],
     },
     {
@@ -145,17 +145,6 @@ async function seedContent() {
         "Aucune perte de surface habitable",
         "Ravalement de façade inclus",
         "Aides cumulées jusqu'à plusieurs milliers d'euros",
-      ],
-    },
-    {
-      slug: "chauffe-eau-solaire-individuel",
-      shortLabel: "CESI individuel",
-      description:
-        "Production d'eau chaude par capteurs solaires. Couvre 50 à 70 % des besoins d'un foyer sur une année.",
-      benefits: [
-        "Économies durables sur l'eau chaude",
-        "Énergie 100 % renouvelable",
-        "Fonctionne toute l'année",
       ],
     },
     {
@@ -378,10 +367,9 @@ async function seedContent() {
   await upsertContent("chatbox.step1.message", "👋 Bonjour ! Je suis Camille de Climat Hexagone. Pour mieux vous orienter, quel est votre projet de rénovation ?");
   await upsertContent("chatbox.step1.followup", "Quels travaux vous intéressent ?");
   await upsertContent("chatbox.step1.options", JSON.stringify([
-    { value: "photovoltaique", label: "☀️ Panneau photovoltaïque" },
-    { value: "pac",            label: "🔥 Pompe à chaleur (Air-Eau / Air-Air)" },
+    { value: "pac-air-eau",    label: "🔥 Pompe à chaleur Air/Eau" },
+    { value: "pac-air-air",    label: "❄️ Pompe à chaleur Air/Air" },
     { value: "ite",            label: "🧱 Isolation thermique extérieure (ITE)" },
-    { value: "cesi",           label: "💧 Chauffe-eau solaire" },
     { value: "ballon",         label: "🛢️ Ballon thermodynamique" },
     { value: "ssc",            label: "🔆 Système solaire combiné" },
     { value: "plusieurs",      label: "🧰 Plusieurs travaux / Je ne sais pas" },
@@ -415,12 +403,11 @@ async function seedContent() {
 async function seedSimulatorSteps() {
   await prisma.simulatorStep.deleteMany({});
 
-  // Mapping illustrations aligné sur les 6 services réels du catalogue.
+  // Mapping illustrations aligné sur les services réels du catalogue.
   const SERVICES_FOR_SIMULATOR = [
-    { slug: "panneau-photovoltaique",          title: "Panneau photovoltaïque",         illus: "solar" },
-    { slug: "pompe-a-chaleur",                 title: "Pompe à chaleur",                illus: "heat-pump-air-water" },
+    { slug: "pompe-a-chaleur-air-eau",         title: "Pompe à chaleur Air/Eau",        illus: "heat-pump-air-water" },
+    { slug: "pompe-a-chaleur-air-air",         title: "Pompe à chaleur Air/Air",        illus: "heat-pump-air-water" },
     { slug: "isolation-thermique-exterieure",  title: "Isolation thermique extérieure", illus: "insulation-walls" },
-    { slug: "chauffe-eau-solaire-individuel",  title: "Chauffe-eau solaire (CESI)",     illus: "solar" },
     { slug: "ballon-thermodynamique",          title: "Ballon thermodynamique",         illus: "boiler" },
     { slug: "systeme-solaire-combine",         title: "Système solaire combiné",        illus: "solar" },
   ];

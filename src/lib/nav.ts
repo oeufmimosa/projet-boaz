@@ -19,28 +19,22 @@ export type NavLink = {
 
 export const SERVICES: NavLink[] = [
   {
-    href: "/services/panneau-photovoltaique",
-    label: "Panneau photovoltaïque",
-    icon: "☀️",
-    description: "Produisez votre propre électricité.",
+    href: "/services/pompe-a-chaleur-air-eau",
+    label: "Pompe à chaleur Air/Eau",
+    icon: "🔥",
+    description: "Chauffage central et eau chaude par captation de l'air.",
   },
   {
-    href: "/services/pompe-a-chaleur",
-    label: "Pompe à chaleur",
-    icon: "🔥",
-    description: "Air-Eau ou Air-Air, chauffage haute performance.",
+    href: "/services/pompe-a-chaleur-air-air",
+    label: "Pompe à chaleur Air/Air",
+    icon: "❄️",
+    description: "Climatisation réversible : chauffage et rafraîchissement.",
   },
   {
     href: "/services/isolation-thermique-exterieure",
     label: "Isolation thermique extérieure (ITE)",
     icon: "🧱",
     description: "Réduisez vos pertes de chaleur jusqu'à 25 %.",
-  },
-  {
-    href: "/services/chauffe-eau-solaire-individuel",
-    label: "Chauffe-eau solaire (CESI)",
-    icon: "💧",
-    description: "Eau chaude sanitaire grâce au soleil.",
   },
   {
     href: "/services/ballon-thermodynamique",
@@ -85,7 +79,6 @@ export const FOOTER_COLUMNS: Array<{ title: string; links: NavLink[] }> = [
       { href: "/aides", label: "MaPrimeRénov'" },
       { href: "/aides", label: "Certificats CEE" },
       { href: "/aides", label: "Éco-prêt à taux zéro" },
-      { href: "/blog", label: "Blog" },
       { href: "/simulateur", label: "Simulateur" },
     ],
   },

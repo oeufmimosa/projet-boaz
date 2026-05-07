@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Card";
 import { TricolorBar } from "@/components/brand/TricolorBar";
@@ -302,26 +301,45 @@ export default async function QuiSommesNousPage() {
           <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {REALISATIONS.map((r) => (
               <li key={r.slug}>
-                <Link
-                  href={`/realisations/${r.slug}`}
+                <div
                   data-content={r.placeholder ? "placeholder" : undefined}
-                  className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition hover:-translate-y-0.5 hover:shadow-md ${
+                  className={`flex h-full flex-col overflow-hidden rounded-lg border bg-surface ${
                     r.placeholder
                       ? "border-accent-500/40 ring-1 ring-accent-500/20"
-                      : "border-border hover:border-primary-300"
+                      : "border-border"
                   }`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={r.coverImage}
-                    alt={`Photo avant/après — ${r.title}`}
-                    className="aspect-[3/2] w-full object-cover"
-                  />
+                  {(() => {
+                    const imgs = [r.coverImage, ...(r.additionalImages ?? [])];
+                    if (imgs.length > 1) {
+                      return (
+                        <div className="grid aspect-[3/2] w-full grid-cols-2 gap-0.5 bg-border">
+                          {imgs.slice(0, 2).map((src, idx) => (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              key={`${src}-${idx}`}
+                              src={src}
+                              alt={`Photo client ${idx + 1} — ${r.title}`}
+                              className="h-full w-full object-cover"
+                            />
+                          ))}
+                        </div>
+                      );
+                    }
+                    return (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={r.coverImage}
+                        alt={`Photo avant/après — ${r.title}`}
+                        className="aspect-[3/2] w-full object-cover"
+                      />
+                    );
+                  })()}
                   <div className="flex flex-1 flex-col p-5">
                     <p className="text-body-sm uppercase tracking-wide text-accent-600">
                       {r.location}
                     </p>
-                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800 group-hover:text-primary-700">
+                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800">
                       {r.title}
                     </h3>
                     <ul className="mt-3 space-y-1 text-body-sm text-text-muted">
@@ -337,11 +355,8 @@ export default async function QuiSommesNousPage() {
                         <strong className="text-text">Durée :</strong> {r.durationDays} jours
                       </li>
                     </ul>
-                    <span className="mt-auto pt-4 text-body-sm font-semibold text-primary-700">
-                      Voir le chantier →
-                    </span>
                   </div>
-                </Link>
+                </div>
               </li>
             ))}
           </ul>

@@ -15,12 +15,11 @@ export const metadata = {
 };
 
 const SERVICES = [
-  { slug: "panneau-photovoltaique", label: "Panneau photovoltaïque", icon: "☀️" },
+  { slug: "pompe-a-chaleur-air-eau", label: "Pompe à chaleur Air/Eau", icon: "🔥" },
+  { slug: "pompe-a-chaleur-air-air", label: "Pompe à chaleur Air/Air", icon: "❄️" },
   { slug: "isolation-thermique-exterieure", label: "Isolation thermique extérieure", icon: "🧱" },
-  { slug: "chauffe-eau-solaire-individuel", label: "Chauffe-eau solaire", icon: "💧" },
   { slug: "ballon-thermodynamique", label: "Ballon thermodynamique", icon: "🛢️" },
   { slug: "systeme-solaire-combine", label: "Système solaire combiné", icon: "🔆" },
-  { slug: "pompe-a-chaleur", label: "Pompe à chaleur", icon: "🔥" },
 ];
 
 const STEPS = [
@@ -176,35 +175,7 @@ export default async function ParrainagePage() {
         </Container>
       </Section>
 
-      {/* d) Travaux éligibles */}
-      <Section>
-        <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Travaux éligibles
-            </h2>
-            <p className="mt-3 text-text-muted">
-              Tous les travaux de rénovation énergétique sont éligibles : isolation, pompe à chaleur,
-              photovoltaïque, ballon thermodynamique, etc.
-            </p>
-          </div>
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="flex h-full items-center gap-4 rounded-lg border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
-                >
-                  <span className="text-3xl" aria-hidden>{s.icon}</span>
-                  <span className="font-display font-semibold text-primary-800">{s.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      {/* e) Formulaire */}
+      {/* d) Formulaire */}
       <Section id="formulaire" tone="muted">
         <Container className="max-w-5xl">
           <h2 className="font-display text-3xl font-bold text-primary-800 sm:text-4xl">
@@ -238,6 +209,34 @@ export default async function ParrainagePage() {
               <ReferralForm />
             </div>
           </div>
+        </Container>
+      </Section>
+
+      {/* e) Travaux éligibles */}
+      <Section>
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="font-display text-3xl font-bold text-primary-800 sm:text-4xl">
+              Travaux éligibles
+            </h2>
+            <p className="mt-3 text-text-muted">
+              Tous les travaux de rénovation énergétique sont éligibles : pompe à chaleur,
+              isolation, ballon thermodynamique, système solaire combiné.
+            </p>
+          </div>
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="flex h-full items-center gap-4 rounded-lg border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
+                >
+                  <span className="text-3xl" aria-hidden>{s.icon}</span>
+                  <span className="font-display font-semibold text-primary-800">{s.label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Container>
       </Section>
     </>

@@ -139,26 +139,26 @@ export const imageSpecs: Record<string, ImageSpec> = {
     context: "/parrainage — section formulaire",
   },
 
-  // ── Home — Cards services interactives (6) ────────────────────────────────
-  "home.services.cards.pompe-a-chaleur.image": {
-    key: "home.services.cards.pompe-a-chaleur.image",
-    label: "Photo card service home — PAC",
-    description: "Photo de la card Pompe à chaleur sur la home (grille 6 services).",
+  // ── Home — Cards services interactives ────────────────────────────────────
+  "home.services.cards.pompe-a-chaleur-air-eau.image": {
+    key: "home.services.cards.pompe-a-chaleur-air-eau.image",
+    label: "Photo card service home — PAC Air/Eau",
+    description: "Photo de la card Pompe à chaleur Air/Eau sur la home.",
     width: 1200, height: 900,
     acceptedFormats: ["jpg", "webp"],
     maxSizeKb: 250,
     renderShape: "rect",
-    context: "home / cards services / PAC",
+    context: "home / cards services / PAC Air-Eau",
   },
-  "home.services.cards.panneau-photovoltaique.image": {
-    key: "home.services.cards.panneau-photovoltaique.image",
-    label: "Photo card service home — Photovoltaïque",
-    description: "Photo de la card Panneau photovoltaïque sur la home.",
+  "home.services.cards.pompe-a-chaleur-air-air.image": {
+    key: "home.services.cards.pompe-a-chaleur-air-air.image",
+    label: "Photo card service home — PAC Air/Air",
+    description: "Photo de la card Pompe à chaleur Air/Air sur la home.",
     width: 1200, height: 900,
     acceptedFormats: ["jpg", "webp"],
     maxSizeKb: 250,
     renderShape: "rect",
-    context: "home / cards services / PV",
+    context: "home / cards services / PAC Air-Air",
   },
   "home.services.cards.isolation-thermique-exterieure.image": {
     key: "home.services.cards.isolation-thermique-exterieure.image",
@@ -169,16 +169,6 @@ export const imageSpecs: Record<string, ImageSpec> = {
     maxSizeKb: 250,
     renderShape: "rect",
     context: "home / cards services / ITE",
-  },
-  "home.services.cards.chauffe-eau-solaire-individuel.image": {
-    key: "home.services.cards.chauffe-eau-solaire-individuel.image",
-    label: "Photo card service home — CESI",
-    description: "Photo de la card Chauffe-eau solaire individuel sur la home.",
-    width: 1200, height: 900,
-    acceptedFormats: ["jpg", "webp"],
-    maxSizeKb: 250,
-    renderShape: "rect",
-    context: "home / cards services / CESI",
   },
   "home.services.cards.ballon-thermodynamique.image": {
     key: "home.services.cards.ballon-thermodynamique.image",
@@ -223,6 +213,16 @@ export const imageSpecs: Record<string, ImageSpec> = {
     maxSizeKb: 2000,
     renderShape: "rect",
     context: "hero /qui-sommes-nous",
+  },
+  "contact.hero": {
+    key: "contact.hero",
+    label: "Hero page Contact",
+    description: "Image de fond du hero de /contact (overlay vert appliqué).",
+    width: 1500, height: 800,
+    acceptedFormats: ["jpg", "webp"],
+    maxSizeKb: 2000,
+    renderShape: "rect",
+    context: "hero /contact",
   },
   "expertise.team.photo": {
     key: "expertise.team.photo",

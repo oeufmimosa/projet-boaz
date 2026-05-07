@@ -5,6 +5,8 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Card";
 import { LinkButton } from "@/components/ui/Button";
 import { TricolorBar } from "@/components/brand/TricolorBar";
+import { BrandsMarquee } from "@/components/brand/BrandsMarquee";
+import { SpecsTabs } from "@/components/services/SpecsTabs";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ServiceJsonLd, FaqJsonLd } from "@/components/seo/StructuredData";
 import { SERVICES_LIST, getService, isValidServiceSlug } from "@/lib/services";
@@ -34,7 +36,12 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   if (!isValidServiceSlug(params.slug)) notFound();
   const service = getService(params.slug)!;
   const others = SERVICES_LIST.filter((s) => s.slug !== service.slug).slice(0, 3);
-  const heroImg = await getAssetByKey(`services.${service.slug}.hero`);
+  // Image hero : on tente d'abord la clé dédiée services.<slug>.hero, puis on
+  // retombe sur celle de la card home `home.services.cards.<slug>.image` (déjà
+  // déposée et utilisée dans la grille « Nos solutions »).
+  const heroImg =
+    (await getAssetByKey(`services.${service.slug}.hero`)) ??
+    (await getAssetByKey(`home.services.cards.${service.slug}.image`));
 
   return (
     <>
@@ -140,8 +147,33 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
         </Container>
       </Section>
 
-      {service.faq.length > 0 && (
+      {service.specs && service.specs.length > 0 && (
         <Section tone="muted">
+          <Container className="max-w-4xl">
+            <div className="mb-8 text-center sm:mb-10">
+              <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
+                Fiche technique
+              </p>
+              <h2 className="mt-3 font-display text-2xl font-bold text-primary-800 sm:text-3xl">
+                Spécifications techniques
+              </h2>
+              <p className="mt-3 text-text-muted">
+                Cliquez sur une catégorie pour voir le détail.
+              </p>
+            </div>
+
+            <SpecsTabs groups={service.specs} />
+
+            <p className="mt-8 text-center text-body-sm text-text-muted">
+              Une étude personnalisée affine ces valeurs selon votre logement, votre
+              zone climatique et vos consommations réelles.
+            </p>
+          </Container>
+        </Section>
+      )}
+
+      {service.faq.length > 0 && (
+        <Section className="bg-primary-50">
           <Container className="max-w-3xl">
             <h2 className="font-display text-2xl font-bold text-primary-800 sm:text-3xl">
               Questions fréquentes
@@ -175,7 +207,9 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
         </Section>
       )}
 
-      <Section>
+      <BrandsMarquee />
+
+      <Section tone="muted">
         <Container>
           <h2 className="font-display text-2xl font-bold text-primary-800">Autres services</h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-3">

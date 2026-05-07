@@ -1,7 +1,7 @@
 import { HeroMobile } from "./mobile/HeroMobile";
 import { KeyFiguresCompact } from "./mobile/KeyFiguresCompact";
 import { ChatHomeInvite } from "./mobile/ChatHomeInvite";
-import { ServicesGridCompact } from "./mobile/ServicesGridCompact";
+import { ServicesGridInteractive } from "./ServicesGridInteractive";
 import { HowItWorksCompact } from "./mobile/HowItWorksCompact";
 import { TestimonialSingle } from "./mobile/TestimonialSingle";
 import { RelaunchCTA } from "./mobile/RelaunchCTA";
@@ -29,7 +29,7 @@ export function HomeMobile({
       <HeroMobile title={data.hero.title} subtitle={data.hero.subtitle} />
       <KeyFiguresCompact />
       <ChatHomeInvite advisorName={advisorName} advisorInitials={advisorInitials} />
-      <ServicesGridCompact services={data.services.items} />
+      <ServicesGridInteractive />
       <ExpertiseSection />
       <HowItWorksCompact />
       <ParrainageSection />

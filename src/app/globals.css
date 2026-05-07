@@ -159,6 +159,47 @@ h1 {
   animation: fadeUp 400ms ease-out both;
 }
 
+/* Bandeau marques partenaires : marquee horizontal infini */
+.brands-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+.brands-marquee-track {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 90s linear infinite;
+}
+.brands-marquee:hover .brands-marquee-track,
+.brands-marquee:focus-within .brands-marquee-track {
+  animation-play-state: paused;
+}
+.brands-marquee-item {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 0 1.75rem;
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  min-width: 200px;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+.brands-marquee-item:hover {
+  border-color: var(--color-primary-300);
+  color: var(--color-primary-700);
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brands-marquee-track { animation: none; }
+}
+
 /* Overlay hover des cards services : scrollbar masquée si débordement */
 .service-card-overlay {
   scrollbar-width: none;

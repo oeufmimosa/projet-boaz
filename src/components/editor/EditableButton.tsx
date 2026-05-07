@@ -185,7 +185,6 @@ const KNOWN_ROUTES = [
   { value: "/simulateur", label: "Simulateur" },
   { value: "/aides", label: "Aides" },
   { value: "/travaux", label: "Tous les travaux" },
-  { value: "/blog", label: "Blog" },
   { value: "/contact", label: "Contact" },
 ];
 
