@@ -213,7 +213,7 @@ export const REALISATIONS: Realisation[] = [
     quote:
       "On avait une vieille chaudière fioul. Le SSC + granulés couvre maintenant l'essentiel de notre chauffage et de l'eau chaude. La première année hivernale a été plus exigeante en granulés que prévu, mais l'été le solaire fait tout le boulot.",
     customerName: "Famille R.",
-    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    coverImage: "/realisations/strasbourg.jpg",
     placeholder: true,
   },
 
@@ -245,7 +245,7 @@ export const REALISATIONS: Realisation[] = [
     quote:
       "On a démarré par les combles parce que c'était le geste le plus rentable. Le CESI s'est ajouté l'année suivante. Notre facture d'eau chaude a chuté, et la maison reste fraîche en été.",
     customerName: "M. et Mme V.",
-    coverImage: "https://placehold.co/1200x800/EAEAEA/0F3D26?text=Avant+/+Après",
+    coverImage: "/realisations/nantes.jpg",
     placeholder: true,
   },
 ];

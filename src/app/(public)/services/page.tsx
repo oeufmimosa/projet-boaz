@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
@@ -19,8 +20,25 @@ export default function ServicesIndexPage() {
           { label: "Nos services", href: "/services" },
         ]}
       />
-      <section className="bg-primary-800 py-16 text-text-inverse">
-        <Container>
+      <section className="relative isolate overflow-hidden bg-primary-800 py-16 text-text-inverse">
+        <Image
+          src="/realisations/strasbourg.jpg"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 -z-10 object-cover"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(6,26,16,0.92) 0%, rgba(6,26,16,0.78) 40%, rgba(6,26,16,0.55) 100%)",
+          }}
+        />
+        <Container className="relative">
           <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-500">
             Rénovation énergétique
           </p>
