@@ -28,20 +28,22 @@ type Brand = {
   /** Multiplicateur sur la max-height du logo image (par défaut 40 px).
    *  Utile quand un logo a beaucoup de blanc autour et paraît plus petit. */
   imgScale?: number;
+  /** Extension du fichier dans `public/brands/<slug>.<ext>`. Indique
+   *  exactement quel fichier servir : évite la chaîne onError svg→png→webp
+   *  qui peut rater. Si absent, on tente svg puis png puis webp. */
+  ext?: "svg" | "png" | "webp" | "jpg";
 };
 
 const BRANDS: Brand[] = [
-  { slug: "enphase",     display: "ENPHASE",     color: "#F36F21", tracking: "0.06em" },
-  { slug: "recom",       display: "RECOM",       color: "#111111", tracking: "0.10em" },
-  { slug: "siemens",     display: "SIEMENS",     color: "#009999", tracking: "0.04em", imgScale: 1.45 },
-  { slug: "thaleos",     display: "Thaleos",     color: "#1a3c70", weight: 900, tracking: "-0.01em", imgScale: 1.45 },
-  { slug: "daikin",      display: "DAIKIN",      color: "#003D89", tracking: "0.06em" },
-  { slug: "mitsubishi",  display: "MITSUBISHI",  color: "#E60012", tracking: "0.04em", scale: 0.92 },
-  { slug: "viessmann",   display: "VIESSMANN",   color: "#D31027", tracking: "0.04em", scale: 0.92 },
-  { slug: "de-dietrich", display: "De Dietrich", color: "#1a1a1a", weight: 700, tracking: "-0.01em" },
-  { slug: "sma",         display: "SMA",         color: "#003B71", tracking: "0.10em", weight: 900, scale: 1.1 },
-  { slug: "solaredge",   display: "SolarEdge",   color: "#E52821", weight: 800 },
-  { slug: "isover",      display: "ISOVER",      color: "#003E80", tracking: "0.05em" },
+  { slug: "enphase",     display: "ENPHASE",     color: "#F36F21", tracking: "0.06em",                                  ext: "webp" },
+  { slug: "recom",       display: "RECOM",       color: "#111111", tracking: "0.10em",                                  ext: "png" },
+  { slug: "thaleos",     display: "Thaleos",     color: "#1a3c70", weight: 900, tracking: "-0.01em", imgScale: 1.45,    ext: "png" },
+  { slug: "daikin",      display: "DAIKIN",      color: "#003D89", tracking: "0.06em",                                  ext: "png" },
+  { slug: "mitsubishi",  display: "MITSUBISHI",  color: "#E60012", tracking: "0.04em", scale: 0.92,                     ext: "png" },
+  { slug: "viessmann",   display: "VIESSMANN",   color: "#D31027", tracking: "0.04em", scale: 0.92,                     ext: "png" },
+  { slug: "de-dietrich", display: "De Dietrich", color: "#1a1a1a", weight: 700, tracking: "-0.01em",                    ext: "png" },
+  { slug: "atlantic",    display: "Atlantic",    color: "#0050A0", weight: 900, tracking: "-0.01em",                    ext: "png" },
+  { slug: "frisquet",    display: "FRISQUET",    color: "#003E80", tracking: "0.05em",                                  ext: "png" },
 ];
 
 function BrandWordmark({ brand }: { brand: Brand }) {
@@ -62,16 +64,18 @@ function BrandWordmark({ brand }: { brand: Brand }) {
   );
 }
 
-// Extensions testées dans cet ordre. Quand une 404, on passe à la suivante.
-const EXTENSIONS = ["svg", "png", "webp"] as const;
+// Ordre de fallback si pas d'`ext` explicite sur la marque.
+const FALLBACK_EXTENSIONS = ["png", "webp", "svg"] as const;
 
 function BrandItem({ brand }: { brand: Brand }) {
-  const [extIdx, setExtIdx] = useState(0);
-  const [allFailed, setAllFailed] = useState(false);
+  // Si l'extension est explicitement renseignée, on l'utilise direct.
+  // Sinon on essaye png → webp → svg dans l'ordre via onError.
+  const [fallbackIdx, setFallbackIdx] = useState(0);
+  const [failed, setFailed] = useState(false);
 
-  if (allFailed) return <BrandWordmark brand={brand} />;
+  if (failed) return <BrandWordmark brand={brand} />;
 
-  const ext = EXTENSIONS[extIdx];
+  const ext = brand.ext ?? FALLBACK_EXTENSIONS[fallbackIdx];
   const baseHeight = 40; // = max-h-10
   const maxHeight = baseHeight * (brand.imgScale ?? 1);
   return (
@@ -84,10 +88,16 @@ function BrandItem({ brand }: { brand: Brand }) {
       style={{ maxHeight: `${maxHeight}px` }}
       loading="lazy"
       onError={() => {
-        if (extIdx + 1 < EXTENSIONS.length) {
-          setExtIdx(extIdx + 1);
+        // Si on a une `ext` explicite et qu'elle 404, c'est une vraie absence
+        // de fichier → bascule directement en wordmark.
+        if (brand.ext) {
+          setFailed(true);
+          return;
+        }
+        if (fallbackIdx + 1 < FALLBACK_EXTENSIONS.length) {
+          setFallbackIdx(fallbackIdx + 1);
         } else {
-          setAllFailed(true);
+          setFailed(true);
         }
       }}
     />
@@ -102,7 +112,7 @@ export function BrandsMarquee() {
     <section className="bg-bg py-12 sm:py-16">
       <div className="mx-auto mb-8 max-w-3xl px-4 text-center sm:mb-10">
         <h2 className="font-display text-2xl font-bold text-primary-800 sm:text-3xl">
-          Nos marques partenaires
+          Nos marques proposées
         </h2>
         <p className="mt-2 text-text-muted">
           Nous installons exclusivement des équipements de marques reconnues,
