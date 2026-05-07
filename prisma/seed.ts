@@ -538,7 +538,6 @@ async function seedSimulatorSteps() {
     {
       key: "code_postal",
       label: "**Code postal** du logement",
-      helpText: null,
       fieldType: FieldType.TEXT,
       required: true,
       config: { placeholder: "Ex : 75001" },
