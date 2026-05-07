@@ -74,9 +74,8 @@ async function seedContent() {
   await upsertContent("site.name", "Projet Boaz");
   await upsertContent("site.tagline", "[ACCROCHE GLOBALE — rénovation énergétique]");
   await upsertContent("header.cta", "Simuler mes aides");
-  await upsertContent("footer.copyright", "© Projet Boaz — Tous droits réservés");
+  await upsertContent("footer.copyright", "© Groupe Climat Hexagone — Tous droits réservés");
   await upsertContent("footer.newsletter.title", "Newsletter");
-  await upsertContent("footer.newsletter.description", "[DESCRIPTION NEWSLETTER]");
 
   // Home — Hero
   // ⚠️ Formulation prudente : pas de chiffre absolu sans source publique
@@ -407,9 +406,8 @@ async function seedContent() {
 
   // Simulateur
   await upsertContent("simulator.intro.title", "Estimez vos aides en quelques clics");
-  await upsertContent("simulator.intro.subtitle", "[SOUS-TITRE SIMULATEUR]");
   await upsertContent("simulator.merci.title", "Merci, votre demande est enregistrée");
-  await upsertContent("simulator.merci.body", "[MESSAGE DE REMERCIEMENT — vous serez recontacté sous 24-48h.]");
+  await upsertContent("simulator.merci.body", "Vous serez recontacté sous 24-48h");
 
   console.log("✓ Contents seeded");
 }
@@ -540,10 +538,10 @@ async function seedSimulatorSteps() {
     {
       key: "code_postal",
       label: "**Code postal** du logement",
-      helpText: "Format attendu : 75001 Paris.",
+      helpText: null,
       fieldType: FieldType.TEXT,
       required: true,
-      config: { placeholder: "Ex : 75001 Paris" },
+      config: { placeholder: "Ex : 75001" },
     },
     {
       key: "coordonnees",

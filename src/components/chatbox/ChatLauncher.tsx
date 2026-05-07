@@ -75,14 +75,19 @@ export function ChatLauncher({ config }: { config: ChatConfig }) {
         type="button"
         aria-label="Ouvrir la chatbox"
         onClick={openPanel}
-        className="fixed z-40 inline-flex h-16 w-14 items-center justify-center text-text-inverse shadow-lg lg:bottom-6 lg:right-6 hex-launcher hex-pulse"
+        className="fixed z-40 inline-flex h-16 w-14 items-center justify-center text-text-inverse lg:bottom-6 lg:right-6 hex-launcher hex-pulse"
         style={{
           // mobile : bottom 88 (au-dessus de la sticky CTA), right 16
           bottom: "calc(88px + env(safe-area-inset-bottom))",
           right: "16px",
         }}
       >
-        <svg viewBox="0 0 56 64" className="absolute inset-0 h-full w-full" aria-hidden>
+        <svg
+          viewBox="0 0 56 64"
+          className="absolute inset-0 h-full w-full"
+          aria-hidden
+          style={{ filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.28))" }}
+        >
           <path d="M28 2 52 16v32L28 62 4 48V16Z" fill="var(--color-primary-700)" />
         </svg>
         <svg viewBox="0 0 24 24" className="relative h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>

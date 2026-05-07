@@ -105,7 +105,8 @@ export default function RealisationDetailPage({
       <Breadcrumbs
         items={[
           { label: "Accueil", href: "/" },
-          { label: "Nos réalisations", href: "/realisations" },
+          { label: "Qui sommes-nous", href: "/qui-sommes-nous" },
+          { label: "Nos réalisations", href: "/qui-sommes-nous#realisations" },
           { label: r.title, href: `/realisations/${r.slug}` },
         ]}
       />

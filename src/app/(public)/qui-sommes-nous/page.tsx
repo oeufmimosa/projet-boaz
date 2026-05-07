@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Card";
 import { TricolorBar } from "@/components/brand/TricolorBar";
@@ -8,6 +9,7 @@ import { KeyFigures } from "@/components/home/desktop/KeyFigures";
 import { LinkButton } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { getAssetByKey } from "@/lib/media";
+import { REALISATIONS, formatEuros } from "@/lib/realisations";
 
 export const metadata: Metadata = {
   title: "Qui sommes-nous — Spécialiste de la rénovation énergétique",
@@ -105,7 +107,7 @@ export default async function QuiSommesNousPage() {
         <Container className="relative py-20 sm:py-28">
           <FrenchBadge variant="dark" />
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
-            Votre <span className="text-accent-500">expertise</span> en rénovation énergétique
+            Notre <span className="text-accent-500">expertise</span> en rénovation énergétique
           </h1>
           <p className="mt-6 max-w-2xl text-body-lg text-white/90">
             Une entreprise française à votre service, spécialiste de la pompe à chaleur,
@@ -267,6 +269,84 @@ export default async function QuiSommesNousPage() {
 
       {/* e) Chiffres clés */}
       <KeyFigures title="Notre savoir-faire en chiffres" items={FIGURES} />
+
+      {/* e-bis) Nos réalisations — déplacé depuis l'ancienne page /realisations */}
+      <Section id="realisations">
+        <Container>
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
+              Nos chantiers
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
+              Nos réalisations
+            </h2>
+            <p className="mt-3 text-text-muted">
+              Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique :
+              voici comment notre équipe accompagne des propriétaires partout en France.
+            </p>
+          </div>
+
+          {/* ⚠️ Disclaimer placeholder — à retirer une fois les cas réels substitués */}
+          <div
+            data-content="placeholder"
+            className="mx-auto mb-10 max-w-4xl rounded-lg border border-accent-500/40 bg-accent-500/5 p-5 text-body-sm text-amber-900 ring-1 ring-accent-500/30"
+          >
+            <strong>Note pour la phase de mise en page :</strong> les six réalisations
+            ci-dessous sont des <strong>cas fictifs réalistes</strong> destinés à valider
+            la structure et le rendu. Les chiffres d&apos;aides correspondent à des ordres
+            de grandeur 2025 cohérents mais ne proviennent pas de dossiers réels. Avant
+            mise en production, le client doit substituer ces cas par des chantiers
+            vérifiables avec consentement écrit RGPD du client final.
+          </div>
+
+          <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {REALISATIONS.map((r) => (
+              <li key={r.slug}>
+                <Link
+                  href={`/realisations/${r.slug}`}
+                  data-content={r.placeholder ? "placeholder" : undefined}
+                  className={`group flex h-full flex-col overflow-hidden rounded-lg border bg-surface transition hover:-translate-y-0.5 hover:shadow-md ${
+                    r.placeholder
+                      ? "border-accent-500/40 ring-1 ring-accent-500/20"
+                      : "border-border hover:border-primary-300"
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={r.coverImage}
+                    alt={`Photo avant/après — ${r.title}`}
+                    className="aspect-[3/2] w-full object-cover"
+                  />
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="text-body-sm uppercase tracking-wide text-accent-600">
+                      {r.location}
+                    </p>
+                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800 group-hover:text-primary-700">
+                      {r.title}
+                    </h3>
+                    <ul className="mt-3 space-y-1 text-body-sm text-text-muted">
+                      <li>
+                        <strong className="text-text">Aides obtenues :</strong>{" "}
+                        {formatEuros(r.aidesObtainedEuros)}
+                      </li>
+                      <li>
+                        <strong className="text-text">Économies/an :</strong>{" "}
+                        {formatEuros(r.yearlySavingsEuros)}
+                      </li>
+                      <li>
+                        <strong className="text-text">Durée :</strong> {r.durationDays} jours
+                      </li>
+                    </ul>
+                    <span className="mt-auto pt-4 text-body-sm font-semibold text-primary-700">
+                      Voir le chantier →
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
 
       {/* f) CTA finale */}
       <Section>

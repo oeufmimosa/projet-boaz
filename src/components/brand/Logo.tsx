@@ -155,8 +155,10 @@ function getColors(variant: Variant): LogoColors {
       };
     case "default":
     default:
+      // `currentColor` permet au wordmark de suivre la couleur du parent
+      // (ex. <ScrollAwareHeader> qui bascule en text-text-inverse au scroll).
       return {
-        text: "var(--color-text)",
+        text: "currentColor",
         subtle: "var(--color-brand-navy)",
       };
   }

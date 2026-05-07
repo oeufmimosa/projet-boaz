@@ -176,7 +176,7 @@ export function SimulatorWizard({
       const v = (answers[currentStep.key] as string) ?? "";
       const m = v.trim().match(/^(\d{5})\s+(.+)$/);
       if (!m) {
-        setStepError("Format attendu : 75001 Paris");
+        setStepError("Sélectionnez votre commune dans la liste.");
         return false;
       }
       setPostalCode(m[1]);
@@ -198,27 +198,41 @@ export function SimulatorWizard({
 
   // Auto-advance après 400 ms sur sélection unique (RADIO). Désactivé sous
   // `prefers-reduced-motion` — c'est une transition animée.
-  const lastAnswerRef = useRef<string | null>(null);
+  //
+  // On garde en mémoire (stepIdx, lastAnswer) pour distinguer :
+  //   - atterrissage sur une étape (ex. retour arrière) : on enregistre l'état
+  //     courant SANS déclencher l'auto-advance,
+  //   - nouveau choix utilisateur sur la même étape : on auto-advance.
+  // Sans ça, revenir en arrière sur une étape déjà répondue redéclenche
+  // l'auto-advance et renvoie immédiatement à l'étape suivante.
+  const lastAdvanceRef = useRef<{ stepIdx: number; answer: string | null } | null>(null);
   useEffect(() => {
     if (!currentStep || isRecap) return;
     if (currentStep.fieldType !== "RADIO") return;
     if (isCompoundContactStep(currentStep) || isPostalCodeStep(currentStep)) return;
     if (typeof window !== "undefined" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const answer = answers[currentStep.key];
-    if (typeof answer !== "string" || !answer) return;
-    if (lastAnswerRef.current === answer) return;
-    lastAnswerRef.current = answer;
+    const raw = answers[currentStep.key];
+    const answer = typeof raw === "string" && raw ? raw : null;
+    const last = lastAdvanceRef.current;
+
+    // Cas 1 — on vient d'arriver sur cette étape : mémoriser et ne pas avancer.
+    if (!last || last.stepIdx !== stepIdx) {
+      lastAdvanceRef.current = { stepIdx, answer };
+      return;
+    }
+    // Cas 2 — même étape, pas (encore) de réponse.
+    if (answer == null) return;
+    // Cas 3 — même étape, même réponse (StrictMode double-run, etc.).
+    if (last.answer === answer) return;
+
+    // Cas 4 — même étape, nouvelle réponse : on auto-advance.
+    lastAdvanceRef.current = { stepIdx, answer };
     const t = window.setTimeout(() => {
       setStepIdx((i) => Math.min(steps.length, i + 1));
     }, AUTO_ADVANCE_DELAY);
     return () => window.clearTimeout(t);
-  }, [answers, currentStep, isRecap, steps.length]);
-
-  // Reset le ref au changement d'étape pour ne pas bloquer le retour arrière
-  useEffect(() => {
-    lastAnswerRef.current = null;
-  }, [stepIdx]);
+  }, [answers, currentStep, isRecap, steps.length, stepIdx]);
 
   const submit = async () => {
     setServerError(null);
@@ -263,6 +277,7 @@ export function SimulatorWizard({
   };
 
   const recapEntries = useMemo(() => {
+    const stripMd = (s: string) => s.replace(/\*\*/g, "");
     return steps
       .filter((s) => !isCompoundContactStep(s))
       .map((s) => {
@@ -277,7 +292,7 @@ export function SimulatorWizard({
         } else {
           display = raw == null ? "—" : String(raw);
         }
-        return { key: s.key, label: s.label, display };
+        return { key: s.key, label: stripMd(s.label), display: stripMd(display) };
       });
   }, [steps, answers]);
 

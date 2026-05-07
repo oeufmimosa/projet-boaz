@@ -159,6 +159,15 @@ h1 {
   animation: fadeUp 400ms ease-out both;
 }
 
+/* Overlay hover des cards services : scrollbar masquée si débordement */
+.service-card-overlay {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.service-card-overlay::-webkit-scrollbar {
+  display: none;
+}
+
 /* =========================================================================
    Accessibilité — visually hidden
    ========================================================================= */

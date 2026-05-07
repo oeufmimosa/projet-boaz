@@ -10,9 +10,8 @@ export const metadata = { title: "Simulateur" };
 export const dynamic = "force-dynamic";
 
 export default async function SimulatorPage() {
-  const [title, subtitle, rawSteps] = await Promise.all([
+  const [title, rawSteps] = await Promise.all([
     getContent("simulator.intro.title", "Estimez vos aides en quelques clics"),
-    getContent("simulator.intro.subtitle"),
     prisma.simulatorStep.findMany({ orderBy: { order: "asc" } }),
   ]);
 
@@ -34,7 +33,6 @@ export default async function SimulatorPage() {
         <header className="mb-8 text-center">
           <h1 className="font-display text-display-lg">{title}</h1>
           <TricolorAccent className="mx-auto mt-3" />
-          <p className="mt-4 text-body-lg text-text-muted">{subtitle}</p>
         </header>
 
         <div className="rounded-xl border border-border bg-surface p-6 shadow-md sm:p-10">

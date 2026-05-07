@@ -86,15 +86,15 @@ export function ServiceCard({ service }: { service: ServiceCardData }) {
       {/* Overlay révélé au hover (desktop only) */}
       <div
         aria-hidden
-        className="absolute inset-0 z-20 hidden flex-col justify-end p-5 opacity-0
+        className="service-card-overlay absolute inset-0 z-20 hidden flex-col justify-center overflow-y-auto p-4 opacity-0
                    transition-opacity duration-300 ease-out
                    group-hover:opacity-100 group-focus-visible:opacity-100
-                   md:flex sm:p-6
+                   md:flex sm:p-5
                    motion-reduce:transition-none"
         style={{ background: "rgba(10,42,26,0.90)" }}
       >
         {/* Petit accent tricolore */}
-        <div className="mb-4 flex h-0.5 w-12">
+        <div className="mb-3 flex h-0.5 w-12 shrink-0">
           <div className="flex-1" style={{ background: "var(--color-fr-blue)" }} />
           <div className="flex-1" style={{ background: "var(--color-fr-white)" }} />
           <div className="flex-1" style={{ background: "var(--color-fr-red)" }} />
@@ -103,15 +103,15 @@ export function ServiceCard({ service }: { service: ServiceCardData }) {
         <p className="mb-1 text-body-sm font-semibold uppercase tracking-wide text-accent-500">
           {service.shortLabel}
         </p>
-        <h3 className="mb-3 font-display text-display-sm font-bold text-white">
+        <h3 className="mb-2 font-display text-xl font-bold leading-tight text-white">
           {service.title}
         </h3>
 
-        <p className="mb-4 text-body leading-relaxed text-white/90">
+        <p className="mb-3 text-body-sm leading-relaxed text-white/90">
           {service.description}
         </p>
 
-        <ul className="mb-5 space-y-2">
+        <ul className="mb-4 space-y-1.5">
           {service.benefits.map((b, i) => (
             <li key={i} className="flex items-start gap-2 text-body-sm text-white/85">
               <HexBullet />
@@ -121,7 +121,7 @@ export function ServiceCard({ service }: { service: ServiceCardData }) {
         </ul>
 
         <span
-          className="inline-flex items-center gap-2 text-body font-semibold text-accent-500
+          className="mt-auto inline-flex items-center gap-2 text-body font-semibold text-accent-500
                      transition-all duration-200 group-hover:gap-3"
         >
           En savoir plus

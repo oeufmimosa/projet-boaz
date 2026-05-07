@@ -11,10 +11,9 @@ import { FOOTER_COLUMNS } from "@/lib/nav";
 const COLUMNS = FOOTER_COLUMNS;
 
 export async function Footer() {
-  const [copyright, newsletterTitle, newsletterDesc] = await Promise.all([
+  const [copyright, newsletterTitle] = await Promise.all([
     getContent("footer.copyright", "© Groupe Climat Hexagone — Tous droits réservés"),
     getContent("footer.newsletter.title", "Restez informé"),
-    getContent("footer.newsletter.description", "Aides, nouveautés et conseils en rénovation énergétique."),
   ]);
 
   return (
@@ -38,7 +37,6 @@ export async function Footer() {
           </div>
           <div className="min-w-0 overflow-hidden rounded-lg border border-primary-800 bg-primary-800 p-5">
             <h3 className="font-display text-display-sm">{newsletterTitle}</h3>
-            <p className="mt-1 text-body-sm text-primary-200">{newsletterDesc}</p>
             <div className="mt-4">
               <NewsletterForm />
             </div>

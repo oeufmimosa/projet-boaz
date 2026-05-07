@@ -256,7 +256,7 @@ export function StockImagesPanel({
         )}
 
         <p className="text-body-sm text-text-muted">
-          L'attribution sera automatiquement enregistrée et affichée sur la page <code>/credits</code>.
+          L'attribution est enregistrée en base avec l'image (auteur, source, licence) pour conformité.
         </p>
 
         <div className="flex justify-end gap-3">

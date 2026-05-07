@@ -18,7 +18,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/`,                priority: 1.0, changeFrequency: "weekly", lastModified: now },
     { url: `${SITE}/qui-sommes-nous`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/services`,        priority: 0.9, changeFrequency: "monthly", lastModified: now },
-    { url: `${SITE}/realisations`,    priority: 0.7, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/parrainage`,      priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/aides`,           priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/blog`,            priority: 0.6, changeFrequency: "weekly",  lastModified: now },
@@ -27,7 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/cgu`,               priority: 0.2, changeFrequency: "yearly", lastModified: now },
     { url: `${SITE}/confidentialite`,   priority: 0.2, changeFrequency: "yearly", lastModified: now },
     { url: `${SITE}/cookies`,           priority: 0.2, changeFrequency: "yearly", lastModified: now },
-    { url: `${SITE}/credits`,           priority: 0.2, changeFrequency: "monthly", lastModified: now },
   ];
 
   const serviceRoutes: MetadataRoute.Sitemap = SERVICES_LIST.map((s) => ({

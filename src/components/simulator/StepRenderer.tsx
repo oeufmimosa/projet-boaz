@@ -7,6 +7,7 @@ import { CheckboxField } from "./fields/CheckboxField";
 import { NumberField } from "./fields/NumberField";
 import { TextField } from "./fields/TextField";
 import { SelectField } from "./fields/SelectField";
+import { PostalCodeField } from "./fields/PostalCodeField";
 
 /**
  * Choisit la représentation visuelle d'une étape :
@@ -26,6 +27,18 @@ export function StepRenderer({
   const opts = step.options ?? [];
   const cfg = step.config ?? {};
   const hasIllus = opts.some((o) => Boolean(o.illustrationKey));
+
+  // Cas spécial — étape "code_postal" : champ dédié avec auto-complétion ville
+  // via geo.api.gouv.fr. Le composant écrit "75001 Paris" dans le parent pour
+  // rester compatible avec la validation regex existante du wizard.
+  if (step.key === "code_postal") {
+    return (
+      <PostalCodeField
+        value={typeof value === "string" ? value : ""}
+        onChange={onChange}
+      />
+    );
+  }
 
   switch (step.fieldType) {
     case "RADIO":

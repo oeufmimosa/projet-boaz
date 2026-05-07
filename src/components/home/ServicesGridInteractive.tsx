@@ -53,7 +53,13 @@ async function loadCardData(slug: typeof SLUGS[number]): Promise<ServiceCardData
   };
 }
 
-export async function ServicesGridInteractive() {
+export async function ServicesGridInteractive({
+  showHeader = true,
+  showCta = true,
+}: {
+  showHeader?: boolean;
+  showCta?: boolean;
+} = {}) {
   const [label, title, subtitle, ...cards] = await Promise.all([
     getContent("home.services.label", "Nos solutions"),
     getContent("home.services.title", "Des solutions pour chaque besoin énergétique"),
@@ -67,18 +73,20 @@ export async function ServicesGridInteractive() {
   return (
     <section className="bg-bg py-16 sm:py-20 lg:py-24">
       <Container>
-        <header className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="mb-3 text-body-sm font-semibold uppercase tracking-wide text-primary-700">
-            {label}
-          </p>
-          <h2 className="font-display text-display-md font-bold text-text">
-            {title}
-          </h2>
-          <TricolorAccent className="mx-auto mt-4" />
-          <p className="mx-auto mt-6 max-w-2xl text-body-lg text-text-muted">
-            {subtitle}
-          </p>
-        </header>
+        {showHeader && (
+          <header className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="mb-3 text-body-sm font-semibold uppercase tracking-wide text-primary-700">
+              {label}
+            </p>
+            <h2 className="font-display text-display-md font-bold text-text">
+              {title}
+            </h2>
+            <TricolorAccent className="mx-auto mt-4" />
+            <p className="mx-auto mt-6 max-w-2xl text-body-lg text-text-muted">
+              {subtitle}
+            </p>
+          </header>
+        )}
 
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card) => (
@@ -88,11 +96,13 @@ export async function ServicesGridInteractive() {
           ))}
         </ul>
 
-        <div className="mt-12 text-center">
-          <LinkButton href="/services" variant="outline" size="lg">
-            Voir toutes nos expertises
-          </LinkButton>
-        </div>
+        {showCta && (
+          <div className="mt-12 text-center">
+            <LinkButton href="/services" variant="outline" size="lg">
+              Voir toutes nos expertises
+            </LinkButton>
+          </div>
+        )}
       </Container>
     </section>
   );
