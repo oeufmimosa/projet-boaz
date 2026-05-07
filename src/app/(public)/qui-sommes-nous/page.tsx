@@ -88,7 +88,7 @@ export default async function QuiSommesNousPage() {
             fill
             priority
             sizes="100vw"
-            className="absolute inset-0 -z-10 object-cover"
+            className="absolute inset-0 -z-10 object-cover object-center"
             {...(heroImg.blurDataURL
               ? { placeholder: "blur" as const, blurDataURL: heroImg.blurDataURL }
               : {})}

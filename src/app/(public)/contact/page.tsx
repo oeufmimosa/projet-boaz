@@ -54,7 +54,7 @@ export default async function ContactPage() {
       />
 
       {/* Hero — fond image (asset key contact.hero) avec overlay vert pour lisibilité */}
-      <section className="relative isolate overflow-hidden bg-primary-800 py-16 text-text-inverse">
+      <section className="relative isolate flex min-h-[420px] items-center overflow-hidden bg-primary-800 py-16 text-text-inverse sm:min-h-[520px]">
         {heroImg && (
           <Image
             src={heroImg.url}
@@ -63,7 +63,7 @@ export default async function ContactPage() {
             fill
             priority
             sizes="100vw"
-            className="absolute inset-0 -z-10 object-cover"
+            className="absolute inset-0 -z-10 object-cover scale-90 translate-x-[8%]"
             {...(heroImg.blurDataURL
               ? { placeholder: "blur" as const, blurDataURL: heroImg.blurDataURL }
               : {})}

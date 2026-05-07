@@ -20,9 +20,9 @@ export default function ServicesIndexPage() {
           { label: "Nos services", href: "/services" },
         ]}
       />
-      <section className="relative isolate overflow-hidden bg-primary-800 py-16 text-text-inverse">
+      <section className="relative isolate flex min-h-[420px] items-center overflow-hidden bg-primary-800 py-16 text-text-inverse sm:min-h-[540px]">
         <Image
-          src="/realisations/strasbourg.jpg"
+          src="/services/hero.jpg"
           alt=""
           aria-hidden
           fill
