@@ -75,7 +75,7 @@ export function ChatLauncher({ config }: { config: ChatConfig }) {
         type="button"
         aria-label="Ouvrir la chatbox"
         onClick={openPanel}
-        className="fixed z-40 inline-flex h-16 w-14 items-center justify-center text-text-inverse lg:bottom-6 lg:right-6 hex-launcher hex-pulse"
+        className="fixed z-40 inline-flex h-24 w-[84px] items-center justify-center text-text-inverse lg:bottom-6 lg:right-6 hex-launcher hex-pulse"
         style={{
           // mobile : bottom 88 (au-dessus de la sticky CTA), right 16
           bottom: "calc(88px + env(safe-area-inset-bottom))",
@@ -90,13 +90,13 @@ export function ChatLauncher({ config }: { config: ChatConfig }) {
         >
           <path d="M28 2 52 16v32L28 62 4 48V16Z" fill="var(--color-primary-700)" />
         </svg>
-        <svg viewBox="0 0 24 24" className="relative h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+        <svg viewBox="0 0 24 24" className="relative h-9 w-9" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         {!dismissed && (
           <span
             aria-hidden
-            className="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-fr-red text-text-inverse text-[10px] font-bold border-2 border-bg"
+            className="absolute -top-1 -right-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-fr-red text-text-inverse text-[11px] font-bold border-2 border-bg"
           >
             1
           </span>

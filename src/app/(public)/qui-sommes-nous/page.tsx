@@ -119,6 +119,100 @@ export default async function QuiSommesNousPage() {
         </Container>
       </section>
 
+      {/* a-bis) Nos réalisations — placée tout en haut, juste après le hero */}
+      <Section id="realisations" className="bg-primary-50">
+        <Container>
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
+              Nos chantiers
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
+              Nos réalisations
+            </h2>
+            <p className="mt-3 text-text-muted">
+              Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique :
+              voici comment notre équipe accompagne des propriétaires partout en France.
+            </p>
+          </div>
+
+          {/* ⚠️ Disclaimer placeholder — à retirer une fois les cas réels substitués */}
+          <div
+            data-content="placeholder"
+            className="mx-auto mb-10 max-w-4xl rounded-lg border border-accent-500/40 bg-accent-500/5 p-5 text-body-sm text-amber-900 ring-1 ring-accent-500/30"
+          >
+            <strong>Note pour la phase de mise en page :</strong> les six réalisations
+            ci-dessous sont des <strong>cas fictifs réalistes</strong> destinés à valider
+            la structure et le rendu. Les chiffres d&apos;aides correspondent à des ordres
+            de grandeur 2025 cohérents mais ne proviennent pas de dossiers réels. Avant
+            mise en production, le client doit substituer ces cas par des chantiers
+            vérifiables avec consentement écrit RGPD du client final.
+          </div>
+
+          <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {REALISATIONS.map((r) => (
+              <li key={r.slug}>
+                <div
+                  data-content={r.placeholder ? "placeholder" : undefined}
+                  className={`flex h-full flex-col overflow-hidden rounded-lg border bg-surface ${
+                    r.placeholder
+                      ? "border-accent-500/40 ring-1 ring-accent-500/20"
+                      : "border-border"
+                  }`}
+                >
+                  {(() => {
+                    const imgs = [r.coverImage, ...(r.additionalImages ?? [])];
+                    if (imgs.length > 1) {
+                      return (
+                        <div className="grid aspect-[3/2] w-full grid-cols-2 gap-0.5 bg-border">
+                          {imgs.slice(0, 2).map((src, idx) => (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              key={`${src}-${idx}`}
+                              src={src}
+                              alt={`Photo client ${idx + 1} — ${r.title}`}
+                              className="h-full w-full object-cover"
+                            />
+                          ))}
+                        </div>
+                      );
+                    }
+                    return (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={r.coverImage}
+                        alt={`Photo avant/après — ${r.title}`}
+                        className="aspect-[3/2] w-full object-cover"
+                      />
+                    );
+                  })()}
+                  <div className="flex flex-1 flex-col p-5">
+                    <p className="text-body-sm uppercase tracking-wide text-accent-600">
+                      {r.location}
+                    </p>
+                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800">
+                      {r.title}
+                    </h3>
+                    <ul className="mt-3 space-y-1 text-body-sm text-text-muted">
+                      <li>
+                        <strong className="text-text">Aides obtenues :</strong>{" "}
+                        {formatEuros(r.aidesObtainedEuros)}
+                      </li>
+                      <li>
+                        <strong className="text-text">Économies/an :</strong>{" "}
+                        {formatEuros(r.yearlySavingsEuros)}
+                      </li>
+                      <li>
+                        <strong className="text-text">Durée :</strong> {r.durationDays} jours
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Section>
+
       {/* b) Quatre piliers */}
       <Section>
         <Container>
@@ -268,100 +362,6 @@ export default async function QuiSommesNousPage() {
 
       {/* e) Chiffres clés */}
       <KeyFigures title="Notre savoir-faire en chiffres" items={FIGURES} />
-
-      {/* e-bis) Nos réalisations — déplacé depuis l'ancienne page /realisations */}
-      <Section id="realisations">
-        <Container>
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
-              Nos chantiers
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Nos réalisations
-            </h2>
-            <p className="mt-3 text-text-muted">
-              Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique :
-              voici comment notre équipe accompagne des propriétaires partout en France.
-            </p>
-          </div>
-
-          {/* ⚠️ Disclaimer placeholder — à retirer une fois les cas réels substitués */}
-          <div
-            data-content="placeholder"
-            className="mx-auto mb-10 max-w-4xl rounded-lg border border-accent-500/40 bg-accent-500/5 p-5 text-body-sm text-amber-900 ring-1 ring-accent-500/30"
-          >
-            <strong>Note pour la phase de mise en page :</strong> les six réalisations
-            ci-dessous sont des <strong>cas fictifs réalistes</strong> destinés à valider
-            la structure et le rendu. Les chiffres d&apos;aides correspondent à des ordres
-            de grandeur 2025 cohérents mais ne proviennent pas de dossiers réels. Avant
-            mise en production, le client doit substituer ces cas par des chantiers
-            vérifiables avec consentement écrit RGPD du client final.
-          </div>
-
-          <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {REALISATIONS.map((r) => (
-              <li key={r.slug}>
-                <div
-                  data-content={r.placeholder ? "placeholder" : undefined}
-                  className={`flex h-full flex-col overflow-hidden rounded-lg border bg-surface ${
-                    r.placeholder
-                      ? "border-accent-500/40 ring-1 ring-accent-500/20"
-                      : "border-border"
-                  }`}
-                >
-                  {(() => {
-                    const imgs = [r.coverImage, ...(r.additionalImages ?? [])];
-                    if (imgs.length > 1) {
-                      return (
-                        <div className="grid aspect-[3/2] w-full grid-cols-2 gap-0.5 bg-border">
-                          {imgs.slice(0, 2).map((src, idx) => (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              key={`${src}-${idx}`}
-                              src={src}
-                              alt={`Photo client ${idx + 1} — ${r.title}`}
-                              className="h-full w-full object-cover"
-                            />
-                          ))}
-                        </div>
-                      );
-                    }
-                    return (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={r.coverImage}
-                        alt={`Photo avant/après — ${r.title}`}
-                        className="aspect-[3/2] w-full object-cover"
-                      />
-                    );
-                  })()}
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="text-body-sm uppercase tracking-wide text-accent-600">
-                      {r.location}
-                    </p>
-                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800">
-                      {r.title}
-                    </h3>
-                    <ul className="mt-3 space-y-1 text-body-sm text-text-muted">
-                      <li>
-                        <strong className="text-text">Aides obtenues :</strong>{" "}
-                        {formatEuros(r.aidesObtainedEuros)}
-                      </li>
-                      <li>
-                        <strong className="text-text">Économies/an :</strong>{" "}
-                        {formatEuros(r.yearlySavingsEuros)}
-                      </li>
-                      <li>
-                        <strong className="text-text">Durée :</strong> {r.durationDays} jours
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
 
       {/* f) CTA finale */}
       <Section>
