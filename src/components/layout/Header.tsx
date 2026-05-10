@@ -4,6 +4,7 @@ import { TricolorBar } from "@/components/brand/TricolorBar";
 import { MobileMenu } from "./MobileMenu";
 import { ScrollAwareHeader } from "./ScrollAwareHeader";
 import { ServicesDropdown } from "./ServicesDropdown";
+import { CallbackButton } from "@/components/callback/CallbackButton";
 import { NAV_LINKS } from "@/lib/nav";
 import { getContent } from "@/lib/content";
 
@@ -105,6 +106,10 @@ export async function Header() {
               <LinkButton href="/simulateur" variant="accent" size="sm" className="px-3">
                 Simuler
               </LinkButton>
+            </span>
+
+            <span className="hidden midnav:inline-flex">
+              <CallbackButton />
             </span>
 
             <span className="inline-flex midnav:hidden">
