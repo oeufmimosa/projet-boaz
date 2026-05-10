@@ -9,7 +9,6 @@ import { StepBadge } from "./StepBadge";
 import { StepHeading } from "./StepHeading";
 import { StepSubheading } from "./StepSubheading";
 import { EncouragementBadge } from "./EncouragementBadge";
-import { AidesEstimateBanner } from "./AidesEstimateBanner";
 import { StepRenderer } from "./StepRenderer";
 import { ContactStep, ContactInfo } from "./ContactStep";
 import { SimulatorStepDTO, AnswerValue, AnswersMap } from "@/types/simulator";
@@ -303,15 +302,6 @@ export function SimulatorWizard({
     ? { duration: 0 }
     : { duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] };
 
-  // Pour la barre d'aides : récupère travaux + revenus s'ils ont été
-  // renseignés dans les étapes précédentes.
-  const travauxAnswer = answers["travaux"];
-  const travauxList = Array.isArray(travauxAnswer) ? travauxAnswer : [];
-  const revenusAnswer = answers["revenus"];
-  const revenus = typeof revenusAnswer === "string"
-    ? (revenusAnswer as "tres-modeste" | "modeste" | "intermediaire" | "superieur")
-    : undefined;
-
   return (
     <div className="flex h-full flex-col gap-6">
       {chatBanner && (
@@ -384,11 +374,6 @@ export function SimulatorWizard({
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Bandeau d'aides indicatives — affiché dès que des travaux sont sélectionnés */}
-      {travauxList.length > 0 && (
-        <AidesEstimateBanner travaux={travauxList} revenus={revenus} />
-      )}
 
       <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:justify-between">
         <Button

@@ -1,6 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { LinkButton } from "@/components/ui/Button";
 import { TricolorAccent } from "@/components/brand/TricolorBar";
+import { BrandsMarquee } from "@/components/brand/BrandsMarquee";
 import { ServiceCard, type ServiceCardData } from "./ServiceCard";
 import { getContent, getJsonContent } from "@/lib/content";
 import { getAssetByKey } from "@/lib/media";
@@ -54,9 +55,12 @@ async function loadCardData(slug: typeof SLUGS[number]): Promise<ServiceCardData
 export async function ServicesGridInteractive({
   showHeader = true,
   showCta = true,
+  showBrandsMarquee = false,
 }: {
   showHeader?: boolean;
   showCta?: boolean;
+  /** Si true, insère le bandeau "Nos marques proposées" entre les cards et le CTA. */
+  showBrandsMarquee?: boolean;
 } = {}) {
   const [label, title, subtitle, ...cards] = await Promise.all([
     getContent("home.services.label", "Nos solutions"),
@@ -96,7 +100,11 @@ export async function ServicesGridInteractive({
             </li>
           ))}
         </ul>
+      </Container>
 
+      {showBrandsMarquee && <BrandsMarquee />}
+
+      <Container>
         {showCta && (
           <div className="mt-12 text-center">
             <LinkButton href="/services" variant="outline" size="lg">

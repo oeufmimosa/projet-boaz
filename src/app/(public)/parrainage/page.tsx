@@ -7,20 +7,13 @@ import { ReferralForm } from "@/components/referral/ReferralForm";
 import { LinkButton } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { getAssetByKey } from "@/lib/media";
+import { SERVICES_LIST } from "@/lib/services";
 
 export const metadata = {
   title: "Parrainage — gagnez jusqu'à 1 000 € par filleul",
   description:
     "Recommandez Groupe Climat Hexagone à un proche : pour chaque projet de rénovation énergétique réalisé, recevez jusqu'à 1 000 € de prime.",
 };
-
-const SERVICES = [
-  { slug: "pompe-a-chaleur-air-eau", label: "Pompe à chaleur Air/Eau", icon: "🔥" },
-  { slug: "pompe-a-chaleur-air-air", label: "Pompe à chaleur Air/Air", icon: "❄️" },
-  { slug: "isolation-thermique-exterieure", label: "Isolation thermique extérieure", icon: "🧱" },
-  { slug: "ballon-thermodynamique", label: "Ballon thermodynamique", icon: "🛢️" },
-  { slug: "systeme-solaire-combine", label: "Système solaire combiné", icon: "🔆" },
-];
 
 const STEPS = [
   {
@@ -43,6 +36,14 @@ const STEPS = [
 export default async function ParrainagePage() {
   const heroImg = await getAssetByKey("parrainage.hero");
   const formImg = await getAssetByKey("parrainage.form.image");
+  // Photos des 5 produits pour le marquee "Travaux éligibles"
+  const productCards = await Promise.all(
+    SERVICES_LIST.map(async (s) => ({
+      slug: s.slug,
+      label: s.label,
+      image: await getAssetByKey(`home.services.cards.${s.slug}.image`),
+    })),
+  );
   return (
     <>
       <Breadcrumbs
@@ -212,7 +213,7 @@ export default async function ParrainagePage() {
         </Container>
       </Section>
 
-      {/* e) Travaux éligibles */}
+      {/* e) Travaux éligibles — marquee horizontal des 5 produits */}
       <Section>
         <Container>
           <div className="mx-auto max-w-3xl text-center">
@@ -224,20 +225,48 @@ export default async function ParrainagePage() {
               isolation, ballon thermodynamique, système solaire combiné.
             </p>
           </div>
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="flex h-full items-center gap-4 rounded-lg border border-border bg-surface p-5 transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
-                >
-                  <span className="text-3xl" aria-hidden>{s.icon}</span>
-                  <span className="font-display font-semibold text-primary-800">{s.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </Container>
+        <div className="products-marquee group mt-10">
+          <ul className="products-marquee-track" aria-label="Produits éligibles au parrainage">
+            {Array.from({ length: 6 }, (_, copyIdx) =>
+              productCards.map((p, idx) => (
+                <li
+                  key={`${p.slug}-${copyIdx}-${idx}`}
+                  aria-hidden={copyIdx > 0}
+                >
+                  <Link href={`/services/${p.slug}`} className="products-marquee-item">
+                    <div className="relative h-[130px] w-full overflow-hidden bg-primary-900">
+                      {p.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={p.image.url}
+                          alt={p.label}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div
+                          aria-hidden
+                          className="absolute inset-0 bg-gradient-to-br from-primary-700 to-primary-900"
+                        />
+                      )}
+                      <div
+                        aria-hidden
+                        className="absolute inset-x-0 bottom-0 h-2/5"
+                        style={{ background: "linear-gradient(to top, rgba(10,42,26,0.92), transparent)" }}
+                      />
+                    </div>
+                    <div className="flex flex-1 items-center bg-primary-900 px-3 py-2 text-white">
+                      <p className="line-clamp-2 font-display text-xs font-bold leading-tight">
+                        {p.label}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              )),
+            ).flat()}
+          </ul>
+        </div>
       </Section>
     </>
   );

@@ -19,7 +19,7 @@ export function HomeDesktop({ data }: { data: HomeData }) {
         ctaPrimary={data.hero.ctaPrimary}
         ctaSecondary={data.hero.ctaSecondary}
       />
-      <ServicesGridInteractive />
+      <ServicesGridInteractive showBrandsMarquee />
       <ExpertiseSection />
       <KeyFigures title={data.figures.title} items={data.figures.items} />
       <HowItWorks title={data.how.title} steps={data.how.steps} />

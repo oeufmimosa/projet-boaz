@@ -159,6 +159,48 @@ h1 {
   animation: fadeUp 400ms ease-out both;
 }
 
+/* Marquee produits sur la page parrainage : 5 cards défilent en boucle */
+.products-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+.products-marquee-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: marquee 110s linear infinite;
+  padding: 0.5rem 0;
+}
+.products-marquee:hover .products-marquee-track,
+.products-marquee:focus-within .products-marquee-track {
+  animation-play-state: paused;
+}
+/* Toutes les cards ont la MEME dimension fixe (largeur + hauteur) pour un
+ * rendu uniforme. La hauteur exacte est repartie entre l'image (haut) et
+ * le bandeau de titre (bas). */
+.products-marquee-item {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  height: 196px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+.products-marquee-item:hover {
+  border-color: var(--color-primary-300);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .products-marquee-track { animation: none; }
+}
+
 /* Bandeau marques partenaires : marquee horizontal infini */
 .brands-marquee {
   overflow: hidden;

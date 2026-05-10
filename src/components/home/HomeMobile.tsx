@@ -29,7 +29,7 @@ export function HomeMobile({
       <HeroMobile title={data.hero.title} subtitle={data.hero.subtitle} />
       <KeyFiguresCompact />
       <ChatHomeInvite advisorName={advisorName} advisorInitials={advisorInitials} />
-      <ServicesGridInteractive />
+      <ServicesGridInteractive showBrandsMarquee />
       <ExpertiseSection />
       <HowItWorksCompact />
       <ParrainageSection />

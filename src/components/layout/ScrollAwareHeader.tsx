@@ -28,10 +28,13 @@ export function ScrollAwareHeader({ children }: { children: React.ReactNode }) {
       )}
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         header[data-scrolled] [data-nav] { color: var(--color-text-inverse); }
         header[data-scrolled] [data-nav]:hover { color: var(--color-accent-500); }
-      `}</style>
+        /* Logo : transition douce et conversion en blanc quand le header est vert */
+        .site-logo { transition: filter 200ms ease; }
+        header[data-scrolled] .site-logo { filter: brightness(0) invert(1); }
+      ` }} />
       {children}
     </header>
   );

@@ -447,18 +447,6 @@ async function seedSimulatorSteps() {
       ],
     },
     {
-      key: "travaux",
-      label: "Quels **travaux** vous intéressent ?",
-      helpText: "Plusieurs choix possibles.",
-      fieldType: FieldType.CHECKBOX,
-      required: true,
-      options: SERVICES_FOR_SIMULATOR.map((s) => ({
-        value: s.slug,
-        label: s.title,
-        illustrationKey: s.illus,
-      })),
-    },
-    {
       key: "surface",
       label: "Quelle **surface** fait votre logement ?",
       helpText: "En mètres carrés habitables.",
@@ -479,19 +467,6 @@ async function seedSimulatorSteps() {
         { value: "bois",       label: "Bois / biomasse",illustrationKey: "heating-wood" },
         { value: "pac",        label: "Pompe à chaleur",illustrationKey: "heating-pump" },
         { value: "autre",      label: "Autre",          illustrationKey: "heating-other" },
-      ],
-    },
-    {
-      key: "annee_construction",
-      label: "**Année de construction** du logement",
-      fieldType: FieldType.SELECT,
-      required: true,
-      options: [
-        { value: "avant-1948", label: "Avant 1948" },
-        { value: "1948-1974", label: "Entre 1948 et 1974" },
-        { value: "1975-1989", label: "Entre 1975 et 1989" },
-        { value: "1990-2005", label: "Entre 1990 et 2005" },
-        { value: "apres-2005", label: "Après 2005" },
       ],
     },
     {

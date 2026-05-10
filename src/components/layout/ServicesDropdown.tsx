@@ -99,15 +99,12 @@ export function ServicesDropdown() {
                   role="menuitem"
                   href={s.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-start gap-3 rounded-md px-3 py-2 hover:bg-primary-50"
+                  className="flex flex-col rounded-md px-3 py-2 hover:bg-primary-50"
                 >
-                  <span aria-hidden className="text-xl leading-none">{s.icon}</span>
-                  <span className="flex flex-col">
-                    <span className="font-display font-semibold text-primary-800">{s.label}</span>
-                    {s.description && (
-                      <span className="text-xs text-text-muted">{s.description}</span>
-                    )}
-                  </span>
+                  <span className="font-display font-semibold text-primary-800">{s.label}</span>
+                  {s.description && (
+                    <span className="text-xs text-text-muted">{s.description}</span>
+                  )}
                 </Link>
               </li>
             ))}

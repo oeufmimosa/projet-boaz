@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LinkButton } from "@/components/ui/Button";
-import { Logo } from "@/components/brand/Logo";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 import { MobileMenu } from "./MobileMenu";
 import { ScrollAwareHeader } from "./ScrollAwareHeader";
@@ -48,24 +47,14 @@ export async function Header() {
             <Link
               href="/"
               aria-label="Accueil — Groupe Climat Hexagone"
-              className="mr-3 inline-flex min-w-0 shrink"
+              className="mr-3 inline-flex shrink-0 items-center"
             >
-              {/* < 360 px : symbole seul (cas dégradé) */}
-              <span className="block xs:hidden">
-                <Logo layout="mark" size="sm" />
-              </span>
-              {/* 360 → midnav (1100) : compact sm (wordmark visible mobile) */}
-              <span className="hidden xs:block midnav:hidden">
-                <Logo layout="compact" size="sm" />
-              </span>
-              {/* midnav → xl (1100-1279) : mark md (laisse la place au menu) */}
-              <span className="hidden midnav:block xl:hidden">
-                <Logo layout="mark" size="md" />
-              </span>
-              {/* ≥ xl (1280) : compact md plein wordmark */}
-              <span className="hidden xl:block">
-                <Logo layout="compact" size="md" />
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="Groupe Climat Hexagone"
+                className="site-logo h-10 w-auto sm:h-12"
+              />
             </Link>
 
             {/* Menu horizontal — ≥ midnav uniquement, collé à gauche */}
@@ -104,7 +93,7 @@ export async function Header() {
             </nav>
           </div>
 
-          {/* Zone droite — uniquement le CTA, jamais écrasée */}
+          {/* Zone droite — CTA principal + bouton "Être rappelé" + menu mobile */}
           <div className="flex shrink-0 items-center gap-3">
             <span className="hidden narrow:inline-flex">
               <LinkButton href="/simulateur" variant="accent" size="md">

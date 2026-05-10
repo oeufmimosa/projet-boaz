@@ -63,7 +63,7 @@ export default async function ContactPage() {
             fill
             priority
             sizes="100vw"
-            className="absolute inset-0 -z-10 object-cover scale-90 translate-x-[8%]"
+            className="absolute inset-0 -z-10 object-cover"
             {...(heroImg.blurDataURL
               ? { placeholder: "blur" as const, blurDataURL: heroImg.blurDataURL }
               : {})}
