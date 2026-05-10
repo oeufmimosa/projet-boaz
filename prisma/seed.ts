@@ -484,6 +484,13 @@ async function seedSimulatorSteps() {
       ],
     },
     {
+      key: "code_postal",
+      label: "**Code postal** du logement",
+      fieldType: FieldType.TEXT,
+      required: true,
+      config: { placeholder: "Ex : 75001" },
+    },
+    {
       key: "revenus",
       label: "Votre **tranche de revenus fiscaux**",
       helpText: "Sert uniquement à estimer le montant de vos aides.",
@@ -496,13 +503,6 @@ async function seedSimulatorSteps() {
         { value: "intermediaire", label: "Intermédiaires" },
         { value: "superieur",     label: "Supérieurs" },
       ],
-    },
-    {
-      key: "code_postal",
-      label: "**Code postal** du logement",
-      fieldType: FieldType.TEXT,
-      required: true,
-      config: { placeholder: "Ex : 75001" },
     },
     {
       key: "coordonnees",

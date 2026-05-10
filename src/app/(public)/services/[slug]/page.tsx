@@ -45,7 +45,14 @@ const ADVANTAGES_IMAGES: Record<string, string> = {
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
   if (!isValidServiceSlug(params.slug)) notFound();
   const service = getService(params.slug)!;
-  const others = SERVICES_LIST.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const others = SERVICES_LIST.filter((s) => s.slug !== service.slug);
+  const otherCards = await Promise.all(
+    others.map(async (s) => ({
+      slug: s.slug,
+      label: s.label,
+      image: await getAssetByKey(`home.services.cards.${s.slug}.image`),
+    })),
+  );
   const advantagesImg = ADVANTAGES_IMAGES[service.slug];
   // Image hero : on tente d'abord la clé dédiée services.<slug>.hero, puis on
   // retombe sur celle de la card home `home.services.cards.<slug>.image` (déjà
@@ -241,18 +248,36 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
       <Section tone="muted">
         <Container>
           <h2 className="font-display text-2xl font-bold text-primary-800">Autres services</h2>
-          <ul className="mt-6 grid gap-4 sm:grid-cols-3">
-            {others.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="block rounded-lg border border-border bg-surface p-5 transition hover:border-primary-300 hover:shadow-md"
-                >
-                  <div className="flex items-center gap-3">
-                    <span aria-hidden className="text-2xl">{s.icon}</span>
-                    <span className="font-display font-semibold text-primary-800">{s.label}</span>
+          <ul className="mt-8 flex flex-wrap gap-4">
+            {otherCards.map((p) => (
+              <li key={p.slug}>
+                <Link href={`/services/${p.slug}`} className="products-marquee-item">
+                  <div className="relative h-[130px] w-full overflow-hidden bg-primary-900">
+                    {p.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={p.image.url}
+                        alt={p.label}
+                        className="absolute inset-0 h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 bg-gradient-to-br from-primary-700 to-primary-900"
+                      />
+                    )}
+                    <div
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-2/5"
+                      style={{ background: "linear-gradient(to top, rgba(10,42,26,0.92), transparent)" }}
+                    />
                   </div>
-                  <p className="mt-2 text-body-sm text-text-muted">{s.short}</p>
+                  <div className="flex flex-1 items-center bg-primary-900 px-3 py-2 text-white">
+                    <p className="line-clamp-2 font-display text-xs font-bold leading-tight">
+                      {p.label}
+                    </p>
+                  </div>
                 </Link>
               </li>
             ))}

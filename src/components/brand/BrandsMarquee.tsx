@@ -103,21 +103,23 @@ function BrandItem({ brand }: { brand: Brand }) {
   );
 }
 
-export function BrandsMarquee() {
+export function BrandsMarquee({ showHeading = true }: { showHeading?: boolean } = {}) {
   // Dupliquer la liste pour une boucle sans saut visible.
   const loop = [...BRANDS, ...BRANDS];
 
   return (
-    <section className="bg-bg py-12 sm:py-16">
-      <div className="mx-auto mb-8 max-w-3xl px-4 text-center sm:mb-10">
-        <h2 className="font-display text-2xl font-bold text-primary-800 sm:text-3xl">
-          Nos marques proposées
-        </h2>
-        <p className="mt-2 text-text-muted">
-          Nous installons exclusivement des équipements de marques reconnues,
-          garanties et certifiées par leurs constructeurs.
-        </p>
-      </div>
+    <section className={showHeading ? "bg-bg py-12 sm:py-16" : "-mt-12 bg-bg pb-8 pt-0 sm:-mt-16 sm:pb-10"}>
+      {showHeading && (
+        <div className="mx-auto mb-8 max-w-3xl px-4 text-center sm:mb-10">
+          <h2 className="font-display text-2xl font-bold text-primary-800 sm:text-3xl">
+            Nos marques proposées
+          </h2>
+          <p className="mt-2 text-text-muted">
+            Nous installons exclusivement des équipements de marques reconnues,
+            garanties et certifiées par leurs constructeurs.
+          </p>
+        </div>
+      )}
 
       <div className="brands-marquee group">
         <ul className="brands-marquee-track" aria-label="Marques partenaires">

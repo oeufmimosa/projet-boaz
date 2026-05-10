@@ -5,6 +5,7 @@ import { LinkButton } from "@/components/ui/Button";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ServicesGridInteractive } from "@/components/home/ServicesGridInteractive";
+import { BrandsMarquee } from "@/components/brand/BrandsMarquee";
 
 export const metadata = {
   title: "Nos services",
@@ -148,6 +149,9 @@ export default function ServicesIndexPage() {
         </Container>
       </Section>
       <ServicesGridInteractive showHeader={false} showCta={false} />
+
+      {/* c-bis) Marques proposées (sans heading) */}
+      <BrandsMarquee showHeading={false} />
 
       {/* d) Comment ça se passe (3 étapes) */}
       <Section className="bg-primary-50">
