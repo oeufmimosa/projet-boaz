@@ -22,7 +22,7 @@ const inputCls =
  * - POST /api/callback à la soumission.
  * - Fermeture : Escape, clic sur backdrop, ou bouton X.
  */
-export function CallbackButton() {
+export function CallbackButton({ compact = false }: { compact?: boolean } = {}) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -111,12 +111,17 @@ export function CallbackButton() {
         type="button"
         onClick={() => setOpen(true)}
         data-callback-button
-        className="inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-md border border-primary-700 bg-white px-5 text-body font-semibold text-primary-700 transition hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2"
+        aria-label={compact ? "Être rappelé" : undefined}
+        className={
+          compact
+            ? "inline-flex h-10 w-10 items-center justify-center rounded-md border border-primary-700 bg-white text-primary-700 transition hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2"
+            : "inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-md border border-primary-700 bg-white px-5 text-body font-semibold text-primary-700 transition hover:bg-primary-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2"
+        }
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg width={compact ? 18 : 16} height={compact ? 18 : 16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
         </svg>
-        Être rappelé
+        {!compact && "Être rappelé"}
       </button>
 
       {mounted && createPortal(

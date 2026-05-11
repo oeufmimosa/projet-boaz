@@ -113,6 +113,10 @@ export async function Header() {
             </span>
 
             <span className="inline-flex midnav:hidden">
+              <CallbackButton compact />
+            </span>
+
+            <span className="inline-flex midnav:hidden">
               <MobileMenu links={NAV_LINKS} ctaLabel={ctaLabel} />
             </span>
           </div>
