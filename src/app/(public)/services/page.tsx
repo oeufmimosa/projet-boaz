@@ -48,11 +48,11 @@ const PROCESS_STEPS = [
   },
 ];
 
-const PILLARS = [
-  { icon: "🔍", title: "Étude sur-mesure", body: "Pas de solution standard : on dimensionne en fonction de votre logement et de vos consommations réelles." },
-  { icon: "🛡️", title: "Artisans certifiés RGE", body: "Travaux réalisés par des partenaires Reconnus Garants de l'Environnement, condition sine qua non pour les aides." },
-  { icon: "💰", title: "Aides maximisées", body: "MaPrimeRénov', CEE, Éco-PTZ : on calcule, on cumule et on déclare pour vous. Pas un euro de perdu." },
-  { icon: "⚖️", title: "Garantie décennale", body: "Tous les chantiers couverts par une assurance décennale. Sérénité 10 ans après la mise en service." },
+const PILLARS: Array<{ icon?: string; image?: string; imgScale?: number; title: string; body: string }> = [
+  { image: "/services/etude-sur-mesure.png", imgScale: 0.7, title: "Étude sur-mesure", body: "Pas de solution standard : on dimensionne en fonction de votre logement et de vos consommations réelles." },
+  { image: "/partners/certif-1.png", title: "Artisans certifiés RGE", body: "Travaux réalisés par des partenaires Reconnus Garants de l'Environnement, condition sine qua non pour les aides." },
+  { image: "/partners/certif-4.png", imgScale: 2.1, title: "Aides maximisées", body: "MaPrimeRénov', CEE, Éco-PTZ : on calcule, on cumule et on déclare pour vous. Pas un euro de perdu." },
+  { image: "/services/garantie-decennale.webp", title: "Garantie décennale", body: "Tous les chantiers couverts par une assurance décennale. Sérénité 10 ans après la mise en service." },
 ];
 
 export default function ServicesIndexPage() {
@@ -214,14 +214,28 @@ export default function ServicesIndexPage() {
               >
                 <div
                   aria-hidden
-                  className="flex h-14 w-14 shrink-0 items-center justify-center bg-primary-50 text-2xl"
+                  className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden bg-primary-50 text-4xl"
                   style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                 >
-                  {p.icon}
+                  {p.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.image}
+                      alt=""
+                      className="object-contain"
+                      style={{
+                        width: `${5 * (p.imgScale ?? 1)}rem`,
+                        height: `${5 * (p.imgScale ?? 1)}rem`,
+                      }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    p.icon
+                  )}
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-primary-800">{p.title}</h3>
-                  <p className="mt-2 text-body-sm text-text-muted">{p.body}</p>
+                  <h3 className="font-display text-base font-semibold text-primary-800">{p.title}</h3>
+                  <p className="mt-2 text-xs text-text-muted">{p.body}</p>
                 </div>
               </li>
             ))}

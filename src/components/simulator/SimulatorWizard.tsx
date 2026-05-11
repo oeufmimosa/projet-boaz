@@ -14,6 +14,12 @@ import { ContactStep, ContactInfo } from "./ContactStep";
 import { SimulatorStepDTO, AnswerValue, AnswersMap } from "@/types/simulator";
 import { quoteSubmissionSchema } from "@/lib/validators/simulator";
 import type { ChatPrefill } from "@/types/chatbox";
+import {
+  isIDFPostalCode,
+  getRevenusThresholds,
+  parseFoyerPersonnes,
+  formatEuros,
+} from "@/lib/anah-thresholds";
 
 const STORAGE_KEY = "bz_simulator_state_v1";
 const CHATBOX_PREFILL_KEY = "chatbox.prefill";
@@ -146,7 +152,39 @@ export function SimulatorWizard({
   }, [answers, contact, postalCode, city, hydrated]);
 
   const isRecap = stepIdx === steps.length;
-  const currentStep = !isRecap ? steps[stepIdx] : null;
+  const rawCurrentStep = !isRecap ? steps[stepIdx] : null;
+
+  // Etape "revenus" : on remplace les labels statiques ("Tres modestes", ...)
+  // par les vrais seuils en euros calcules depuis les reponses precedentes
+  // (foyer_personnes + code_postal => IDF / Hors-IDF).
+  const currentStep = useMemo<SimulatorStepDTO | null>(() => {
+    if (!rawCurrentStep) return null;
+    if (rawCurrentStep.key !== "revenus") return rawCurrentStep;
+
+    const nbPersonnes = parseFoyerPersonnes(
+      typeof answers.foyer_personnes === "string" ? answers.foyer_personnes : null,
+    );
+    const cp = typeof answers.code_postal === "string" ? answers.code_postal : "";
+    const idf = isIDFPostalCode(cp);
+    const t = getRevenusThresholds(nbPersonnes, idf);
+
+    const newOptions = rawCurrentStep.options?.map((o) => {
+      switch (o.value) {
+        case "tres-modeste":
+          return { ...o, label: `≤ ${formatEuros(t["tres-modeste"])}` };
+        case "modeste":
+          return { ...o, label: `≤ ${formatEuros(t.modeste)}` };
+        case "intermediaire":
+          return { ...o, label: `≤ ${formatEuros(t.intermediaire)}` };
+        case "superieur":
+          return { ...o, label: `> ${formatEuros(t.intermediaire)}` };
+        default:
+          return o;
+      }
+    });
+
+    return { ...rawCurrentStep, options: newOptions };
+  }, [rawCurrentStep, answers.foyer_personnes, answers.code_postal]);
 
   const setAnswer = (key: string, value: AnswerValue) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));

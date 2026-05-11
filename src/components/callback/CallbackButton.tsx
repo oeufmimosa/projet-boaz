@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 const HEATING_OPTIONS = [
@@ -23,6 +24,7 @@ const inputCls =
  */
 export function CallbackButton() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +36,9 @@ export function CallbackButton() {
     heatingOther: "",
     email: "",
   });
+
+  // Portal target n'existe qu'après hydratation côté client
+  useEffect(() => setMounted(true), []);
 
   const reset = () => {
     setForm({ phone: "", lastName: "", firstName: "", heating: "", heatingOther: "", email: "" });
@@ -114,33 +119,34 @@ export function CallbackButton() {
         Être rappelé
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <>
-            {/* Backdrop sombre */}
-            <motion.div
-              key="callback-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={close}
-              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-              aria-hidden
-            />
+      {mounted && createPortal(
+        <AnimatePresence>
+          {open && (
+            <>
+              {/* Backdrop sombre */}
+              <motion.div
+                key="callback-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={close}
+                className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
+                aria-hidden
+              />
 
-            {/* Panel slide-in à droite */}
-            <motion.aside
-              key="callback-panel"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Être rappelé par un expert"
-              className="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-white shadow-2xl sm:max-w-[460px]"
-            >
+              {/* Panel slide-in à droite */}
+              <motion.aside
+                key="callback-panel"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "tween", duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Être rappelé par un expert"
+                className="fixed inset-y-0 right-0 z-[100] flex w-full max-w-md flex-col bg-white shadow-2xl sm:max-w-[460px]"
+              >
               {/* En-tête du panel */}
               <div className="flex items-center justify-between border-b border-border px-6 py-4">
                 <span className="font-body text-body-sm font-semibold uppercase tracking-[0.18em] text-accent-600">
@@ -300,10 +306,12 @@ export function CallbackButton() {
                   </span>
                 </p>
               </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+              </motion.aside>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </>
   );
 }
