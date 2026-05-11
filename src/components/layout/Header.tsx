@@ -40,7 +40,7 @@ export async function Header() {
 
   return (
     <>
-      <TricolorBar />
+      <TricolorBar height={6} />
       <ScrollAwareHeader>
         <div className="flex h-16 w-full items-center justify-between gap-6 px-4 sm:px-6 lg:px-8 xl:px-10">
           {/* Zone gauche — logo + menu collé, peut se compresser */}
