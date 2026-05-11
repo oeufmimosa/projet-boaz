@@ -364,7 +364,7 @@ async function seedContent() {
   await upsertContent("chatbox.preview", "Discutez avec nous de votre projet");
   await upsertContent("chatbox.autoopen.enabled", "true");
   await upsertContent("chatbox.autoopen.delay_seconds", "0");
-  await upsertContent("chatbox.step1.message", "👋 Bonjour ! Je suis Camille de Climat Hexagone. Pour mieux vous orienter, quel est votre projet de rénovation ?");
+  await upsertContent("chatbox.step1.message", "Bonjour ! Je suis Camille de Climat Hexagone. Pour mieux vous orienter, quel est votre projet de rénovation ?");
   await upsertContent("chatbox.step1.followup", "Quels travaux vous intéressent ?");
   await upsertContent("chatbox.step1.options", JSON.stringify([
     { value: "pac-air-eau",    label: "🔥 Pompe à chaleur Air/Eau" },
@@ -388,7 +388,7 @@ async function seedContent() {
   ]), "JSON");
   await upsertContent("chatbox.step4.message", "Parfait ! Quel est le code postal de votre projet ?");
   await upsertContent("chatbox.handoff.message", "Super, j'ai tout ce qu'il faut pour vous orienter. Je vous prépare une estimation personnalisée avec **les aides auxquelles vous avez droit**. C'est parti ?");
-  await upsertContent("chatbox.handoff.cta", "Voir mes aides 🪙");
+  await upsertContent("chatbox.handoff.cta", "Voir mes aides");
   await upsertContent("chatbox.handoff.later", "Plus tard");
   await upsertContent("chatbox.resume", "Bon retour ! On continue ?");
 
@@ -437,7 +437,7 @@ async function seedSimulatorSteps() {
     {
       key: "statut",
       label: "Et vous êtes **propriétaire ou locataire** ?",
-      encouragement: "🎉 Parfait, déjà 1 minute restante !",
+      encouragement: "Parfait, déjà 1 minute restante !",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
@@ -457,7 +457,7 @@ async function seedSimulatorSteps() {
     {
       key: "chauffage_actuel",
       label: "Votre **chauffage actuel** est :",
-      encouragement: "✨ Vous y êtes presque !",
+      encouragement: "Vous y êtes presque !",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
@@ -472,7 +472,7 @@ async function seedSimulatorSteps() {
     {
       key: "foyer_personnes",
       label: "Combien de **personnes** dans votre foyer ?",
-      encouragement: "🪙 Vos aides arrivent...",
+      encouragement: "Vos aides arrivent...",
       fieldType: FieldType.RADIO,
       required: true,
       options: [
@@ -507,7 +507,7 @@ async function seedSimulatorSteps() {
     {
       key: "coordonnees",
       label: "Vos **coordonnées**",
-      helpText: "🔒 Vos données sont protégées (RGPD). Nous vous recontactons sous 24-48h.",
+      helpText: "Vos données sont protégées (RGPD). Nous vous recontactons sous 24-48h.",
       fieldType: FieldType.TEXT,
       required: true,
       config: { compound: true },

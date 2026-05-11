@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 import { LinkButton } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 import type { NavLink } from "@/lib/nav";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"]), summary, details';
@@ -154,7 +155,7 @@ export function MobileMenu({
                             onClick={close}
                             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-body font-medium text-white/90 hover:bg-primary-700 hover:text-white"
                           >
-                            {c.icon && <span aria-hidden>{c.icon}</span>}
+                            {c.icon && <Icon name={c.icon} className="h-4 w-4" />}
                             <span>{c.label}</span>
                           </Link>
                         </li>

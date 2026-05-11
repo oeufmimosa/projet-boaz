@@ -6,6 +6,7 @@ import { TricolorBar } from "@/components/brand/TricolorBar";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ServicesGridInteractive } from "@/components/home/ServicesGridInteractive";
 import { BrandsMarquee } from "@/components/brand/BrandsMarquee";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 export const metadata = {
   title: "Nos services",
@@ -27,21 +28,21 @@ const STATS = [
   { value: "24 h", label: "Pour être recontacté" },
 ];
 
-const PROCESS_STEPS = [
+const PROCESS_STEPS: Array<{ icon: IconName; title: string; body: string }> = [
   {
-    icon: "🔍",
+    icon: "search",
     title: "Étude personnalisée",
     body:
       "Visite technique, analyse de vos consommations et calcul précis des aides 2025 auxquelles vous pouvez prétendre.",
   },
   {
-    icon: "📋",
+    icon: "clipboard",
     title: "Devis transparent",
     body:
       "Chiffrage détaillé du chantier, montant net après aides, planning d'installation et engagement par écrit.",
   },
   {
-    icon: "🛠️",
+    icon: "wrench",
     title: "Installation clé en main",
     body:
       "Pose par nos partenaires RGE, mise en service, démarches MaPrimeRénov' et CEE gérées de A à Z.",
@@ -182,10 +183,10 @@ export default function ServicesIndexPage() {
                 </span>
                 <div
                   aria-hidden
-                  className="mt-2 mb-4 flex h-14 w-14 items-center justify-center bg-primary-50 text-2xl"
+                  className="mt-2 mb-4 flex h-14 w-14 items-center justify-center bg-primary-50 text-primary-700"
                   style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                 >
-                  {step.icon}
+                  <Icon name={step.icon} className="h-7 w-7" />
                 </div>
                 <h3 className="font-display text-lg font-semibold text-primary-800">{step.title}</h3>
                 <p className="mt-2 text-body-sm text-text-muted">{step.body}</p>

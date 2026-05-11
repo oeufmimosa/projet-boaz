@@ -7,6 +7,7 @@ import { FrenchBadge } from "@/components/brand/FrenchBadge";
 import { KeyFigures } from "@/components/home/desktop/KeyFigures";
 import { LinkButton } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { Icon, type IconName } from "@/components/ui/Icon";
 import { getAssetByKey } from "@/lib/media";
 import { REALISATIONS, formatEuros } from "@/lib/realisations";
 
@@ -24,24 +25,24 @@ export const metadata: Metadata = {
   },
 };
 
-const PILLARS = [
+const PILLARS: Array<{ icon: IconName; title: string; body: string }> = [
   {
-    icon: "🔍",
+    icon: "search",
     title: "Étude personnalisée",
     body: "Analyse de votre logement, de vos consommations et de vos besoins pour un projet sur-mesure et réellement rentable.",
   },
   {
-    icon: "⚙️",
+    icon: "gear",
     title: "Solutions performantes",
     body: "Matériel de qualité, équipements certifiés, technologies de pointe sélectionnés auprès de marques reconnues.",
   },
   {
-    icon: "🛠️",
+    icon: "wrench",
     title: "Installation soignée",
     body: "Par nos équipes ou nos partenaires installateurs RGE agréés, dans les règles de l'art.",
   },
   {
-    icon: "🔄",
+    icon: "refresh",
     title: "Suivi & entretien",
     body: "Sérénité garantie : maintenance, garantie, accompagnement long terme après la mise en service.",
   },
@@ -232,10 +233,10 @@ export default async function QuiSommesNousPage() {
               >
                 <div
                   aria-hidden
-                  className="flex h-14 w-14 shrink-0 items-center justify-center bg-primary-50 text-2xl"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center bg-primary-50 text-primary-700"
                   style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                 >
-                  {p.icon}
+                  <Icon name={p.icon} className="h-7 w-7" />
                 </div>
                 <div>
                   <h3 className="font-display text-lg font-semibold text-primary-800">{p.title}</h3>

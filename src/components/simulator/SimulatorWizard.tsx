@@ -347,7 +347,7 @@ export function SimulatorWizard({
           role="status"
           className="rounded-md border border-primary-300 bg-primary-50 px-4 py-3 text-body-sm text-primary-700"
         >
-          👋 Reprenons où nous en étions. Quelques questions de plus pour finaliser votre estimation.
+          Reprenons où nous en étions. Quelques questions de plus pour finaliser votre estimation.
         </div>
       )}
 

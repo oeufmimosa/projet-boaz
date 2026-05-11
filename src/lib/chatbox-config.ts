@@ -16,7 +16,7 @@ export async function loadChatConfig(): Promise<ChatConfig> {
   ] = await Promise.all([
     getContent("chatbox.advisor.name", "Camille — Climat Hexagone"),
     getContent("chatbox.advisor.initials", "CH"),
-    getContent("chatbox.preview", "👋 Bonjour ! Quel est votre projet ?"),
+    getContent("chatbox.preview", "Bonjour ! Quel est votre projet ?"),
     getContent("chatbox.autoopen.enabled", "true"),
     getContent("chatbox.autoopen.delay_seconds", "25"),
     getContent("chatbox.step1.message", ""),

@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Card";
 import { LinkButton } from "@/components/ui/Button";
 import { TricolorBar } from "@/components/brand/TricolorBar";
 import { BrandsMarquee } from "@/components/brand/BrandsMarquee";
+import { Icon } from "@/components/ui/Icon";
 import { SpecsTabs } from "@/components/services/SpecsTabs";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ServiceJsonLd, FaqJsonLd } from "@/components/seo/StructuredData";
@@ -115,19 +116,19 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
                 />
                 <div
                   aria-hidden
-                  className="absolute right-3 top-3 flex h-12 w-12 items-center justify-center bg-accent-500 text-2xl text-primary-900 shadow-md"
+                  className="absolute right-3 top-3 flex h-12 w-12 items-center justify-center bg-accent-500 text-primary-900 shadow-md"
                   style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                 >
-                  {service.icon}
+                  <Icon name={service.icon} className="h-6 w-6" />
                 </div>
               </div>
             ) : (
               <div
                 aria-hidden
-                className="flex h-48 w-48 items-center justify-center bg-white/10 text-7xl backdrop-blur sm:h-56 sm:w-56"
+                className="flex h-48 w-48 items-center justify-center bg-white/10 text-text-inverse backdrop-blur sm:h-56 sm:w-56"
                 style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
               >
-                {service.icon}
+                <Icon name={service.icon} className="h-20 w-20" strokeWidth={1.4} />
               </div>
             )}
           </div>

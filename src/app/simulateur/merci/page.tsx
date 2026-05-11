@@ -10,7 +10,7 @@ export const metadata = { title: "Merci" };
 
 export default async function MerciPage() {
   const [title, body] = await Promise.all([
-    getContent("simulator.merci.title", "Votre demande est partie 🪙"),
+    getContent("simulator.merci.title", "Votre demande est partie"),
     getContent("simulator.merci.body"),
   ]);
 

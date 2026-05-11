@@ -13,39 +13,39 @@ export type NavLink = {
   badge?: string;
   /** Description courte (utilisée dans le dropdown desktop). */
   description?: string;
-  /** Emoji ou marqueur visuel. */
-  icon?: string;
+  /** Nom semantique d'une icone du composant <Icon /> (cf. components/ui/Icon.tsx). */
+  icon?: import("@/components/ui/Icon").IconName;
 };
 
 export const SERVICES: NavLink[] = [
   {
     href: "/services/pompe-a-chaleur-air-eau",
     label: "Pompe à chaleur Air/Eau",
-    icon: "🔥",
+    icon: "flame",
     description: "Chauffage central et eau chaude par captation de l'air.",
   },
   {
     href: "/services/pompe-a-chaleur-air-air",
     label: "Pompe à chaleur Air/Air",
-    icon: "❄️",
+    icon: "snowflake",
     description: "Climatisation réversible : chauffage et rafraîchissement.",
   },
   {
     href: "/services/isolation-thermique-exterieure",
     label: "Isolation thermique extérieure (ITE)",
-    icon: "🧱",
+    icon: "brick",
     description: "Réduisez vos pertes de chaleur jusqu'à 25 %.",
   },
   {
     href: "/services/ballon-thermodynamique",
     label: "Ballon thermodynamique",
-    icon: "🛢️",
+    icon: "tank",
     description: "Chauffe-eau économique nouvelle génération.",
   },
   {
     href: "/services/systeme-solaire-combine",
     label: "Système solaire combiné (SSC)",
-    icon: "🔆",
+    icon: "sun",
     description: "Chauffage + eau chaude solaires.",
   },
 ];

@@ -9,6 +9,8 @@
  * TODO SEO/client : revérifier les fourchettes ADEME et MaPrimeRénov' au
  * prochain millésime de barème.
  */
+import type { IconName } from "@/components/ui/Icon";
+
 export type FaqItem = { q: string; a: string };
 
 export type SpecItem = { label: string; value: string };
@@ -18,7 +20,7 @@ export type Service = {
   slug: string;
   label: string;
   short: string;
-  icon: string;
+  icon: IconName;
   description: string;
   advantages: string[];
   aides: string;
@@ -33,7 +35,7 @@ export const SERVICES_LIST: Service[] = [
     slug: "pompe-a-chaleur-air-eau",
     label: "Pompe à chaleur Air/Eau",
     short: "Chauffage central et eau chaude par captation de l'air extérieur.",
-    icon: "🔥",
+    icon: "flame",
     description:
       "La PAC air-eau capte les calories de l'air extérieur pour chauffer l'eau de votre " +
       "circuit de chauffage central (radiateurs ou plancher chauffant) et produire votre eau " +
@@ -122,7 +124,7 @@ export const SERVICES_LIST: Service[] = [
     slug: "pompe-a-chaleur-air-air",
     label: "Pompe à chaleur Air/Air",
     short: "Climatisation réversible : chauffage et rafraîchissement.",
-    icon: "❄️",
+    icon: "snowflake",
     description:
       "La PAC air-air (climatisation réversible) chauffe en hiver et rafraîchit en été en " +
       "captant les calories de l'air. Solution idéale pour les logements sans circuit de " +
@@ -213,7 +215,7 @@ export const SERVICES_LIST: Service[] = [
     slug: "isolation-thermique-exterieure",
     label: "Isolation thermique extérieure (ITE)",
     short: "Réduisez vos pertes de chaleur jusqu'à 25 %.",
-    icon: "🧱",
+    icon: "brick",
     description:
       "L'ITE consiste à envelopper votre maison d'un manteau isolant côté extérieur. " +
       "C'est la solution la plus efficace pour traiter les ponts thermiques, sans réduire " +
@@ -303,7 +305,7 @@ export const SERVICES_LIST: Service[] = [
     slug: "ballon-thermodynamique",
     label: "Ballon thermodynamique",
     short: "Chauffe-eau économique nouvelle génération.",
-    icon: "🛢️",
+    icon: "tank",
     description:
       "Le ballon thermodynamique fonctionne sur le principe de la pompe à chaleur : " +
       "il puise l'énergie dans l'air ambiant pour chauffer l'eau. Trois fois moins gourmand " +
@@ -390,7 +392,7 @@ export const SERVICES_LIST: Service[] = [
     slug: "systeme-solaire-combine",
     label: "Système solaire combiné (SSC)",
     short: "Chauffage et eau chaude solaires.",
-    icon: "🔆",
+    icon: "sun",
     description:
       "Le SSC utilise des capteurs solaires qui chauffent à la fois l'eau sanitaire et le " +
       "chauffage central. Couvre 30 à 60 % des besoins en chauffage selon la région.",
