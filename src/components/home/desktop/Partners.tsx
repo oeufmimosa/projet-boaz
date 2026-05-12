@@ -27,6 +27,10 @@ export function Partners({ title }: { title: string; items?: { name: string }[] 
         <div className="mb-8 max-w-2xl">
           <h2 className="text-display-md font-display">{title}</h2>
           <TricolorAccent className="mt-3" />
+          <p className="mt-3 text-body text-text-muted">
+            Certaines aides et dispositifs dépendent des critères d&apos;éligibilité et des qualifications
+            applicables aux travaux réalisés.
+          </p>
         </div>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5 md:gap-6">
           {PARTNER_LOGOS.map((p) => (

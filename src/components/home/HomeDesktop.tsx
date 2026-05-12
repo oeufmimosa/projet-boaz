@@ -2,7 +2,6 @@ import { Hero } from "./desktop/Hero";
 import { ServicesGridInteractive } from "./ServicesGridInteractive";
 import { HowItWorks } from "./desktop/HowItWorks";
 import { KeyFigures } from "./desktop/KeyFigures";
-import { Testimonials } from "./desktop/Testimonials";
 import { Partners } from "./desktop/Partners";
 import { FAQ } from "./desktop/FAQ";
 import { ParrainageSection } from "./ParrainageSection";
@@ -24,7 +23,6 @@ export function HomeDesktop({ data }: { data: HomeData }) {
       <KeyFigures title={data.figures.title} items={data.figures.items} />
       <HowItWorks title={data.how.title} steps={data.how.steps} />
       <ParrainageSection />
-      <Testimonials title={data.testi.title} items={data.testi.items} />
       <Partners title={data.partners.title} items={data.partners.items} />
       <FAQ title={data.faq.title} items={data.faq.items} />
     </div>

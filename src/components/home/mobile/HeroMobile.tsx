@@ -73,7 +73,23 @@ export async function HeroMobile({ title, subtitle }: { title: string; subtitle:
       <Container className="relative flex flex-col items-center py-10 text-center">
         <FrenchBadge variant="dark" />
         <h1 className="mt-5 text-display-lg font-display text-balance">{title}</h1>
-        <p className="mt-3 text-body-lg text-primary-100">{subtitle}</p>
+        <div className="mt-3 space-y-2 text-body-sm text-primary-100">
+          <p>
+            Pompe à chaleur, climatisation, isolation et équipements énergétiques performants.
+          </p>
+          <p>
+            Groupe Climat Hexagone accompagne les particuliers dans leurs projets de rénovation
+            énergétique avec des solutions adaptées, des équipements certifiés et un accompagnement complet.
+          </p>
+          <p>
+            Selon les critères d&apos;éligibilité et les aides mobilisables, certains projets peuvent
+            bénéficier d&apos;{" "}
+            <span className="font-bold text-accent-500">
+              un reste à charge fortement réduit, voire quasi nul
+            </span>{" "}
+            dans certaines situations.
+          </p>
+        </div>
 
         <Link
           href="/simulateur"

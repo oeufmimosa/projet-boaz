@@ -9,7 +9,16 @@ import { LinkButton } from "@/components/ui/Button";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { getAssetByKey } from "@/lib/media";
-import { REALISATIONS, formatEuros } from "@/lib/realisations";
+import { REALISATIONS } from "@/lib/realisations";
+
+const REALISATION_LABELS = [
+  "Pompe à chaleur air/air (climatisation réversible)",
+  "Isolation thermique par l'extérieur",
+  "Pompe à chaleur air/eau",
+  "Isolation thermique par l'extérieur",
+  "Pompe à chaleur air/air + isolation thermique par l'extérieur",
+  "Pompe à chaleur air/eau + ballon thermodynamique (installation pour radiateur et plancher chauffant)",
+];
 
 export const metadata: Metadata = {
   title: "Qui sommes-nous — Spécialiste de la rénovation énergétique",
@@ -29,7 +38,7 @@ const PILLARS: Array<{ icon: IconName; title: string; body: string }> = [
   {
     icon: "search",
     title: "Étude personnalisée",
-    body: "Analyse de votre logement, de vos consommations et de vos besoins pour un projet sur-mesure et réellement rentable.",
+    body: "Analyse de votre logement, de vos consommations et de vos besoins pour un projet sur-mesure.",
   },
   {
     icon: "gear",
@@ -39,7 +48,7 @@ const PILLARS: Array<{ icon: IconName; title: string; body: string }> = [
   {
     icon: "wrench",
     title: "Installation soignée",
-    body: "Par nos équipes ou nos partenaires installateurs RGE agréés, dans les règles de l'art.",
+    body: "Par nos équipes ou nos partenaires installateurs qualifiés, dans le respect des règles de l'art.",
   },
   {
     icon: "refresh",
@@ -50,9 +59,9 @@ const PILLARS: Array<{ icon: IconName; title: string; body: string }> = [
 
 const ENGAGEMENTS = [
   { title: "Certification RGE", body: "Travaux réalisés par des partenaires Reconnus Garants de l'Environnement." },
-  { title: "Garantie décennale", body: "Tous les chantiers couverts par une assurance décennale." },
+  { title: "Garantie décennale", body: "Travaux couverts selon les garanties et assurances applicables." },
   { title: "Devis gratuit", body: "Sans engagement, étude complète de vos aides incluses." },
-  { title: "Aides étudiées", body: "MaPrimeRénov', CEE, Éco-PTZ : nous calculons et déclarons pour vous." },
+  { title: "Aides étudiées", body: "Nous accompagnons nos clients dans les démarches administratives liées aux aides disponibles." },
   { title: "Accompagnement A à Z", body: "De la première visite à l'entretien, un interlocuteur dédié." },
   { title: "France métropolitaine", body: "Chantiers partout en France métropolitaine." },
 ];
@@ -62,10 +71,10 @@ const ENGAGEMENTS = [
 // pulse pour qu'un chiffre non renseigné saute aux yeux côté admin.
 // TODO client : remplacer chaque `[X]` avant mise en production publique.
 const FIGURES = [
-  { value: "[X]+",   label: "Chantiers réalisés" },
-  { value: "[X] ans", label: "D'expérience" },
-  { value: "[X] %",  label: "Clients satisfaits" },
-  { value: "100 %",  label: "Artisans RGE certifiés" },
+  { value: "37 ans", label: "D'expérience" },
+  { value: "100 %",  label: "Étude personnalisée" },
+  { value: "100 %",  label: "Équipements certifiés" },
+  { value: "100 %",  label: "Intervention en France métropolitaine" },
 ];
 
 export default async function QuiSommesNousPage() {
@@ -109,103 +118,49 @@ export default async function QuiSommesNousPage() {
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
             Notre <span className="text-accent-500">expertise</span> en rénovation énergétique
           </h1>
-          <p className="mt-6 max-w-2xl text-body-lg text-white/90">
-            Une entreprise française à votre service, spécialiste de la pompe à chaleur,
-            du photovoltaïque et de l'isolation thermique. Nous sécurisons votre projet
-            de A à Z, des études aux aides en passant par l'installation.
-          </p>
+          <div className="mt-6 max-w-2xl space-y-3 text-body-lg text-white/90">
+            <p>
+              Société française fondée en 1989, Groupe Climat Hexagone accompagne les particuliers
+              dans leurs projets de rénovation énergétique avec une approche basée sur la qualité des
+              installations, le choix d&apos;équipements performants et un suivi rigoureux des chantiers.
+            </p>
+            <p>
+              Pompe à chaleur, climatisation, isolation ou solutions énergétiques : nous proposons des
+              installations adaptées aux besoins réels de chaque logement.
+            </p>
+          </div>
           <div className="mt-8">
             <TricolorBar />
           </div>
         </Container>
       </section>
 
-      {/* a-bis) Nos réalisations — placée tout en haut, juste après le hero */}
+      {/* a-bis) Nos solutions en images */}
       <Section id="realisations" className="bg-primary-50">
         <Container>
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
-              Nos chantiers
+              Exemple d&apos;installations proposées
             </p>
             <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Nos réalisations
+              Nos solutions en images
             </h2>
-            <p className="mt-3 text-text-muted">
-              Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique :
-              voici comment notre équipe accompagne des propriétaires partout en France.
-            </p>
-          </div>
-
-          {/* ⚠️ Disclaimer placeholder — à retirer une fois les cas réels substitués */}
-          <div
-            data-content="placeholder"
-            className="mx-auto mb-10 max-w-4xl rounded-lg border border-accent-500/40 bg-accent-500/5 p-5 text-body-sm text-amber-900 ring-1 ring-accent-500/30"
-          >
-            <strong>Note pour la phase de mise en page :</strong> les six réalisations
-            ci-dessous sont des <strong>cas fictifs réalistes</strong> destinés à valider
-            la structure et le rendu. Les chiffres d&apos;aides correspondent à des ordres
-            de grandeur 2025 cohérents mais ne proviennent pas de dossiers réels. Avant
-            mise en production, le client doit substituer ces cas par des chantiers
-            vérifiables avec consentement écrit RGPD du client final.
           </div>
 
           <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {REALISATIONS.map((r) => (
+            {REALISATIONS.map((r, idx) => (
               <li key={r.slug}>
-                <div
-                  data-content={r.placeholder ? "placeholder" : undefined}
-                  className={`flex h-full flex-col overflow-hidden rounded-lg border bg-surface ${
-                    r.placeholder
-                      ? "border-accent-500/40 ring-1 ring-accent-500/20"
-                      : "border-border"
-                  }`}
-                >
-                  {(() => {
-                    const imgs = [r.coverImage, ...(r.additionalImages ?? [])];
-                    if (imgs.length > 1) {
-                      return (
-                        <div className="grid aspect-[3/2] w-full grid-cols-2 gap-0.5 bg-border">
-                          {imgs.slice(0, 2).map((src, idx) => (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              key={`${src}-${idx}`}
-                              src={src}
-                              alt={`Photo client ${idx + 1} — ${r.title}`}
-                              className="h-full w-full object-cover"
-                            />
-                          ))}
-                        </div>
-                      );
-                    }
-                    return (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={r.coverImage}
-                        alt={`Photo avant/après — ${r.title}`}
-                        className="aspect-[3/2] w-full object-cover"
-                      />
-                    );
-                  })()}
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="text-body-sm uppercase tracking-wide text-accent-600">
-                      {r.location}
-                    </p>
-                    <h3 className="mt-2 font-display text-lg font-semibold text-primary-800">
-                      {r.title}
+                <div className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-surface">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={r.coverImage}
+                    alt={REALISATION_LABELS[idx] ?? ""}
+                    className="aspect-[3/2] w-full object-cover"
+                  />
+                  <div className="p-5">
+                    <h3 className="font-display text-base font-semibold text-primary-800">
+                      {REALISATION_LABELS[idx]}
                     </h3>
-                    <ul className="mt-3 space-y-1 text-body-sm text-text-muted">
-                      <li>
-                        <strong className="text-text">Aides obtenues :</strong>{" "}
-                        {formatEuros(r.aidesObtainedEuros)}
-                      </li>
-                      <li>
-                        <strong className="text-text">Économies/an :</strong>{" "}
-                        {formatEuros(r.yearlySavingsEuros)}
-                      </li>
-                      <li>
-                        <strong className="text-text">Durée :</strong> {r.durationDays} jours
-                      </li>
-                    </ul>
                   </div>
                 </div>
               </li>
@@ -280,45 +235,31 @@ export default async function QuiSommesNousPage() {
         </Container>
       </Section>
 
-      {/* d) Notre histoire — TEXTE GÉNÉRIQUE PLACEHOLDER.
-           ⚠️ Le récit ci-dessous est un placeholder éditorial qui décrit une
-           orientation générale (transparence, accompagnement). Pour une vraie
-           histoire d'entreprise (date de création, fondateurs, étapes clés),
-           le client doit fournir un récit factuel et le substituer ici.
-           Tant qu'il n'est pas remplacé, l'encart porte un ring doré et
-           data-content="placeholder" pour le repérer en admin. */}
+      {/* d) Notre histoire */}
       <Section>
         <Container className="grid items-center gap-10 md:grid-cols-2">
-          <div
-            data-content="placeholder"
-            className="rounded-lg border border-accent-500/40 bg-accent-500/5 p-6 ring-1 ring-accent-500/30"
-          >
+          <div className="rounded-lg border border-border bg-surface p-6 shadow-sm">
             <p className="font-body text-body-sm uppercase tracking-[0.18em] text-accent-600">
               Notre histoire
-              <span className="ml-2 rounded-full bg-accent-500 px-2 py-0.5 text-[0.6rem] font-bold text-primary-900">
-                à compléter
-              </span>
             </p>
             <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Une équipe, une mission
+              Une structure française fondée en 1989
             </h2>
-            <div className="mt-4 space-y-4 text-text-muted">
+            <div className="mt-4 space-y-4 text-justify text-text-muted">
               <p>
-                Notre vocation : rendre la rénovation énergétique accessible à tous,
-                avec un accompagnement humain et transparent. Notre équipe réunit
-                des conseillers et des techniciens engagés sur la durée auprès des
-                particuliers comme des bailleurs.
+                Groupe Climat Hexagone s&apos;appuie sur une société créée en 1989,
+                aujourd&apos;hui spécialisée dans les solutions de rénovation énergétique
+                et les équipements de chauffage performants.
               </p>
               <p>
-                Notre approche repose sur la transparence : étude réelle de votre logement,
-                explication claire des aides, suivi de chantier rigoureux. Pas de promesse en l'air,
-                des gains de consommation mesurables.
+                Notre équipe accompagne les particuliers dans leurs projets avec une
+                approche basée sur la qualité des installations, le choix d&apos;équipements
+                reconnus et un suivi rigoureux des chantiers.
               </p>
-              <p className="text-body-sm italic text-amber-700">
-                {/* TODO client : remplacer par le vrai récit (date de création,
-                    fondateurs, étapes marquantes, valeurs). 200-300 mots. */}
-                <strong>Encart à personnaliser par le client</strong> — date de création,
-                fondateurs, étapes marquantes à substituer ici (cf. docs/seo.md, checklist).
+              <p>
+                Pompe à chaleur, climatisation, isolation ou optimisation énergétique :
+                nous proposons des solutions adaptées aux besoins de chaque logement, avec
+                un accompagnement clair de l&apos;étude à la mise en service.
               </p>
             </div>
           </div>

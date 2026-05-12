@@ -3,7 +3,6 @@ import { KeyFiguresCompact } from "./mobile/KeyFiguresCompact";
 import { ChatHomeInvite } from "./mobile/ChatHomeInvite";
 import { ServicesGridInteractive } from "./ServicesGridInteractive";
 import { HowItWorksCompact } from "./mobile/HowItWorksCompact";
-import { TestimonialSingle } from "./mobile/TestimonialSingle";
 import { RelaunchCTA } from "./mobile/RelaunchCTA";
 import { MiniFAQ } from "./mobile/MiniFAQ";
 import { ParrainageSection } from "./ParrainageSection";
@@ -33,7 +32,6 @@ export function HomeMobile({
       <ExpertiseSection />
       <HowItWorksCompact />
       <ParrainageSection />
-      <TestimonialSingle item={data.testi.items[0]} />
       <RelaunchCTA />
       <MiniFAQ items={data.faq.items} />
     </div>

@@ -88,7 +88,7 @@ async function seedContent() {
   // TODO client/SEO : remplacer par le montant chiffré validé une fois sourcé.
   await upsertContent(
     "home.hero.title",
-    "Vos travaux de rénovation énergétique, jusqu'à plusieurs milliers d'euros d'aides cumulées",
+    "Une structure française fondée en 1989 au service de la rénovation énergétique",
   );
   await upsertContent(
     "home.hero.subtitle",
@@ -100,10 +100,10 @@ async function seedContent() {
 
   // Home — Services
   await upsertContent("home.services.label",   "Nos solutions");
-  await upsertContent("home.services.title",   "Des solutions pour chaque besoin énergétique");
+  await upsertContent("home.services.title",   "Des solutions énergétiques pensées pour votre habitat");
   await upsertContent(
     "home.services.subtitle",
-    "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2025.",
+    "Pompe à chaleur, climatisation, isolation et solutions énergétiques performantes : nous accompagnons les particuliers dans le choix d'équipements fiables, conçus pour améliorer durablement le confort et la performance énergétique de leur logement.",
   );
 
   // Home — Cards services interactives (6) : shortLabel + description (30-50 mots)
@@ -223,10 +223,10 @@ async function seedContent() {
   // en mode `placeholderHighlight` (doré clignotant) en admin/editor.
   await upsertContent("home.figures.title", "Notre savoir-faire en chiffres");
   await upsertContent("home.figures.items", JSON.stringify([
-    { value: "[X]+",    label: "Chantiers réalisés" },
-    { value: "[X] ans", label: "D'expérience cumulée" },
-    { value: "[X] %",   label: "Clients satisfaits" },
-    { value: "100 %",   label: "Artisans RGE certifiés" }, // OK : engagement, pas un chiffre
+    { value: "37 ans", label: "D'expérience" },
+    { value: "100 %",  label: "Étude personnalisée" },
+    { value: "100 %",  label: "Équipements certifiés" },
+    { value: "100 %",  label: "Intervention en France métropolitaine" },
   ]), ContentType.JSON);
 
   // Home — Témoignages.
@@ -296,7 +296,7 @@ async function seedContent() {
   ]), ContentType.JSON);
 
   // Home — Partenaires (placeholders)
-  await upsertContent("home.partners.title", "Certifications et partenaires");
+  await upsertContent("home.partners.title", "Qualifications & dispositifs");
   await upsertContent("home.partners.items", JSON.stringify([
     { name: "Qualibat", logo: "https://placehold.co/200x80?text=Qualibat" }, // TODO client : logo officiel
     { name: "RGE",      logo: "https://placehold.co/200x80?text=RGE" },

@@ -45,9 +45,9 @@ async function loadHeroBackground(): Promise<{ url: string | null; blurDataURL: 
 }
 
 const REASSURANCE = [
-  { value: "100 000+", label: "Particuliers accompagnés" },
-  { value: "1 500+",  label: "Artisans RGE" },
-  { value: "4,7/5",   label: "Note moyenne clients" },
+  { value: "37 ans",                  label: "Structure fondée en 1989" },
+  { value: "Équipements certifiés",   label: "Marques reconnues du marché" },
+  { value: "Accompagnement complet",  label: "De l'étude à l'installation" },
 ];
 
 export async function Hero({
@@ -133,13 +133,23 @@ export async function Hero({
             className="mt-5 text-display-xl font-display"
             maxLength={200}
           />
-          <EditableText
-            contentKey="home.hero.subtitle"
-            initialValue={subtitle}
-            as="p"
-            className="mt-5 max-w-xl text-body-lg text-primary-100"
-            maxLength={300}
-          />
+          <div className="mt-5 max-w-xl space-y-2 text-body text-primary-100">
+            <p>
+              Pompe à chaleur, climatisation, isolation et équipements énergétiques performants.
+            </p>
+            <p>
+              Groupe Climat Hexagone accompagne les particuliers dans leurs projets de rénovation
+              énergétique avec des solutions adaptées, des équipements certifiés et un accompagnement complet.
+            </p>
+            <p>
+              Selon les critères d&apos;éligibilité et les aides mobilisables, certains projets peuvent
+              bénéficier d&apos;{" "}
+              <span className="font-bold text-accent-500">
+                un reste à charge fortement réduit, voire quasi nul
+              </span>{" "}
+              dans certaines situations.
+            </p>
+          </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <EditableButton
               contentKey="home.hero.cta_primary"
@@ -166,8 +176,8 @@ export async function Hero({
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-primary-700 bg-primary-700 sm:grid-cols-3">
           {REASSURANCE.map((r, i) => (
             <div key={i} className="relative bg-primary-800 p-5 text-center">
-              <p className="font-display text-display-md text-accent-500">{r.value}</p>
-              <p className="mt-1 text-body-sm text-primary-200">{r.label}</p>
+              <p className="font-display text-2xl font-bold leading-tight text-accent-500">{r.value}</p>
+              <p className="mt-2 text-body-sm text-primary-200">{r.label}</p>
               {i < REASSURANCE.length - 1 && (
                 <div
                   aria-hidden

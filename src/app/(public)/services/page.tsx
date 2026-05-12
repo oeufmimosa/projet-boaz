@@ -21,39 +21,32 @@ const TRUST_PILLS = [
   "Étude personnalisée gratuite",
 ];
 
-const STATS = [
-  { value: "5", label: "Expertises métier" },
-  { value: "100 %", label: "Artisans RGE" },
-  { value: "Jusqu'à 50 k€", label: "d'aides cumulables" },
-  { value: "24 h", label: "Pour être recontacté" },
-];
-
 const PROCESS_STEPS: Array<{ icon: IconName; title: string; body: string }> = [
   {
     icon: "search",
     title: "Étude personnalisée",
     body:
-      "Visite technique, analyse de vos consommations et calcul précis des aides 2025 auxquelles vous pouvez prétendre.",
+      "Analyse du logement, des besoins énergétiques et étude des dispositifs d'aide mobilisables selon votre situation.",
   },
   {
     icon: "clipboard",
     title: "Devis transparent",
     body:
-      "Chiffrage détaillé du chantier, montant net après aides, planning d'installation et engagement par écrit.",
+      "Présentation détaillée du projet, des équipements proposés et des estimations financières associées selon les aides mobilisables.",
   },
   {
     icon: "wrench",
     title: "Installation clé en main",
     body:
-      "Pose par nos partenaires RGE, mise en service, démarches MaPrimeRénov' et CEE gérées de A à Z.",
+      "Accompagnement du projet de l'étude jusqu'à la mise en service des équipements.",
   },
 ];
 
 const PILLARS: Array<{ icon?: string; image?: string; imgScale?: number; title: string; body: string }> = [
   { image: "/services/etude-sur-mesure.png", imgScale: 0.7, title: "Étude sur-mesure", body: "Pas de solution standard : on dimensionne en fonction de votre logement et de vos consommations réelles." },
   { image: "/partners/certif-1.png", title: "Artisans certifiés RGE", body: "Travaux réalisés par des partenaires Reconnus Garants de l'Environnement, condition sine qua non pour les aides." },
-  { image: "/partners/certif-4.png", imgScale: 2.1, title: "Aides maximisées", body: "MaPrimeRénov', CEE, Éco-PTZ : on calcule, on cumule et on déclare pour vous. Pas un euro de perdu." },
-  { image: "/services/garantie-decennale.webp", title: "Garantie décennale", body: "Tous les chantiers couverts par une assurance décennale. Sérénité 10 ans après la mise en service." },
+  { image: "/partners/certif-4.png", imgScale: 2.1, title: "Étude des aides disponibles", body: "MaPrimeRénov', CEE, Éco-PTZ : on calcule, on cumule et on déclare pour vous. Pas un euro de perdu." },
+  { image: "/services/garantie-decennale.webp", title: "Garantie décennale", body: "Travaux couverts selon les garanties et assurances applicables." },
 ];
 
 export default function ServicesIndexPage() {
@@ -93,8 +86,9 @@ export default function ServicesIndexPage() {
             Nos <span className="text-accent-500">services</span>
           </h1>
           <p className="mt-4 max-w-2xl text-body-lg text-white/90">
-            Cinq expertises complémentaires pour réduire votre consommation, gagner en confort
-            et valoriser votre logement — accompagnement de A à Z.
+            Des solutions énergétiques adaptées aux besoins de chaque logement, avec une approche
+            basée sur la qualité des équipements, le respect des normes d&apos;installation et un
+            accompagnement clair à chaque étape du projet.
           </p>
 
           {/* Trust pills */}
@@ -115,22 +109,6 @@ export default function ServicesIndexPage() {
           </div>
         </Container>
       </section>
-
-      {/* b) Bandeau de chiffres clés (crédibilité immédiate) */}
-      <Section tone="muted" className="!py-10 sm:!py-12">
-        <Container>
-          <ul className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <li key={s.label} className="text-center">
-                <p className="font-display text-3xl font-extrabold text-primary-800 sm:text-4xl">
-                  {s.value}
-                </p>
-                <p className="mt-1 text-body-sm text-text-muted">{s.label}</p>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
 
       {/* c) Intro + Grille services */}
       <Section className="!pb-8">
@@ -165,7 +143,7 @@ export default function ServicesIndexPage() {
               Comment ça se passe
             </h2>
             <p className="mt-3 text-text-muted">
-              Trois étapes claires, des artisans certifiés, zéro mauvaise surprise.
+              Un accompagnement transparent à chaque étape.
             </p>
           </div>
           <ol className="mt-12 grid gap-6 md:grid-cols-3">
