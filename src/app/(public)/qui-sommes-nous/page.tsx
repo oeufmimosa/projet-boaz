@@ -145,6 +145,9 @@ export default async function QuiSommesNousPage() {
             <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
               Nos solutions en images
             </h2>
+            <p className="mt-3 text-text-muted">
+              Exemples visuels d&apos;installations pouvant être proposées.
+            </p>
           </div>
 
           <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -243,7 +246,7 @@ export default async function QuiSommesNousPage() {
               Notre histoire
             </p>
             <h2 className="mt-3 font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Une structure française fondée en 1989
+              Groupe Climat Hexagone s&apos;appuie sur une structure française créée en 1989
             </h2>
             <div className="mt-4 space-y-4 text-justify text-text-muted">
               <p>

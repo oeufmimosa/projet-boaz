@@ -28,7 +28,7 @@ const STEPS = [
   },
   {
     n: 3,
-    title: "Vous touchez votre prime",
+    title: "Votre prime est validée",
     body: "Une fois les travaux réalisés et le chantier validé, votre prime vous est versée dans un délai de 30 jours maximum.",
   },
 ];
@@ -89,6 +89,11 @@ export default async function ParrainagePage() {
             Recommandez Groupe Climat Hexagone à un proche et gagnez jusqu'à
             {" "}<span className="rounded bg-accent-500 px-2 py-0.5 font-bold text-primary-800">1&nbsp;000&nbsp;€</span>{" "}
             pour chaque projet réalisé par vos filleuls.
+            <sup className="ml-0.5 font-bold text-accent-500">*</sup>
+          </p>
+          <p className="mt-3 max-w-2xl text-body-sm italic text-white/70">
+            <span className="text-accent-500">*</span> Montant variable selon les travaux
+            réalisés et les conditions du programme de parrainage.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <LinkButton href="#formulaire" variant="accent" size="lg">
@@ -148,11 +153,10 @@ export default async function ParrainagePage() {
           </h2>
           <p className="mt-2 text-body-lg text-white/85">par dossier transformé</p>
 
-          <ul className="mx-auto mt-10 grid max-w-3xl gap-4 text-left sm:grid-cols-3">
+          <ul className="mx-auto mt-10 grid max-w-2xl gap-4 text-left sm:grid-cols-2">
             {[
               "Versement rapide (30 j max)",
               "Aucune limite de filleuls",
-              "Cumulable avec d'autres avantages",
             ].map((label) => (
               <li
                 key={label}

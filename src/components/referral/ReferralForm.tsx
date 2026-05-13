@@ -146,8 +146,9 @@ export function ReferralForm() {
             className="mt-1 h-4 w-4 accent-primary-600"
           />
           <span>
-            Je confirme avoir l'accord de mon filleul pour transmettre ses coordonnées à
-            {" "}<strong>Groupe Climat Hexagone</strong>.
+            Je confirme avoir obtenu l&apos;accord de la personne recommandée pour transmettre ses
+            coordonnées à <strong>Groupe Climat Hexagone</strong> dans le cadre d&apos;une demande
+            de contact.
           </span>
         </label>
         {errors.consentGiven && (
@@ -155,6 +156,10 @@ export function ReferralForm() {
             {errors.consentGiven.message}
           </p>
         )}
+        <p className="-mt-2 text-body-sm text-text-muted">
+          Les données transmises sont utilisées uniquement dans le cadre de l&apos;étude du projet
+          et ne sont jamais revendues.
+        </p>
 
         {serverError && (
           <p role="alert" className="text-body-sm text-error">{serverError}</p>

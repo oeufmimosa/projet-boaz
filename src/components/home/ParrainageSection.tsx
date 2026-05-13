@@ -49,6 +49,9 @@ export async function ParrainageSection() {
           Vos proches profitent de nos installateurs agréés, vous touchez une prime.
           Sans limite de filleuls.
         </p>
+        <p className="mt-2 max-w-xl text-body-sm italic text-white/70">
+          Prime variable selon les travaux réalisés et le montant du chantier. Conditions disponibles sur demande.
+        </p>
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <LinkButton href="/parrainage" variant="accent" size="lg">
             Découvrir le parrainage

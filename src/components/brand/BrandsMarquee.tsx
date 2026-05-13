@@ -134,6 +134,10 @@ export function BrandsMarquee({ showHeading = true }: { showHeading?: boolean } 
           ))}
         </ul>
       </div>
+
+      <p className="mx-auto mt-4 max-w-3xl px-4 text-center text-body-sm italic text-text-muted">
+        Exemples de marques pouvant être proposées selon les projets et disponibilités.
+      </p>
     </section>
   );
 }

@@ -35,13 +35,14 @@ export function CallbackButton({ compact = false }: { compact?: boolean } = {}) 
     heating: "",
     heatingOther: "",
     email: "",
+    consent: false,
   });
 
   // Portal target n'existe qu'après hydratation côté client
   useEffect(() => setMounted(true), []);
 
   const reset = () => {
-    setForm({ phone: "", lastName: "", firstName: "", heating: "", heatingOther: "", email: "" });
+    setForm({ phone: "", lastName: "", firstName: "", heating: "", heatingOther: "", email: "", consent: false });
     setDone(false);
     setError(null);
   };
@@ -78,6 +79,11 @@ export function CallbackButton({ compact = false }: { compact?: boolean } = {}) 
     if (form.heating === "autre" && !heatingValue) {
       setSubmitting(false);
       setError("Veuillez indiquer votre mode de chauffage.");
+      return;
+    }
+    if (!form.consent) {
+      setSubmitting(false);
+      setError("Vous devez accepter le traitement de vos données pour être recontacté.");
       return;
     }
     try {
@@ -279,6 +285,19 @@ export function CallbackButton({ compact = false }: { compact?: boolean } = {}) 
                         />
                       </Field>
 
+                      <label className="flex gap-3 rounded-md border border-border bg-surface-2 p-3 text-body-sm">
+                        <input
+                          type="checkbox"
+                          checked={form.consent}
+                          onChange={(e) => setForm({ ...form, consent: e.target.checked })}
+                          className="mt-0.5 h-4 w-4 shrink-0 accent-primary-600"
+                        />
+                        <span>
+                          J&apos;accepte que mes données soient utilisées pour être recontacté
+                          dans le cadre de ma demande.
+                        </span>
+                      </label>
+
                       {error && (
                         <p role="alert" className="rounded-md border border-error/40 bg-error/10 px-3 py-2 text-body-sm text-error">
                           {error}
@@ -306,8 +325,7 @@ export function CallbackButton({ compact = false }: { compact?: boolean } = {}) 
                     style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
                   />
                   <span>
-                    <strong>Nos experts s&apos;engagent</strong> à vous rappeler dans les deux
-                    heures, durant les horaires de travail en jours ouvrés.
+                    Un conseiller vous recontacte généralement sous 2 heures ouvrées.
                   </span>
                 </p>
               </div>

@@ -210,7 +210,7 @@ async function seedContent() {
     },
     {
       title: "4. Suivi long terme",
-      description: "Garantie décennale, entretien et accompagnement administratif jusqu'au versement de vos aides.",
+      description: "Garantie décennale, entretien et accompagnement administratif lié aux dispositifs d'aides.",
     },
   ]), ContentType.JSON);
 
