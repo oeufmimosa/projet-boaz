@@ -4,15 +4,16 @@ import { ChatHomeInvite } from "./mobile/ChatHomeInvite";
 import { ServicesGridInteractive } from "./ServicesGridInteractive";
 import { HowItWorksCompact } from "./mobile/HowItWorksCompact";
 import { RelaunchCTA } from "./mobile/RelaunchCTA";
-import { MiniFAQ } from "./mobile/MiniFAQ";
+import { Partners } from "./desktop/Partners";
+import { FAQ } from "./desktop/FAQ";
 import { ParrainageSection } from "./ParrainageSection";
 import { ExpertiseSection } from "./ExpertiseSection";
 import type { HomeData } from "./types";
 
 /**
  * Home mobile dédiée — visible jusqu'au breakpoint lg.
- * Ordre voulu : Hero → Chiffres → Chatbox invite → Services → How it works
- *  → 1 témoignage → Relaunch CTA → Mini-FAQ.
+ * Ordre voulu : Hero (+ réassurance) → Chiffres → Chatbox invite → Services
+ *  → Expertise → How it works → Parrainage → Qualifications → Relaunch CTA → FAQ.
  */
 export function HomeMobile({
   data,
@@ -32,8 +33,9 @@ export function HomeMobile({
       <ExpertiseSection />
       <HowItWorksCompact />
       <ParrainageSection />
+      <Partners title={data.partners.title} items={data.partners.items} />
       <RelaunchCTA />
-      <MiniFAQ items={data.faq.items} />
+      <FAQ title={data.faq.title} items={data.faq.items} />
     </div>
   );
 }

@@ -267,6 +267,30 @@ export async function sendReferralIntroductionToReferee(r: ReferralMail): Promis
   });
 }
 
+export async function sendCallbackToAdmin(c: {
+  phone: string;
+  lastName: string;
+  firstName: string;
+  heating: string;
+  email?: string | null;
+}): Promise<SendResult> {
+  const html = `
+    <h2 style="font-family:system-ui;">Nouvelle demande de rappel</h2>
+    <p style="font-family:system-ui;font-size:14px;">
+      <strong>${escape(c.firstName)} ${escape(c.lastName)}</strong><br/>
+      Téléphone : ${escape(c.phone)}<br/>
+      Email : ${escape(c.email ?? "") || "—"}<br/>
+      Mode de chauffage : ${escape(c.heating)}
+    </p>
+  `;
+  return sendMail({
+    to: env.smtp.adminEmail,
+    subject: `Rappel — ${c.firstName} ${c.lastName}`,
+    html,
+    replyTo: c.email || undefined,
+  });
+}
+
 export async function sendContactMessage(msg: {
   id: string;
   name: string;

@@ -18,8 +18,8 @@ export const metadata = {
 const COORDONNEES = [
   {
     label: "Email",
-    value: "contact@eco-guide-habitat.fr",
-    href: "mailto:contact@eco-guide-habitat.fr",
+    value: "Contact@Groupe-climat-hexagone.fr",
+    href: "mailto:contact@groupe-climat-hexagone.fr",
     helper: "Réponse sous 24h ouvrées",
     icon: <MailIcon />,
   },

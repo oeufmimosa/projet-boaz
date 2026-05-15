@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { logger } from "@/lib/logger";
+import { sendCallbackToAdmin } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -66,6 +67,19 @@ export async function POST(req: Request) {
     },
     "Demande de rappel reçue",
   );
+
+  // Notification email a l'admin (ADMIN_NOTIFICATION_EMAIL). On ne fait pas
+  // echouer la requete si l'email tombe en panne — la demande est deja loguee.
+  const mailResult = await sendCallbackToAdmin({
+    phone,
+    lastName,
+    firstName,
+    heating,
+    email: email || null,
+  });
+  if (!mailResult.ok) {
+    logger.warn({ error: mailResult.error }, "Callback admin email failed");
+  }
 
   return NextResponse.json({ ok: true });
 }
