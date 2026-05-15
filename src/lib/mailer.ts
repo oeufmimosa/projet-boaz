@@ -246,6 +246,26 @@ export async function sendQuoteConfirmationToUser(quote: {
   });
 }
 
+// ─── Newsletter ────────────────────────────────────────────────────────────
+
+export async function sendNewsletterSignupToAdmin(email: string): Promise<SendResult> {
+  const safe = escape(email);
+  const html = `
+    <p style="font-family:system-ui;font-size:14px;">
+      <strong>${safe}</strong> s'est inscrit·e à la newsletter.
+    </p>
+    <p style="font-family:system-ui;font-size:12px;color:#666;">
+      Reçu le ${new Date().toLocaleString("fr-FR")} via le formulaire du footer.
+    </p>
+  `;
+  return sendMail({
+    to: env.smtp.adminEmail,
+    subject: `Nouvelle inscription newsletter — ${email}`,
+    html,
+    replyTo: email,
+  });
+}
+
 // ─── Parrainage ────────────────────────────────────────────────────────────
 
 export interface ReferralMail {

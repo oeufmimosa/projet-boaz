@@ -5,6 +5,8 @@ import { useState } from "react";
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   if (done) {
     return (
@@ -14,14 +16,35 @@ export function NewsletterForm() {
     );
   }
 
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || submitting) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        setError(body?.error ?? "Une erreur est survenue, réessayez.");
+        return;
+      }
+      setDone(true);
+    } catch {
+      setError("Réseau indisponible, réessayez plus tard.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <div>
       <form
         className="flex w-full flex-col gap-2 sm:flex-row sm:items-stretch"
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (email) setDone(true);
-        }}
+        onSubmit={onSubmit}
         aria-label="Inscription newsletter"
       >
         <input
@@ -38,11 +61,17 @@ export function NewsletterForm() {
         />
         <button
           type="submit"
-          className="inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-accent-500 px-4 font-display font-semibold text-primary-800 transition hover:bg-accent-600"
+          disabled={submitting}
+          className="inline-flex h-11 shrink-0 items-center justify-center rounded-md bg-accent-500 px-4 font-display font-semibold text-primary-800 transition hover:bg-accent-600 disabled:opacity-60"
         >
-          S'inscrire
+          {submitting ? "Envoi…" : "S'inscrire"}
         </button>
       </form>
+      {error && (
+        <p role="alert" className="mt-2 text-xs text-error">
+          {error}
+        </p>
+      )}
       <p className="mt-2 text-xs italic text-primary-200">
         En soumettant ce formulaire, vous acceptez que les informations transmises soient utilisées
         afin d&apos;étudier votre demande, permettre une prise de contact et accompagner votre projet
