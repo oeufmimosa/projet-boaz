@@ -54,10 +54,11 @@ export const metadata: Metadata = {
     url: env.site.url,
     images: [
       {
-        url: "/icon.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: `Logo ${SITE_NAME}`,
+        type: "image/png",
       },
     ],
   },
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} — Rénovation énergétique`,
     description: DEFAULT_DESCRIPTION,
-    images: ["/icon.svg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
