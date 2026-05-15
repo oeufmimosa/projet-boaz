@@ -18,8 +18,8 @@ export const metadata = {
 const COORDONNEES = [
   {
     label: "Email",
-    value: "contact@example.com",
-    href: "mailto:contact@example.com",
+    value: "contact@eco-guide-habitat.fr",
+    href: "mailto:contact@eco-guide-habitat.fr",
     helper: "Réponse sous 24h ouvrées",
     icon: <MailIcon />,
   },
@@ -27,13 +27,13 @@ const COORDONNEES = [
     label: "Téléphone",
     value: "01 23 45 67 89",
     href: "tel:+33123456789",
-    helper: "Du lundi au vendredi, 9h–18h",
+    helper: "Du lundi au vendredi",
     icon: <PhoneIcon />,
   },
   {
     label: "Horaires",
-    value: "Lun – Ven · 9h – 18h",
-    helper: "Réponse aux urgences sous 2h ouvrées",
+    value: "Lun – Jeu · 10h – 19h · Ven · 10h – 17h",
+    helper: "Fermé samedi et dimanche",
     icon: <ClockIcon />,
   },
 ];
@@ -157,7 +157,7 @@ export default async function ContactPage() {
                   Estimez vos aides en 2 minutes
                 </h3>
                 <p className="mt-2 text-body-sm text-text-muted">
-                  Notre simulateur calcule MaPrimeRénov&apos;, CEE et Éco-PTZ en fonction
+                  Notre simulateur calcule vos aides disponibles en fonction
                   de vos revenus et de vos travaux. Sans engagement.
                 </p>
                 <div className="mt-4">

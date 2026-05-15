@@ -59,6 +59,11 @@ export function ContactForm() {
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Envoi…" : "Envoyer"}
       </Button>
+      <p className="mt-2 text-xs italic text-text-muted">
+        En soumettant ce formulaire, vous acceptez que les informations transmises soient utilisées
+        afin d&apos;étudier votre demande, permettre une prise de contact et accompagner votre projet
+        conformément à notre <a href="/confidentialite" className="underline">politique de confidentialité</a>.
+      </p>
     </form>
   );
 }

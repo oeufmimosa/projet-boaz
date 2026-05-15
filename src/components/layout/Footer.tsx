@@ -70,18 +70,19 @@ export async function Footer() {
           <FooterAccordion columns={COLUMNS} />
         </div>
 
-        {/* Bandeau bas — copyright + badge "Entreprise française" + réseaux */}
+        {/* Bandeau bas — copyright + badge "Entreprise française" */}
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-primary-800 pt-6 text-body-sm text-primary-200 sm:flex-row sm:items-center">
           <div className="flex flex-wrap items-center gap-3">
             <p>{copyright}</p>
             <FrenchBadge variant="dark" />
           </div>
-          <ul className="flex gap-4" aria-label="Réseaux sociaux">
-            <li><a href="#" className="hover:text-accent-500" aria-label="Facebook">Facebook</a></li>
-            <li><a href="#" className="hover:text-accent-500" aria-label="LinkedIn">LinkedIn</a></li>
-            <li><a href="#" className="hover:text-accent-500" aria-label="Instagram">Instagram</a></li>
-          </ul>
         </div>
+
+        <p className="mt-6 text-xs italic text-primary-300">
+          Informations données à titre indicatif. Les caractéristiques, performances, économies
+          potentielles et aides mobilisables peuvent varier selon le logement, les équipements
+          installés, les conditions techniques et la réglementation en vigueur.
+        </p>
       </Container>
     </footer>
   );

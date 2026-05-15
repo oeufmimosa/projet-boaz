@@ -315,12 +315,32 @@ export function SimulatorWizard({
 
   const recapEntries = useMemo(() => {
     const stripMd = (s: string) => s.replace(/\*\*/g, "");
+
+    // Pour l'etape "revenus", on affiche le seuil chiffre (calcule dynamiquement
+    // d'apres foyer_personnes + code_postal) au lieu des libelles statiques.
+    const revenusLabelFor = (rawValue: string): string => {
+      const n = parseFoyerPersonnes(
+        typeof answers.foyer_personnes === "string" ? answers.foyer_personnes : null,
+      );
+      const cp = typeof answers.code_postal === "string" ? answers.code_postal : "";
+      const t = getRevenusThresholds(n, isIDFPostalCode(cp));
+      switch (rawValue) {
+        case "tres-modeste":  return `≤ ${formatEuros(t["tres-modeste"])}`;
+        case "modeste":       return `≤ ${formatEuros(t.modeste)}`;
+        case "intermediaire": return `≤ ${formatEuros(t.intermediaire)}`;
+        case "superieur":     return `> ${formatEuros(t.intermediaire)}`;
+        default:              return rawValue;
+      }
+    };
+
     return steps
       .filter((s) => !isCompoundContactStep(s))
       .map((s) => {
         const raw = answers[s.key];
         let display: string;
-        if (Array.isArray(raw)) {
+        if (s.key === "revenus" && typeof raw === "string" && raw) {
+          display = revenusLabelFor(raw);
+        } else if (Array.isArray(raw)) {
           display = raw
             .map((v) => s.options?.find((o) => o.value === v)?.label ?? v)
             .join(", ");
@@ -407,6 +427,12 @@ export function SimulatorWizard({
                   </div>
                 </dl>
                 {serverError && <p role="alert" className="text-body-sm text-error">{serverError}</p>}
+                <p className="mt-2 text-xs italic text-text-muted">
+                  En soumettant ce formulaire, vous acceptez que les informations transmises soient
+                  utilisées afin d&apos;étudier votre demande, permettre une prise de contact et
+                  accompagner votre projet conformément à notre{" "}
+                  <a href="/confidentialite" className="underline">politique de confidentialité</a>.
+                </p>
               </div>
             )}
           </motion.div>

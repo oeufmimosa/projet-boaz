@@ -177,6 +177,9 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
           <div className="rounded-lg border border-border bg-surface p-6">
             <h2 className="font-display text-2xl font-bold text-primary-800">Aides disponibles</h2>
             <p className="mt-3 text-text-muted">{service.aides}</p>
+            {service.aidesNote && (
+              <p className="mt-2 text-body-sm italic text-text-muted">{service.aidesNote}</p>
+            )}
             <div className="mt-5">
               <LinkButton href="/aides" variant="outline">
                 Voir toutes les aides
@@ -194,7 +197,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
                 Fiche technique
               </p>
               <h2 className="mt-3 font-display text-2xl font-bold text-primary-800 sm:text-3xl">
-                Spécifications techniques
+                Spécifications techniques indicatives
               </h2>
               <p className="mt-3 text-text-muted">
                 Cliquez sur une catégorie pour voir le détail.
@@ -206,6 +209,13 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
             <p className="mt-8 text-center text-body-sm text-text-muted">
               Une étude personnalisée affine ces valeurs selon votre logement, votre
               zone climatique et vos consommations réelles.
+            </p>
+            <p className="mt-3 text-center text-body-sm italic text-text-muted">
+              Les informations techniques présentées sur cette page sont fournies à titre
+              indicatif et correspondent à des configurations couramment installées. Les
+              équipements, marques, performances, puissances, options et caractéristiques
+              peuvent varier selon l&apos;étude du logement, le dimensionnement réalisé, la
+              zone climatique et le matériel effectivement installé par nos partenaires.
             </p>
           </Container>
         </Section>
@@ -242,6 +252,13 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
                 </li>
               ))}
             </ul>
+            <p className="mt-8 text-body-sm italic text-text-muted">
+              Informations données à titre indicatif. Les caractéristiques techniques,
+              performances, économies estimées et aides disponibles peuvent varier selon
+              le logement, les équipements installés, la configuration du projet et la
+              réglementation en vigueur. Une étude personnalisée permet de confirmer les
+              éléments applicables à votre situation.
+            </p>
           </Container>
         </Section>
       )}

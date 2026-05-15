@@ -24,6 +24,8 @@ export type Service = {
   description: string;
   advantages: string[];
   aides: string;
+  /** Note italique en petit affichee sous le texte aides. */
+  aidesNote?: string;
   faq: FaqItem[];
   /** Spécifications techniques affichées sur la page produit (style adper). */
   specs?: SpecGroup[];
@@ -39,15 +41,15 @@ export const SERVICES_LIST: Service[] = [
     description:
       "La PAC air-eau capte les calories de l'air extérieur pour chauffer l'eau de votre " +
       "circuit de chauffage central (radiateurs ou plancher chauffant) et produire votre eau " +
-      "chaude sanitaire. C'est la solution la plus efficace pour remplacer une chaudière fioul, " +
-      "gaz ou un chauffage électrique.",
+      "chaude sanitaire. Une solution reconnue pour améliorer les performances énergétiques du logement.",
     advantages: [
-      "Jusqu'à 75 % d'économies sur la facture de chauffage",
+      "Réduction significative des consommations énergétiques selon le logement et l'installation",
       "Compatible plancher chauffant et radiateurs basse / haute température",
-      "Eau chaude sanitaire incluse via ballon couplé",
-      "Éligible MaPrimeRénov' + CEE — aides cumulées élevées",
+      "Possibilité de production d'eau chaude sanitaire selon configuration",
+      "Éligible à plusieurs dispositifs d'aides selon profil et réglementation en vigueur",
     ],
-    aides: "MaPrimeRénov' jusqu'à 5 000 € (foyers très modestes), CEE, Éco-PTZ. TVA à 5,5 %.",
+    aides: "MaPrimeRénov', CEE, Éco-PTZ et dispositifs disponibles selon votre situation.",
+    aidesNote: "Montants indicatifs susceptibles d'évoluer selon la réglementation.",
     faq: [
       {
         q: "Combien coûte une PAC air-eau ?",
@@ -78,13 +80,13 @@ export const SERVICES_LIST: Service[] = [
           { label: "Type", value: "Air-Eau, technologie Inverter" },
           { label: "Puissance", value: "De 4 kW à 16 kW selon dimensionnement" },
           { label: "Niveau sonore", value: "≤ 45 dB(A) à 1 m (mode silencieux)" },
-          { label: "Plage de fonctionnement", value: "−15 °C à +35 °C (jusqu'à −25 °C en version Grand Froid)" },
+          { label: "Plage de fonctionnement", value: "−15 °C à +35 °C (jusqu'à −25 °C en version Grand Froid, selon modèle sélectionné)" },
         ],
       },
       {
         title: "Module hydraulique intérieur",
         items: [
-          { label: "Type", value: "Compact mural ou bibloc avec ballon ECS intégré" },
+          { label: "Type", value: "Compact mural ou bibloc avec ballon ECS intégré, selon équipement retenu" },
           { label: "Ballon ECS intégré (option)", value: "180 L à 300 L" },
           { label: "Pression circuit chauffage", value: "Jusqu'à 3 bar" },
           { label: "Compatibilité émetteurs", value: "Plancher chauffant, radiateurs basse / haute température" },
@@ -93,7 +95,7 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Fluide frigorigène",
         items: [
-          { label: "Type", value: "R32 ou R454B (faible PRG)" },
+          { label: "Type", value: "Fluide variable selon constructeur et génération d'équipement" },
           { label: "Préchargement usine", value: "Jusqu'à 10 m de liaison sans complément" },
           { label: "Étanchéité", value: "Contrôle annuel obligatoire (décret 2020-912)" },
         ],
@@ -101,7 +103,7 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Régulation",
         items: [
-          { label: "Pilotage", value: "Thermostat filaire + application Wi-Fi (iOS / Android)" },
+          { label: "Pilotage", value: "Pilotage connecté disponible selon modèle installé" },
           { label: "Modes", value: "ECO, confort, vacances, hors-gel" },
           { label: "Multi-zones", value: "Jusqu'à 3 zones indépendantes (option)" },
           { label: "Programmation", value: "Hebdomadaire avec dérogation manuelle" },
@@ -110,9 +112,9 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Performance énergétique",
         items: [
-          { label: "COP nominal", value: "Jusqu'à 4,8 (à 7 °C / 35 °C)" },
-          { label: "SCOP (saisonnier)", value: "Jusqu'à 4,2" },
-          { label: "Classe énergétique chauffage", value: "A+++ / A++" },
+          { label: "COP nominal", value: "Jusqu'à 4,8 (à 7 °C / 35 °C), selon modèle et conditions d'essai" },
+          { label: "SCOP (saisonnier)", value: "variable selon climat et équipement" },
+          { label: "Classe énergétique chauffage", value: "A+++ / A++, selon configuration" },
           { label: "Garantie compresseur", value: "5 à 7 ans selon marque" },
         ],
       },
@@ -131,12 +133,12 @@ export const SERVICES_LIST: Service[] = [
       "chauffage central, ou en complément d'un chauffage existant. Installation rapide via " +
       "un système monosplit ou multi-split selon le nombre de pièces.",
     advantages: [
-      "Chauffage ET climatisation toute l'année",
+      "Chauffage en hiver et rafraîchissement en été",
       "Installation rapide, sans gros travaux ni circuit hydraulique",
-      "Multi-split jusqu'à 5 zones indépendantes",
-      "Économies de 50 à 70 % vs un chauffage électrique classique",
+      "Possibilité de gestion multi-zones selon configuration",
+      "Forte réduction des consommations selon l'équipement remplacé et les habitudes d'utilisation",
     ],
-    aides: "CEE uniquement (MaPrimeRénov' exclue depuis 2025). TVA à 10 %.",
+    aides: "Selon les périodes et dispositifs en vigueur : CEE, TVA réduite et aides applicables.",
     faq: [
       {
         q: "Combien coûte une PAC air-air ?",
@@ -166,24 +168,24 @@ export const SERVICES_LIST: Service[] = [
         items: [
           { label: "Type", value: "Air-Air, technologie Inverter DC" },
           { label: "Puissance", value: "De 2,5 kW à 14 kW selon nombre de splits" },
-          { label: "Niveau sonore", value: "45 à 55 dB(A) à 1 m" },
-          { label: "Plage de chauffage", value: "−10 °C à +24 °C (extérieure)" },
-          { label: "Plage de rafraîchissement", value: "+18 °C à +43 °C (extérieure)" },
+          { label: "Niveau sonore", value: "45 à 55 dB(A) à 1 m, selon modèle installé" },
+          { label: "Plage de chauffage", value: "Fonctionnement chauffage variable selon modèle et zone climatique (jusqu'à basse température extérieure)" },
+          { label: "Plage de rafraîchissement", value: "Fonctionnement rafraîchissement selon configuration fabricant" },
         ],
       },
       {
         title: "Unités intérieures",
         items: [
           { label: "Configurations", value: "Monosplit ou multi-split (jusqu'à 5 unités)" },
-          { label: "Types disponibles", value: "Mural, console, gainable, cassette plafond" },
+          { label: "Types disponibles", value: "Configurations disponibles selon étude et modèle retenu : mural, console, gainable, cassette plafond…" },
           { label: "Niveau sonore intérieur", value: "19 à 32 dB(A) selon mode" },
-          { label: "Filtration", value: "Filtres anti-poussière, anti-pollen, ioniseur option" },
+          { label: "Filtration", value: "Filtres anti-poussière, anti-pollen, ioniseur option — systèmes de filtration variables selon équipement installé" },
         ],
       },
       {
         title: "Fluide frigorigène",
         items: [
-          { label: "Type", value: "R32 (faible PRG, recommandé)" },
+          { label: "Type", value: "Fluide frigorigène variable selon constructeur et génération d'équipement" },
           { label: "Liaisons frigorifiques", value: "Cuivre isolé Ø 1/4\" et 3/8\" — longueur jusqu'à 30 m" },
           { label: "Étanchéité", value: "Contrôle annuel obligatoire (décret 2020-912)" },
         ],
@@ -191,20 +193,20 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Régulation",
         items: [
-          { label: "Pilotage", value: "Télécommande IR + application Wi-Fi (iOS / Android)" },
+          { label: "Pilotage", value: "Pilotage connecté disponible selon équipement sélectionné" },
           { label: "Modes", value: "Auto, Chaud, Froid, Déshumidification, Ventilation, Nuit" },
           { label: "Programmation", value: "Hebdomadaire par unité intérieure" },
-          { label: "Compatibilité domotique", value: "Google Home, Alexa, Apple HomeKit selon modèle" },
+          { label: "Compatibilité domotique", value: "Compatibilité domotique disponible selon modèle" },
         ],
       },
       {
         title: "Performance énergétique",
         items: [
-          { label: "SCOP (chauffage saisonnier)", value: "Jusqu'à 4,6" },
+          { label: "SCOP (chauffage saisonnier)", value: "Performances variables selon conditions d'utilisation et modèle installé" },
           { label: "SEER (rafraîchissement saisonnier)", value: "Jusqu'à 8,5" },
-          { label: "Classe énergétique chauffage", value: "A+++ / A++" },
-          { label: "Classe énergétique froid", value: "A+++ / A++" },
-          { label: "Garantie compresseur", value: "5 à 7 ans selon marque" },
+          { label: "Classe énergétique chauffage", value: "Classe énergétique variable selon configuration" },
+          { label: "Classe énergétique froid", value: "Classe énergétique variable selon configuration" },
+          { label: "Garantie compresseur", value: "selon constructeur et conditions fabricant" },
         ],
       },
     ],
@@ -218,15 +220,14 @@ export const SERVICES_LIST: Service[] = [
     icon: "brick",
     description:
       "L'ITE consiste à envelopper votre maison d'un manteau isolant côté extérieur. " +
-      "C'est la solution la plus efficace pour traiter les ponts thermiques, sans réduire " +
-      "votre surface habitable, tout en ravalant la façade.",
+      "L'une des solutions les plus efficaces pour limiter les ponts thermiques.",
     advantages: [
-      "Suppression des ponts thermiques",
+      "Réduction importante des ponts thermiques",
       "Pas de perte de surface intérieure",
-      "Ravalement de façade inclus",
+      "Peut inclure un ravalement de façade selon le projet",
       "Confort d'été et d'hiver renforcé",
     ],
-    aides: "MaPrimeRénov', CEE, Éco-PTZ. TVA à 5,5 %.",
+    aides: "Aides mobilisables selon profil et réglementation : MaPrimeRénov', CEE, Éco-PTZ, TVA réduite.",
     faq: [
       {
         q: "Combien coûte une ITE ?",
@@ -255,17 +256,17 @@ export const SERVICES_LIST: Service[] = [
         title: "Isolant",
         items: [
           { label: "Type", value: "Polystyrène expansé (PSE), laine de roche, ou fibre de bois" },
-          { label: "Épaisseur", value: "De 12 cm à 20 cm selon performance visée" },
-          { label: "Résistance thermique R", value: "≥ 3,7 m²·K/W (exigence MaPrimeRénov')" },
-          { label: "Conductivité λ", value: "0,032 à 0,038 W/m·K selon matériau" },
+          { label: "Épaisseur", value: "Épaisseur déterminée selon étude thermique et objectifs de performance" },
+          { label: "Résistance thermique R", value: "Conforme aux exigences réglementaires et aux dispositifs d'aides applicables" },
+          { label: "Conductivité λ", value: "Variable selon matériau isolant sélectionné" },
           { label: "Réaction au feu", value: "Classement Euroclasse A1 à E selon isolant" },
         ],
       },
       {
         title: "Fixation",
         items: [
-          { label: "Méthode", value: "Collage + fixation mécanique par chevilles" },
-          { label: "Chevilles", value: "Plastique + acier, dimensionnées selon support" },
+          { label: "Méthode", value: "Méthodes de fixation adaptées au support existant" },
+          { label: "Chevilles", value: "Type et dimensionnement selon étude chantier" },
           { label: "Profilés", value: "Rail de départ aluminium, profilés d'angle PVC" },
           { label: "Trame d'armature", value: "Toile en fibre de verre noyée dans sous-enduit" },
         ],
@@ -276,25 +277,25 @@ export const SERVICES_LIST: Service[] = [
           { label: "Type", value: "Enduit minéral, hydraulique, organique ou bardage rapporté" },
           { label: "Couleurs", value: "Personnalisable — large palette RAL" },
           { label: "Texture", value: "Lisse, taloché, gratté, rustique" },
-          { label: "Durabilité", value: "Tenue ≥ 25 ans pour enduits, ≥ 30 ans pour bardage" },
+          { label: "Durabilité", value: "Durabilité variable selon matériaux, environnement et entretien" },
         ],
       },
       {
         title: "Performance et conformité",
         items: [
-          { label: "Réduction des déperditions", value: "Jusqu'à 25 % sur la facture chauffage" },
+          { label: "Réduction des déperditions", value: "L'isolation extérieure contribue à limiter les déperditions thermiques et à améliorer les performances énergétiques du logement" },
           { label: "Ponts thermiques", value: "Traités en continu (façade, planchers, encadrements)" },
           { label: "Certifications", value: "ATEC ou Document Technique d'Application (DTA)" },
-          { label: "Qualification", value: "Pose par artisan RGE Qualibat 7131 ou 7141" },
+          { label: "Qualification", value: "Installation réalisée par entreprise qualifiée RGE selon travaux effectués" },
         ],
       },
       {
         title: "Mise en œuvre et garanties",
         items: [
-          { label: "Échafaudage", value: "Inclus dans la prestation" },
-          { label: "Délai chantier", value: "2 à 4 semaines pour 100-150 m² de façade" },
-          { label: "Garantie décennale", value: "Couverte par l'assurance de l'installateur" },
-          { label: "Garantie produit", value: "10 ans sur le système isolant complet" },
+          { label: "Échafaudage", value: "Peut être inclus selon configuration chantier" },
+          { label: "Délai chantier", value: "Délais variables selon surface, accès et configuration du chantier" },
+          { label: "Garantie décennale", value: "Travaux couverts selon garanties et assurances de l'entreprise intervenante" },
+          { label: "Garantie produit", value: "Garanties variables selon fabricant et solution installée" },
         ],
       },
     ],
@@ -308,15 +309,16 @@ export const SERVICES_LIST: Service[] = [
     icon: "tank",
     description:
       "Le ballon thermodynamique fonctionne sur le principe de la pompe à chaleur : " +
-      "il puise l'énergie dans l'air ambiant pour chauffer l'eau. Trois fois moins gourmand " +
-      "qu'un chauffe-eau électrique classique.",
+      "il puise l'énergie dans l'air ambiant pour chauffer l'eau. Permet de réduire " +
+      "significativement la consommation liée à la production d'eau chaude par rapport " +
+      "à un chauffe-eau électrique classique.",
     advantages: [
-      "Jusqu'à 70 % d'économies sur l'eau chaude",
+      "Jusqu'à 70 % d'économies sur la production d'eau chaude selon l'installation et les usages.",
       "Installation simple, peu d'entretien",
-      "Éligible à MaPrimeRénov' et CEE",
+      "Éligible à certains dispositifs d'aides selon conditions en vigueur.",
       "Faible empreinte carbone",
     ],
-    aides: "MaPrimeRénov', CEE, TVA à 5,5 %.",
+    aides: "Dispositifs d'aides disponibles selon profil et réglementation en vigueur : MaPrimeRénov', CEE, TVA réduite…",
     faq: [
       {
         q: "Comment fonctionne un ballon thermodynamique ?",
@@ -341,35 +343,35 @@ export const SERVICES_LIST: Service[] = [
         title: "Pompe à chaleur intégrée",
         items: [
           { label: "Source de chaleur", value: "Air ambiant ou air extrait (VMC)" },
-          { label: "COP nominal", value: "≥ 3,0 (selon norme EN 16147)" },
-          { label: "Puissance électrique", value: "1 kW à 2 kW" },
-          { label: "Fluide frigorigène", value: "R290 ou R134a" },
-          { label: "Niveau sonore", value: "≤ 55 dB(A) à 1 m" },
+          { label: "COP nominal", value: "Performance variable selon modèle et conditions d'utilisation" },
+          { label: "Puissance électrique", value: "Variable selon capacité et modèle installé" },
+          { label: "Fluide frigorigène", value: "Fluide frigorigène selon technologie et modèle sélectionné" },
+          { label: "Niveau sonore", value: "Niveau sonore variable selon modèle et environnement d'installation" },
         ],
       },
       {
         title: "Cuve de stockage",
         items: [
-          { label: "Capacité", value: "150 L à 300 L (270 L typique pour 4 personnes)" },
-          { label: "Isolation", value: "Mousse polyuréthane 50 mm" },
-          { label: "Revêtement intérieur", value: "Émail vitrifié + anode magnésium ou titane" },
+          { label: "Capacité", value: "Capacité adaptée à la composition du foyer et aux besoins en eau chaude" },
+          { label: "Isolation", value: "Isolation haute performance selon modèle" },
+          { label: "Revêtement intérieur", value: "Revêtement anti-corrosion selon technologie utilisée" },
           { label: "Pression maximale", value: "7 bar" },
         ],
       },
       {
         title: "Raccordements",
         items: [
-          { label: "Aéraulique", value: "Conduits Ø 160 mm (entrée + sortie d'air)" },
-          { label: "Hydraulique", value: "Raccords 3/4\" — eau froide, ECS, vidange" },
-          { label: "Électrique", value: "Mono 230 V, prise dédiée 16 A" },
-          { label: "Volume pièce minimum", value: "10 à 20 m³ selon modèle (sur air ambiant)" },
+          { label: "Aéraulique", value: "Raccordements adaptés à la configuration technique" },
+          { label: "Hydraulique", value: "Raccordements conformes aux préconisations fabricant" },
+          { label: "Électrique", value: "Alimentation selon caractéristiques techniques du modèle installé" },
+          { label: "Volume pièce minimum", value: "Conditions d'installation variables selon modèle et implantation" },
         ],
       },
       {
         title: "Régulation",
         items: [
           { label: "Modes", value: "AUTO, ECO, BOOST, ABSENCE" },
-          { label: "Pilotage", value: "Afficheur LCD + Wi-Fi (application mobile en option)" },
+          { label: "Pilotage", value: "Fonctions connectées disponibles selon modèles" },
           { label: "Programmation", value: "Heures creuses, hebdomadaire" },
           { label: "Sécurités", value: "Anti-légionellose, anti-gel, protection compresseur" },
         ],
@@ -377,11 +379,11 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Performance et garanties",
         items: [
-          { label: "Temps de chauffe", value: "8 à 10 h pour un ballon de 270 L" },
-          { label: "Économies", value: "Jusqu'à 70 % vs un chauffe-eau électrique classique" },
-          { label: "Durée de vie", value: "15 à 20 ans" },
-          { label: "Garantie PAC", value: "3 à 5 ans selon marque" },
-          { label: "Garantie cuve", value: "5 à 7 ans" },
+          { label: "Temps de chauffe", value: "Temps de chauffe variable selon capacité et conditions d'utilisation" },
+          { label: "Économies", value: "Réduction possible de la consommation énergétique selon l'équipement remplacé et les habitudes du foyer" },
+          { label: "Durée de vie", value: "Durée de vie dépendante de l'utilisation, de l'entretien et du matériel installé" },
+          { label: "Garantie PAC", value: "Garantie selon fabricant et modèle installé" },
+          { label: "Garantie cuve", value: "Garantie variable selon fabricant" },
         ],
       },
     ],
@@ -394,15 +396,16 @@ export const SERVICES_LIST: Service[] = [
     short: "Chauffage et eau chaude solaires.",
     icon: "sun",
     description:
-      "Le SSC utilise des capteurs solaires qui chauffent à la fois l'eau sanitaire et le " +
-      "chauffage central. Couvre 30 à 60 % des besoins en chauffage selon la région.",
+      "Le système solaire combiné (SSC) utilise l'énergie solaire pour contribuer à la " +
+      "production d'eau chaude sanitaire et au chauffage du logement. Les performances " +
+      "varient selon l'exposition, la région et les caractéristiques de l'habitation.",
     advantages: [
-      "Chauffage + eau chaude couverts par le solaire",
-      "30 à 60 % d'économies de chauffage",
+      "Contribution au chauffage et à l'eau chaude grâce à l'énergie solaire",
+      "Forte réduction possible des consommations énergétiques selon l'installation",
       "Compatible avec un appoint pompe à chaleur ou chaudière",
-      "Aides cumulables MaPrimeRénov' + CEE",
+      "Aides cumulables MaPrimeRénov' + CEE — aides et financements disponibles selon profil, revenus et réglementation en vigueur",
     ],
-    aides: "MaPrimeRénov' jusqu'à 10 000 €, CEE, Éco-PTZ.",
+    aides: "Aides et financements disponibles selon profil, revenus et réglementation en vigueur.",
     faq: [
       {
         q: "Comment fonctionne un SSC ?",
@@ -426,27 +429,27 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Capteurs solaires",
         items: [
-          { label: "Type", value: "Capteurs plans haute performance ou tubulaires sous vide" },
-          { label: "Surface installée", value: "10 m² à 15 m² selon surface chauffée" },
-          { label: "Rendement optique", value: "≥ 75 %" },
-          { label: "Orientation optimale", value: "Sud, inclinaison 45° à 60° (privilégier hiver)" },
-          { label: "Garantie", value: "10 ans" },
+          { label: "Type", value: "Technologie de capteurs sélectionnée selon le projet et les besoins thermiques" },
+          { label: "Surface installée", value: "7 à 12 m²" },
+          { label: "Rendement optique", value: "Rendement variable selon technologie et conditions d'ensoleillement" },
+          { label: "Orientation optimale", value: "Orientation étudiée afin d'optimiser la captation solaire selon l'habitation" },
+          { label: "Garantie", value: "Garantie selon fabricant et matériel installé" },
         ],
       },
       {
         title: "Stockage thermique",
         items: [
-          { label: "Type", value: "Ballon tampon multi-couches ou plancher chauffant" },
-          { label: "Capacité ballon tampon", value: "500 L à 1 000 L" },
-          { label: "Isolation", value: "Mousse polyuréthane 80 à 120 mm" },
-          { label: "ECS intégrée", value: "Échangeur sanitaire ou ballon ECS séparé" },
+          { label: "Type", value: "Ballon de stockage thermique adapté au système installé" },
+          { label: "Capacité ballon tampon", value: "400 à 600 L" },
+          { label: "Isolation", value: "Isolation haute performance selon modèle" },
+          { label: "ECS intégrée", value: "Production d'eau chaude sanitaire possible selon configuration retenue" },
         ],
       },
       {
         title: "Circuit de chauffage",
         items: [
-          { label: "Compatibilité", value: "Plancher chauffant ou radiateurs basse température" },
-          { label: "Température de départ", value: "30 °C à 50 °C (privilégier basse T° pour rendement)" },
+          { label: "Compatibilité", value: "Compatible avec plancher chauffant ou émetteurs adaptés selon installation" },
+          { label: "Température de départ", value: "Température ajustée selon les besoins thermiques du logement" },
           { label: "Pression circuit", value: "1,5 à 3 bar" },
           { label: "Vase d'expansion", value: "Dimensionné selon volume installation" },
         ],
@@ -454,8 +457,8 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Régulation",
         items: [
-          { label: "Pilotage", value: "Centrale solaire dédiée + thermostat d'ambiance" },
-          { label: "Multi-zones", value: "Jusqu'à 3 zones de chauffage indépendantes" },
+          { label: "Pilotage", value: "Système de régulation adapté à l'installation et aux équipements intégrés" },
+          { label: "Multi-zones", value: "Gestion multi-zones disponible selon configuration" },
           { label: "Priorité ECS", value: "Activable selon saison" },
           { label: "Sécurités", value: "Anti-gel, anti-surchauffe capteurs, anti-légionellose" },
         ],
@@ -463,19 +466,19 @@ export const SERVICES_LIST: Service[] = [
       {
         title: "Performance",
         items: [
-          { label: "Couverture chauffage", value: "30 % à 60 % des besoins annuels" },
-          { label: "Couverture ECS", value: "60 % à 80 % des besoins annuels" },
-          { label: "Économie sur facture", value: "30 % à 50 %" },
-          { label: "Durée de vie capteurs", value: "≥ 25 ans" },
+          { label: "Couverture chauffage", value: "Contribution au chauffage variable selon climat, isolation et usage" },
+          { label: "Couverture ECS", value: "Couverture des besoins en eau chaude variable selon exposition et consommation" },
+          { label: "Économie sur facture", value: "Réduction possible de la consommation énergétique selon l'installation existante" },
+          { label: "Durée de vie capteurs", value: "Longévité dépendante du matériel installé et de l'entretien" },
         ],
       },
       {
         title: "Garanties et conformité",
         items: [
-          { label: "Capteurs solaires", value: "10 ans" },
-          { label: "Ballon tampon", value: "5 à 7 ans" },
-          { label: "Pose", value: "2 ans + décennale chantier" },
-          { label: "Qualification", value: "RGE QualiSol Combi obligatoire pour aides" },
+          { label: "Capteurs solaires", value: "Garantie fabricant selon équipement installé" },
+          { label: "Ballon tampon", value: "Garantie variable selon fabricant" },
+          { label: "Pose", value: "Travaux couverts conformément aux garanties applicables de l'installateur" },
+          { label: "Qualification", value: "Installation réalisée par un professionnel qualifié selon les exigences réglementaires applicables" },
         ],
       },
     ],

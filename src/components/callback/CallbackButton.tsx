@@ -311,6 +311,12 @@ export function CallbackButton({ compact = false }: { compact?: boolean } = {}) 
                       >
                         {submitting ? "Envoi…" : "Être rappelé"}
                       </button>
+                      <p className="mt-3 text-xs italic text-text-muted">
+                        En soumettant ce formulaire, vous acceptez que les informations transmises soient
+                        utilisées afin d&apos;étudier votre demande, permettre une prise de contact et
+                        accompagner votre projet conformément à notre{" "}
+                        <a href="/confidentialite" className="underline">politique de confidentialité</a>.
+                      </p>
                     </form>
                   </>
                 )}

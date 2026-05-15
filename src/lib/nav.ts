@@ -77,8 +77,6 @@ export const FOOTER_COLUMNS: Array<{ title: string; links: NavLink[] }> = [
     title: "Aides & ressources",
     links: [
       { href: "/aides", label: "MaPrimeRénov'" },
-      { href: "/aides", label: "Certificats CEE" },
-      { href: "/aides", label: "Éco-prêt à taux zéro" },
       { href: "/simulateur", label: "Simulateur" },
     ],
   },

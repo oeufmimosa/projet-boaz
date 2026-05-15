@@ -168,6 +168,11 @@ export function ReferralForm() {
         <Button type="submit" variant="accent" size="lg" disabled={isSubmitting}>
           {isSubmitting ? "Envoi en cours…" : "Soumettre le parrainage"}
         </Button>
+        <p className="text-xs italic text-text-muted">
+          En soumettant ce formulaire, vous acceptez que les informations transmises soient utilisées
+          afin d&apos;étudier votre demande, permettre une prise de contact et accompagner votre projet
+          conformément à notre <a href="/confidentialite" className="underline">politique de confidentialité</a>.
+        </p>
       </div>
     </form>
   );
