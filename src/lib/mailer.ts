@@ -3,6 +3,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { env } from "./env";
 import { logger } from "./logger";
+import {
+  isIDFPostalCode,
+  getRevenusThresholds,
+  parseFoyerPersonnes,
+  formatEuros,
+} from "./anah-thresholds";
 
 let transporterPromise: Promise<Transporter> | null = null;
 
@@ -99,15 +105,97 @@ function escape(value: unknown): string {
     .replace(/"/g, "&quot;");
 }
 
-function answersTable(answers: Record<string, unknown>): string {
+/**
+ * Carte des étapes du simulateur : `{ stepKey: { label, options: { value: label } } }`.
+ * Permet de remplacer dans le mail les slugs techniques (`modeste`, `maison`…)
+ * par les libellés humains qu'a vus l'utilisateur (`Modestes`, `Maison`…).
+ */
+type SimulatorStepsMap = Record<
+  string,
+  { label: string; options: Record<string, string> }
+>;
+
+async function loadSimulatorStepsMap(): Promise<SimulatorStepsMap> {
+  // Import paresseux pour éviter d'embarquer Prisma dans tous les mailers
+  // (par ex. les confirmations qui n'en ont pas besoin).
+  const { prisma } = await import("./prisma");
+  const steps = await prisma.simulatorStep.findMany({
+    select: { key: true, label: true, options: true },
+  });
+  const map: SimulatorStepsMap = {};
+  for (const s of steps) {
+    const options: Record<string, string> = {};
+    if (s.options) {
+      try {
+        const parsed = JSON.parse(s.options) as Array<{ value: string; label: string }>;
+        if (Array.isArray(parsed)) {
+          for (const opt of parsed) {
+            if (opt?.value && opt?.label) options[opt.value] = opt.label;
+          }
+        }
+      } catch {
+        // options malformées → on garde la map vide pour ce step
+      }
+    }
+    map[s.key] = { label: stripMarkdownBold(s.label), options };
+  }
+  return map;
+}
+
+function stripMarkdownBold(s: string): string {
+  return s.replace(/\*\*(.+?)\*\*/g, "$1");
+}
+
+function resolveValue(v: unknown, optionsMap: Record<string, string>): string {
+  if (Array.isArray(v)) {
+    return v.map((x) => optionsMap[String(x)] ?? String(x)).join(", ");
+  }
+  const s = String(v ?? "");
+  return optionsMap[s] ?? s;
+}
+
+/**
+ * Pour l'étape "revenus", le simulateur affiche dynamiquement le seuil RFR
+ * en euros calculé à partir du nombre de personnes + zone géographique.
+ * On reproduit le même calcul ici pour que le mail montre exactement la
+ * case que l'utilisateur a vue (« ≤ 42 933 € » plutôt que « modeste »).
+ */
+function resolveRevenusValue(
+  value: unknown,
+  answers: Record<string, unknown>,
+): string | null {
+  const slug = String(value ?? "");
+  if (!slug) return null;
+  const nbPersonnes = parseFoyerPersonnes(
+    typeof answers.foyer_personnes === "string" ? answers.foyer_personnes : null,
+  );
+  const cp = typeof answers.code_postal === "string" ? answers.code_postal : "";
+  const t = getRevenusThresholds(nbPersonnes, isIDFPostalCode(cp));
+  switch (slug) {
+    case "tres-modeste":  return `≤ ${formatEuros(t["tres-modeste"])}`;
+    case "modeste":       return `≤ ${formatEuros(t.modeste)}`;
+    case "intermediaire": return `≤ ${formatEuros(t.intermediaire)}`;
+    case "superieur":     return `> ${formatEuros(t.intermediaire)}`;
+    default:              return null;
+  }
+}
+
+function answersTable(
+  answers: Record<string, unknown>,
+  steps: SimulatorStepsMap = {},
+): string {
   const rows = Object.entries(answers)
-    .map(
-      ([k, v]) => `
+    .map(([k, v]) => {
+      const step = steps[k];
+      const keyLabel = step?.label ?? k;
+      const dynamicRevenus = k === "revenus" ? resolveRevenusValue(v, answers) : null;
+      const valueLabel = dynamicRevenus ?? resolveValue(v, step?.options ?? {});
+      return `
         <tr>
-          <th align="left" style="padding:8px;border:1px solid #ddd;background:#f5f5f5;">${escape(k)}</th>
-          <td style="padding:8px;border:1px solid #ddd;">${escape(Array.isArray(v) ? v.join(", ") : v)}</td>
-        </tr>`,
-    )
+          <th align="left" style="padding:8px;border:1px solid #ddd;background:#f5f5f5;">${escape(keyLabel)}</th>
+          <td style="padding:8px;border:1px solid #ddd;">${escape(valueLabel)}</td>
+        </tr>`;
+    })
     .join("");
   return `<table style="border-collapse:collapse;font-family:system-ui;font-size:14px;width:100%;">${rows}</table>`;
 }
@@ -130,7 +218,7 @@ export async function sendQuoteToAdmin(quote: {
       ${escape(quote.postalCode)} ${escape(quote.city)}
     </p>
     <h3 style="font-family:system-ui;">Réponses</h3>
-    ${answersTable(quote.answers)}
+    ${answersTable(quote.answers, await loadSimulatorStepsMap())}
   `;
   return sendMail({
     to: env.smtp.adminEmail,
