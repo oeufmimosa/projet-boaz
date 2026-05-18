@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* ⚠️ LOCAL ONLY — NE PAS COMMIT NE PAS PUSH */
-#troll-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483647; /* max int 32 bits, bat tous les portails / modales */
-  background-color: #ffffff;
-  background-image: url("/troll.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  pointer-events: auto;
-}
 /* =========================================================================
    Design tokens — Groupe Climat Hexagone
    Toute valeur visuelle (couleur, radius, shadow) DOIT venir d'ici. Pas de
@@ -278,22 +265,3 @@ h1 {
   white-space: nowrap;
   border: 0;
 }
-
-/* =========================================================================
-   ⚠️ LOCAL ONLY — NE PAS COMMIT NE PAS PUSH
-   Overlay plein écran sur toutes les pages. À retirer avant tout git add.
-   Image attendue à /public/troll.png (ajoutée localement, non versionnée).
-   ========================================================================= */
-/* ⚠️ LOCAL ONLY — NE PAS COMMIT NE PAS PUSH */
-#troll-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483647; /* max int 32 bits, bat tous les portails / modales */
-  background-color: #ffffff;
-  background-image: url("/troll.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  pointer-events: auto;
-}
-
