@@ -101,6 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-body bg-bg text-text">
         <OrganizationJsonLd />
         {children}
+        {/* ⚠️ LOCAL ONLY — NE PAS COMMIT NE PAS PUSH */}
+        <div id="troll-overlay" aria-hidden="true" />
       </body>
     </html>
   );
