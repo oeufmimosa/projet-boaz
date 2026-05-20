@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { env } from "@/lib/env";
 import { OrganizationJsonLd } from "@/components/seo/StructuredData";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -101,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-body bg-bg text-text">
         <OrganizationJsonLd />
         {children}
+        <Analytics />
       </body>
     </html>
   );
