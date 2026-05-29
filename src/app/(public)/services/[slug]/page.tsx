@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const service = getService(params.slug);
   if (!service) return {};
   return {
-    title: `${service.label} : prix, aides 2025, fonctionnement`,
+    title: `${service.label} : prix, aides 2026, fonctionnement`,
     description: `${service.short} ${service.aides} Estimez vos aides en 2 minutes.`.slice(0, 160),
     alternates: { canonical: `/services/${service.slug}` },
     openGraph: {

@@ -9,12 +9,12 @@ import { WebSiteJsonLd, FaqJsonLd } from "@/components/seo/StructuredData";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Rénovation énergétique en France — Aides cumulées 2025",
+  title: "Rénovation énergétique en France — Aides cumulées 2026",
   description:
     "Pompe à chaleur, isolation thermique extérieure, photovoltaïque, ballon thermodynamique : faites estimer vos aides en 2 minutes et profitez d'un accompagnement clé en main par des artisans RGE.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Rénovation énergétique en France — Aides cumulées 2025",
+    title: "Rénovation énergétique en France — Aides cumulées 2026",
     description:
       "Pompe à chaleur, isolation, photovoltaïque : estimez vos aides en 2 minutes et profitez d'un accompagnement par des artisans RGE.",
     url: "/",

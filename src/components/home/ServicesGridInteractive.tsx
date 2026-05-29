@@ -67,7 +67,7 @@ export async function ServicesGridInteractive({
     getContent("home.services.title", "Des solutions pour chaque besoin énergétique"),
     getContent(
       "home.services.subtitle",
-      "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2025.",
+      "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2026.",
     ),
     ...SLUGS.map((s) => loadCardData(s)),
   ] as const);

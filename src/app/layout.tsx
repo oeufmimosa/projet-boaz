@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "chauffe-eau solaire",
     "système solaire combiné",
     "artisan RGE",
-    "aides rénovation 2025",
+    "aides rénovation 2026",
   ],
   openGraph: {
     type: "website",

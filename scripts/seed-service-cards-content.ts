@@ -43,7 +43,7 @@ async function up(key: string, value: string, type: string = "TEXT") {
 async function main() {
   await up("home.services.label", "Nos solutions");
   await up("home.services.title", "Des solutions pour chaque besoin énergétique");
-  await up("home.services.subtitle", "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2025.");
+  await up("home.services.subtitle", "Pompe à chaleur, photovoltaïque, isolation : nos six expertises pour réduire vos consommations et profiter des aides 2026.");
   for (const c of CARDS) {
     await up(`home.services.cards.${c.slug}.shortLabel`, c.shortLabel);
     await up(`home.services.cards.${c.slug}.description`, c.description);
