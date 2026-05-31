@@ -15,6 +15,9 @@
  *   à cause de Next.js (hydration scripts inline) et Tailwind (style inline).
  *   Les domaines des banques d'images sont autorisés pour servir les
  *   placeholders et les images stock embarquées.
+ *   Elfsight (elfsightcdn.com / *.elfsight.com) : widget d'avis Google sur la
+ *   home — charge un script, des avatars googleusercontent et appelle son API.
+ *   Vercel Analytics (va.vercel-scripts.com / *.vercel-insights.com).
  */
 const securityHeaders = [
   {
@@ -32,12 +35,13 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://images.unsplash.com https://images.pexels.com https://placehold.co",
-      "font-src 'self' data:",
-      "connect-src 'self' https://api.unsplash.com https://api.pexels.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://elfsightcdn.com https://*.elfsightcdn.com https://*.elfsight.com https://va.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline' https://*.elfsightcdn.com https://*.elfsight.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://images.pexels.com https://placehold.co https://*.elfsightcdn.com https://*.elfsight.com https://*.googleusercontent.com https://*.ggpht.com https://maps.gstatic.com https://maps.googleapis.com",
+      "font-src 'self' data: https://*.elfsightcdn.com https://*.elfsight.com",
+      "connect-src 'self' https://api.unsplash.com https://api.pexels.com https://*.elfsightcdn.com https://*.elfsight.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.vercel-insights.com",
       "media-src 'self' blob:",
+      "frame-src 'self' https://*.elfsight.com https://*.elfsightcdn.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",

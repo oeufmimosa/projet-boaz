@@ -8,6 +8,7 @@ import { Partners } from "./desktop/Partners";
 import { FAQ } from "./desktop/FAQ";
 import { ParrainageSection } from "./ParrainageSection";
 import { ExpertiseSection } from "./ExpertiseSection";
+import { GoogleReviews } from "./GoogleReviews";
 import type { HomeData } from "./types";
 
 /**
@@ -32,6 +33,7 @@ export function HomeMobile({
       <ServicesGridInteractive showBrandsMarquee />
       <ExpertiseSection />
       <HowItWorksCompact />
+      <GoogleReviews />
       <ParrainageSection />
       <Partners title={data.partners.title} items={data.partners.items} />
       <RelaunchCTA />

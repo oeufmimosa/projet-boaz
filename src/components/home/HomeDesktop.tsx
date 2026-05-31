@@ -6,6 +6,7 @@ import { Partners } from "./desktop/Partners";
 import { FAQ } from "./desktop/FAQ";
 import { ParrainageSection } from "./ParrainageSection";
 import { ExpertiseSection } from "./ExpertiseSection";
+import { GoogleReviews } from "./GoogleReviews";
 import type { HomeData } from "./types";
 
 /** Home desktop — visible uniquement à partir du breakpoint lg. */
@@ -22,6 +23,7 @@ export function HomeDesktop({ data }: { data: HomeData }) {
       <ExpertiseSection />
       <KeyFigures title={data.figures.title} items={data.figures.items} />
       <HowItWorks title={data.how.title} steps={data.how.steps} />
+      <GoogleReviews />
       <ParrainageSection />
       <Partners title={data.partners.title} items={data.partners.items} />
       <FAQ title={data.faq.title} items={data.faq.items} />
