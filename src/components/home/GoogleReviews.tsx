@@ -2,7 +2,6 @@
 
 import Script from "next/script";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Card";
 
 /**
  * Section "Avis Google" sur la home — placée juste après "Votre projet en
@@ -38,7 +37,9 @@ export function GoogleReviews() {
   const configured = ELFSIGHT_APP_ID.length > 0;
 
   return (
-    <Section>
+    // Padding haut réduit pour rapprocher le titre "Nos avis clients" de la
+    // bande "Nos marques proposées" juste au-dessus.
+    <section className="pb-16 pt-4 sm:pb-20 sm:pt-6">
       <Container>
         {configured ? (
           <>
@@ -52,7 +53,7 @@ export function GoogleReviews() {
           <FallbackSummary />
         )}
       </Container>
-    </Section>
+    </section>
   );
 }
 

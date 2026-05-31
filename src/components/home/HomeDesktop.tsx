@@ -20,10 +20,10 @@ export function HomeDesktop({ data }: { data: HomeData }) {
         ctaSecondary={data.hero.ctaSecondary}
       />
       <ServicesGridInteractive showBrandsMarquee />
+      <GoogleReviews />
       <ExpertiseSection />
       <KeyFigures title={data.figures.title} items={data.figures.items} />
       <HowItWorks title={data.how.title} steps={data.how.steps} />
-      <GoogleReviews />
       <ParrainageSection />
       <Partners title={data.partners.title} items={data.partners.items} />
       <FAQ title={data.faq.title} items={data.faq.items} />

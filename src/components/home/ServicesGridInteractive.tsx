@@ -102,17 +102,29 @@ export async function ServicesGridInteractive({
         </ul>
       </Container>
 
-      {showBrandsMarquee && <BrandsMarquee />}
-
-      <Container>
-        {showCta && (
-          <div className="mt-12 text-center">
-            <LinkButton href="/services" variant="outline" size="lg">
-              Voir toutes nos expertises
-            </LinkButton>
-          </div>
-        )}
-      </Container>
+      {showBrandsMarquee ? (
+        <BrandsMarquee
+          tone="muted"
+          spacedTop
+          footer={
+            showCta ? (
+              <LinkButton href="/services" variant="outline" size="lg">
+                Voir toutes nos expertises
+              </LinkButton>
+            ) : undefined
+          }
+        />
+      ) : (
+        showCta && (
+          <Container>
+            <div className="mt-12 text-center">
+              <LinkButton href="/services" variant="outline" size="lg">
+                Voir toutes nos expertises
+              </LinkButton>
+            </div>
+          </Container>
+        )
+      )}
     </section>
   );
 }

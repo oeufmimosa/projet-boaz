@@ -103,12 +103,30 @@ function BrandItem({ brand }: { brand: Brand }) {
   );
 }
 
-export function BrandsMarquee({ showHeading = true }: { showHeading?: boolean } = {}) {
+export function BrandsMarquee({
+  showHeading = true,
+  /** "muted" = fond gris distinct (bg-surface-2) ; "default" = fond page. */
+  tone = "default",
+  /** Ajoute un espace au-dessus pour détacher la bande du contenu précédent. */
+  spacedTop = false,
+  /** Contenu optionnel rendu dans la bande, sous le bandeau (ex. bouton CTA). */
+  footer,
+}: {
+  showHeading?: boolean;
+  tone?: "default" | "muted";
+  spacedTop?: boolean;
+  footer?: React.ReactNode;
+} = {}) {
   // Dupliquer la liste pour une boucle sans saut visible.
   const loop = [...BRANDS, ...BRANDS];
 
+  const bg = tone === "muted" ? "bg-surface-2" : "bg-bg";
+  const layout = showHeading
+    ? `py-12 sm:py-16${spacedTop ? " mt-12 sm:mt-16" : ""}`
+    : "-mt-12 pb-8 pt-0 sm:-mt-16 sm:pb-10";
+
   return (
-    <section className={showHeading ? "bg-bg py-12 sm:py-16" : "-mt-12 bg-bg pb-8 pt-0 sm:-mt-16 sm:pb-10"}>
+    <section className={`${bg} ${layout}`}>
       {showHeading && (
         <div className="mx-auto mb-8 max-w-3xl px-4 text-center sm:mb-10">
           <h2 className="font-display text-2xl font-bold text-primary-800 sm:text-3xl">
@@ -138,6 +156,8 @@ export function BrandsMarquee({ showHeading = true }: { showHeading?: boolean } 
       <p className="mx-auto mt-4 max-w-3xl px-4 text-center text-body-sm italic text-text-muted">
         Exemples de marques pouvant être proposées selon les projets et disponibilités.
       </p>
+
+      {footer && <div className="mt-10 px-4 text-center">{footer}</div>}
     </section>
   );
 }

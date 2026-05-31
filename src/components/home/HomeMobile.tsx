@@ -31,9 +31,9 @@ export function HomeMobile({
       <KeyFiguresCompact />
       <ChatHomeInvite advisorName={advisorName} advisorInitials={advisorInitials} />
       <ServicesGridInteractive showBrandsMarquee />
+      <GoogleReviews />
       <ExpertiseSection />
       <HowItWorksCompact />
-      <GoogleReviews />
       <ParrainageSection />
       <Partners title={data.partners.title} items={data.partners.items} />
       <RelaunchCTA />
