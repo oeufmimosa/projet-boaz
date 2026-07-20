@@ -25,7 +25,7 @@ const COORDONNEES = [
   },
   {
     label: "Téléphone",
-    value: "01 23 45 67 89",
+    value: "07 57 82 88 43",
     href: "tel:+33123456789",
     helper: "Du lundi au vendredi",
     icon: <PhoneIcon />,
