@@ -71,7 +71,7 @@ async function seedAdmin() {
 
 async function seedContent() {
   // Header / Footer / global
-  await upsertContent("site.name", "Projet Boaz");
+  await upsertContent("site.name", "Groupe Climat Hexagone");
   await upsertContent("site.tagline", "[ACCROCHE GLOBALE — rénovation énergétique]");
   await upsertContent("header.cta", "Simuler mes aides");
   await upsertContent("footer.copyright", "© Groupe Climat Hexagone — Tous droits réservés");
