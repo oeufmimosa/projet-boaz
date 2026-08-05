@@ -3,68 +3,71 @@
  * Throws at boot if a critical secret is missing in production.
  */
 function required(name: string, fallback?: string): string {
-  const value = process.env[name];
-  if (value && value.length > 0) return value;
-  if (fallback !== undefined) return fallback;
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(`Missing required env var: ${name}`);
-  }
-  return "";
+	const value = process.env[name];
+	if (value && value.length > 0) return value;
+	if (fallback !== undefined) return fallback;
+	if (process.env.NODE_ENV === "production") {
+		throw new Error(`Missing required env var: ${name}`);
+	}
+	return "";
 }
 
 function num(name: string, fallback: number): number {
-  const v = process.env[name];
-  if (!v) return fallback;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : fallback;
+	const v = process.env[name];
+	if (!v) return fallback;
+	const n = Number(v);
+	return Number.isFinite(n) ? n : fallback;
 }
 
 function bool(name: string, fallback: boolean): boolean {
-  const v = process.env[name];
-  if (!v) return fallback;
-  return ["1", "true", "yes", "on"].includes(v.toLowerCase());
+	const v = process.env[name];
+	if (!v) return fallback;
+	return ["1", "true", "yes", "on"].includes(v.toLowerCase());
 }
 
 export const env = {
-  databaseUrl: required("DATABASE_URL", "file:./dev.db"),
-  authSecret: required("AUTH_SECRET", "dev-only-insecure-secret-change-me"),
-  sessionTtlDays: num("SESSION_TTL_DAYS", 7),
+	databaseUrl: required("DATABASE_URL", "file:./dev.db"),
+	authSecret: required("AUTH_SECRET", "dev-only-insecure-secret-change-me"),
+	sessionTtlDays: num("SESSION_TTL_DAYS", 7),
 
-  loginRateLimit: {
-    max: num("LOGIN_RATE_LIMIT_MAX", 5),
-    windowMs: num("LOGIN_RATE_LIMIT_WINDOW_MS", 15 * 60 * 1000),
-  },
+	loginRateLimit: {
+		max: num("LOGIN_RATE_LIMIT_MAX", 5),
+		windowMs: num("LOGIN_RATE_LIMIT_WINDOW_MS", 15 * 60 * 1000),
+	},
 
-  upload: {
-    maxBytes: num("UPLOAD_MAX_BYTES", 5 * 1024 * 1024),
-    dir: required("UPLOAD_DIR", "public/uploads"),
-    publicPrefix: required("PUBLIC_UPLOAD_PREFIX", "/uploads"),
-  },
+	upload: {
+		maxBytes: num("UPLOAD_MAX_BYTES", 5 * 1024 * 1024),
+		dir: required("UPLOAD_DIR", "public/uploads"),
+		publicPrefix: required("PUBLIC_UPLOAD_PREFIX", "/uploads"),
+	},
 
-  smtp: {
-    host: process.env.SMTP_HOST ?? "",
-    port: num("SMTP_PORT", 587),
-    secure: bool("SMTP_SECURE", false),
-    user: process.env.SMTP_USER ?? "",
-    pass: process.env.SMTP_PASS ?? "",
-    from: required("MAIL_FROM", "Projet Boaz <no-reply@example.com>"),
-    adminEmail: required("ADMIN_NOTIFICATION_EMAIL", "admin@example.com"),
-  },
+	smtp: {
+		host: process.env.SMTP_HOST ?? "",
+		port: num("SMTP_PORT", 587),
+		secure: bool("SMTP_SECURE", false),
+		user: process.env.SMTP_USER ?? "",
+		pass: process.env.SMTP_PASS ?? "",
+		from: required(
+			"MAIL_FROM",
+			"Groupe Climat Hexagone <no-reply@example.com>",
+		),
+		adminEmail: required("ADMIN_NOTIFICATION_EMAIL", "admin@example.com"),
+	},
 
-  site: {
-    name: process.env.NEXT_PUBLIC_SITE_NAME ?? "Projet Boaz",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  },
+	site: {
+		name: process.env.NEXT_PUBLIC_SITE_NAME ?? "Groupe Climat Hexagone",
+		url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+	},
 
-  // Clés des API d'images stock (optionnelles en dev — si absentes, l'onglet
-  // "Photos libres" de la modale d'upload est désactivé gracieusement).
-  // Sources légales uniquement : Unsplash + Pexels (pas de Google Images,
-  // pas de scraping de sites tiers). Cf. docs/seo.md.
-  stockImages: {
-    unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY ?? "",
-    pexelsApiKey:      process.env.PEXELS_API_KEY ?? "",
-  },
+	// Clés des API d'images stock (optionnelles en dev — si absentes, l'onglet
+	// "Photos libres" de la modale d'upload est désactivé gracieusement).
+	// Sources légales uniquement : Unsplash + Pexels (pas de Google Images,
+	// pas de scraping de sites tiers). Cf. docs/seo.md.
+	stockImages: {
+		unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY ?? "",
+		pexelsApiKey: process.env.PEXELS_API_KEY ?? "",
+	},
 
-  isProd: process.env.NODE_ENV === "production",
-  logLevel: process.env.LOG_LEVEL ?? "info",
+	isProd: process.env.NODE_ENV === "production",
+	logLevel: process.env.LOG_LEVEL ?? "info",
 };
