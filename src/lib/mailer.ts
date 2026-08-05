@@ -255,7 +255,7 @@ export async function sendQuoteConfirmationToUser(quote: {
     <p style="font-family:system-ui;font-size:14px;">
       Nous avons bien reçu votre demande de simulation. Un conseiller vous recontactera sous 24-48h.
     </p>
-    <p style="font-family:system-ui;font-size:14px;">À bientôt,<br/>L'équipe ${escape(env.site.name)}</p>
+    <p style="font-family:system-ui;font-size:14px;">À bientôt,<br/>${escape(env.site.name)}</p>
   `;
 	return sendMail({
 		to: quote.email,
@@ -364,7 +364,7 @@ export async function sendReferralConfirmationToSponsor(
     <p style="font-family:system-ui;font-size:14px;">
       Une fois les travaux réalisés, votre prime de <strong>jusqu'à 1 000 €</strong> vous sera versée dans un délai de 30 jours maximum.
     </p>
-    <p style="font-family:system-ui;font-size:14px;">Merci pour votre confiance,<br/>L'équipe ${escape(env.site.name)}</p>
+    <p style="font-family:system-ui;font-size:14px;">Merci pour votre confiance,<br/>${escape(env.site.name)}</p>
   `;
 	return sendMail({
 		to: r.sponsorEmail,
@@ -392,7 +392,7 @@ export async function sendReferralIntroductionToReferee(
       En attendant, vous pouvez estimer vos aides en quelques clics :<br/>
       <a href="${escape(env.site.url)}/simulateur" style="color:#1F6A40;">Démarrer une simulation gratuite</a>
     </p>
-    <p style="font-family:system-ui;font-size:14px;">À très bientôt,<br/>L'équipe ${escape(env.site.name)}</p>
+    <p style="font-family:system-ui;font-size:14px;">À très bientôt,<br/>${escape(env.site.name)}</p>
   `;
 	return sendMail({
 		to: r.refereeEmail,
