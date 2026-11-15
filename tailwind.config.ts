@@ -113,12 +113,12 @@ const config: Config = {
       //   En dessous (cas dégradé < 360 px), seul le symbole reste affiché.
       // - narrow (900px)   : seuil d'apparition du CTA primary plein
       //   (en dessous : mini-CTA accent condensé "Simuler").
-      // - midnav (1100px)  : seuil de bascule burger → menu horizontal desktop.
+      // - midnav (1240px)  : seuil de bascule burger → menu horizontal desktop.
       // (xl = 1280px, défaut Tailwind, active le compact md plus large.)
       screens: {
         xs:     "360px",
         narrow: "900px",
-        midnav: "1100px",
+        midnav: "1240px",
       },
 
       spacing: {

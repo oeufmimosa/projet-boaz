@@ -54,6 +54,7 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/", label: "Accueil" },
   { href: "/qui-sommes-nous", label: "Qui sommes-nous ?" },
   { href: "/services", label: "Services", children: SERVICES },
+  { href: "/realisations", label: "Nos réalisations" },
   { href: "/contact", label: "Contact" },
   { href: "/parrainage", label: "Parrainage", badge: "Gagnez 1 000 €" },
 ];
@@ -70,6 +71,7 @@ export const FOOTER_COLUMNS: Array<{ title: string; links: NavLink[] }> = [
     title: "Entreprise",
     links: [
       { href: "/qui-sommes-nous", label: "Qui sommes-nous ?" },
+      { href: "/realisations", label: "Nos réalisations" },
       { href: "/parrainage", label: "Parrainage" },
     ],
   },

@@ -11,29 +11,8 @@ import { getContent } from "@/lib/content";
 export { NAV_LINKS };
 
 /**
- * Navbar disposition « Effy-style flush left » — full-width viewport,
- * sans wrapper `<Container>` (pas de `max-width`, pas de `mx-auto`).
- * Logo et menu collés au bord gauche, CTA collé au bord droit, marges
- * latérales fluides 16/24/32/40 px via padding direct.
- *
- *   ┌───────────────────────────────────────────────────────────────────┐
- *   │ [Logo] [menu inline collé au logo]      ←gap→     [CTA primary]   │
- *   │ ←───────── flex-1 min-w-0 ─────────→            ←shrink-0→        │
- *   └───────────────────────────────────────────────────────────────────┘
- *
- * Hauteur fixe 64 px à toutes les largeurs.
- *
- * Breakpoints :
- *  - < xs (360)                : burger + mini-CTA + logo `mark` sm
- *  - xs → midnav (360-1099)    : burger + (mini ou plein) CTA + logo `compact` sm
- *                                 (le wordmark est visible dès 360 px de large
- *                                 — cf. iPhone 14 Pro Max 430 px qui a la place)
- *  - midnav → xl   (1100-1279) : menu horizontal + logo `mark` md + CTA
- *  - ≥ xl (1280)               : menu horizontal + logo `compact` md + CTA
- *
- * Règle d'or : `whitespace-nowrap` sur tous les `<NavLink>`. Si à 1100 px le
- * menu déborde malgré `mark` seul, il vaut mieux remonter `midnav` à 1199 px
- * que d'autoriser un chevauchement Parrainage / CTA.
+ * Barre de navigation de 64 px, logo à gauche et actions à droite.
+ * Le menu horizontal s’affiche au seuil `midnav` pour laisser la place aux actions.
  */
 export async function Header() {
   const ctaLabel = await getContent("header.cta", "Simuler mes aides");
@@ -44,7 +23,7 @@ export async function Header() {
       <ScrollAwareHeader>
         <div className="flex h-16 w-full items-center justify-between gap-6 px-4 sm:px-6 lg:px-8 xl:px-10">
           {/* Zone gauche — logo + menu collé, peut se compresser */}
-          <div className="flex min-w-0 flex-1 items-center gap-6">
+          <div className="flex min-w-0 flex-1 items-center gap-4 2xl:gap-6">
             <Link
               href="/"
               aria-label="Accueil — Groupe Climat Hexagone"
@@ -74,8 +53,8 @@ export async function Header() {
                     href={l.href}
                     className={
                       isParrainage
-                        ? "inline-flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-body-sm font-semibold text-primary-700 transition-colors duration-150 hover:bg-primary-50"
-                        : "inline-flex items-center whitespace-nowrap rounded-md px-3 py-2 text-body-sm font-medium text-text transition-colors duration-150 hover:bg-primary-50 hover:text-primary-700"
+                        ? "inline-flex items-center gap-2 whitespace-nowrap rounded-md px-2.5 py-2 text-body-sm font-semibold text-primary-700 transition-colors duration-150 hover:bg-primary-50 2xl:px-3"
+                        : "inline-flex items-center whitespace-nowrap rounded-md px-2.5 py-2 text-body-sm font-medium text-text transition-colors duration-150 hover:bg-primary-50 hover:text-primary-700 2xl:px-3"
                     }
                     data-nav
                   >

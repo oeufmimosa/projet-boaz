@@ -169,6 +169,11 @@ export default async function QuiSommesNousPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-8 text-center">
+            <LinkButton href="/realisations" variant="primary">
+              Voir nos réalisations
+            </LinkButton>
+          </div>
         </Container>
       </Section>
 

@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { env } from "@/lib/env";
 import { SERVICES_LIST } from "@/lib/services";
-import { REALISATIONS } from "@/lib/realisations";
 
 const SITE = env.site.url;
 
@@ -17,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/`,                priority: 1.0, changeFrequency: "weekly", lastModified: now },
     { url: `${SITE}/qui-sommes-nous`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/services`,        priority: 0.9, changeFrequency: "monthly", lastModified: now },
+    { url: `${SITE}/realisations`,    priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/parrainage`,      priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/aides`,           priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${SITE}/contact`,         priority: 0.5, changeFrequency: "yearly",  lastModified: now },
@@ -33,12 +33,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
-  const realisationRoutes: MetadataRoute.Sitemap = REALISATIONS.map((r) => ({
-    url: `${SITE}/realisations/${r.slug}`,
-    priority: 0.6,
-    changeFrequency: "monthly",
-    lastModified: now,
-  }));
-
-  return [...staticRoutes, ...serviceRoutes, ...realisationRoutes];
+  return [...staticRoutes, ...serviceRoutes];
 }

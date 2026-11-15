@@ -23,7 +23,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1
  *
  * - Fond `bg-primary-800` 100 % opaque
  * - Filets tricolores en haut ET en bas
- * - 6 entrées rendues en `<ul>` (jamais conditionnel sur la liste elle-même)
+ * - Entrées du menu rendues en `<ul>`
  * - Accordéon `<details>` pour Services
  * - Pas de FrenchBadge (déplacé dans le footer)
  * - Scroll lock body, focus trap, fermeture Escape / croix / tap lien / CTA
