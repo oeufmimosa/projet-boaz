@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     url: "/realisations",
-    images: [{ url: HERO_IMAGE, alt: "Ballons et circuit de chauffage dans un local technique" }],
+    images: [{ url: HERO_IMAGE, alt: "Ballons et circuit de chauffage hydraulique" }],
   },
 };
 
@@ -27,15 +27,15 @@ const COMPARISON = [
   {
     label: "Avant",
     src: "/realisations/chantiers/chauffage-avant.jpg",
-    alt: "Chaudière murale ouverte et vase d’expansion bleu dans la buanderie",
-    caption: "Le chauffage du logement était assuré par la chaudière murale d’origine.",
+    alt: "Chaudière murale et vase d’expansion de l’installation d’origine",
+    caption: "Chauffage central hydraulique alimenté par une chaudière murale.",
     labelColor: "bg-primary-900 text-text-inverse",
   },
   {
     label: "Après",
     src: "/realisations/chantiers/chauffage-apres.jpg",
-    alt: "Module mural blanc, ballon et vase d’expansion rouge dans la même buanderie",
-    caption: "Modernisation du chauffage avec pose d’un nouveau module, raccordement du ballon et reprise du circuit existant.",
+    alt: "Module intérieur Chappée avec ballon tampon et vase d’expansion",
+    caption: "Remplacement de la chaudière par une pompe à chaleur air-eau Chappée avec ballon tampon.",
     labelColor: "bg-accent-500 text-primary-900",
   },
 ];
@@ -43,45 +43,45 @@ const COMPARISON = [
 const GALLERY = [
   {
     src: "/realisations/chantiers/pac-facade-brique.jpg",
-    alt: "Unité extérieure grise devant un mur de briques",
-    title: "Chauffage par pompe à chaleur",
-    caption: "Installation d’une pompe à chaleur pour le chauffage de la maison, avec intégration de l’unité extérieure sur la terrasse.",
+    alt: "Unité extérieure de pompe à chaleur avec ventilateur frontal",
+    title: "Pompe à chaleur aérothermique",
+    caption: "Installation d’une pompe à chaleur aérothermique, qui capte la chaleur de l’air pour assurer le chauffage.",
   },
   {
     src: HERO_IMAGE,
-    alt: "Ballon Atlantic et vase d’expansion rouge dans un local technique",
-    title: "Chauffage et eau chaude sanitaire",
-    caption: "Installation d’un ballon d’eau chaude sanitaire Atlantic et raccordement du circuit de chauffage.",
+    alt: "Ballon d’eau chaude Atlantic, ballon tampon et vase d’expansion",
+    title: "Ballon tampon et eau chaude sanitaire",
+    caption: "Installation d’un ballon d’eau chaude sanitaire Atlantic et raccordement d’un ballon tampon au circuit de chauffage.",
   },
   {
     src: "/realisations/chantiers/pac-exterieure-sur-plots.jpg",
-    alt: "Unité Thomson sur plots et dalles au pied d’un mur blanc",
-    title: "Raccordement d’une pompe à chaleur",
-    caption: "Pose d’une pompe à chaleur avec raccordement électrique et passage des liaisons sous goulotte en façade.",
+    alt: "Unité extérieure de la pompe à chaleur Thomson Energy",
+    title: "Pompe à chaleur air-eau Thomson",
+    caption: "Installation d’une pompe à chaleur air-eau Thomson pour alimenter un circuit de chauffage hydraulique.",
   },
   {
     src: "/realisations/chantiers/chauffage-plafond-bas.jpg",
-    alt: "Ballon, module mural et tuyaux rouges et bleus sous une poutre basse",
-    title: "Installation sous plafond bas",
-    caption: "Intégration du chauffage et de la production d’eau chaude sanitaire dans un local à faible hauteur sous plafond.",
+    alt: "Module de chauffage hydraulique, ballon et vase d’expansion",
+    title: "Module de chauffage hydraulique",
+    caption: "Installation d’un module de chauffage hydraulique et d’un ballon dédié à l’eau chaude sanitaire.",
   },
   {
     src: "/realisations/chantiers/pac-et-panneaux-solaires.jpg",
-    alt: "Groupe extérieur noir au pied d’un bâtiment équipé de panneaux solaires",
-    title: "Pompe à chaleur et équipement solaire",
-    caption: "Installation d’une pompe à chaleur pour chauffer une maison équipée de panneaux solaires.",
+    alt: "Unité extérieure anthracite de la pompe à chaleur aérothermique",
+    title: "Pompe à chaleur aérothermique",
+    caption: "Pose et raccordement d’une pompe à chaleur aérothermique pour le chauffage.",
   },
   {
     src: "/realisations/chantiers/thermostat-ambiance.jpg",
     alt: "Thermostat Honeywell Home devant un appareil de chauffage Chappée",
-    title: "Thermostat d’ambiance",
-    caption: "Installation et réglage d’un thermostat programmable pour adapter le chauffage aux horaires du foyer.",
+    title: "Thermostat programmable",
+    caption: "Installation et réglage d’un thermostat programmable pour piloter le chauffage selon des plages horaires.",
   },
   {
     src: "/realisations/chantiers/ballon-espace-etroit.jpg",
-    alt: "Ballon blanc et vase d’expansion rouge au fond d’un local étroit",
-    title: "Chauffage en espace réduit",
-    caption: "Installation du circuit de chauffage dans un local étroit, avec des raccordements adaptés pour préserver le passage.",
+    alt: "Ballon tampon et vase d’expansion du circuit de chauffage",
+    title: "Ballon tampon pour chauffage hydraulique",
+    caption: "Installation d’un ballon tampon pour augmenter le volume d’eau du circuit de chauffage.",
   },
   {
     src: "/realisations/chantiers/circuit-hydraulique.jpg",
@@ -91,9 +91,9 @@ const GALLERY = [
   },
   {
     src: "/realisations/chantiers/eau-chaude-buanderie.jpg",
-    alt: "Ballon Atlantic sur support et module mural à côté d’un évier de buanderie",
-    title: "Production d’eau chaude sanitaire",
-    caption: "Pose et raccordement d’un ballon d’eau chaude sanitaire en buanderie, en complément de l’installation de chauffage.",
+    alt: "Ballon d’eau chaude Atlantic et module intérieur de pompe à chaleur Chappée",
+    title: "Pompe à chaleur air-eau et eau chaude sanitaire",
+    caption: "Installation d’une pompe à chaleur air-eau Chappée et d’un ballon d’eau chaude sanitaire Atlantic.",
   },
 ];
 
