@@ -40,9 +40,15 @@ const CHANTIER = {
 
 const GALLERY = [
   {
-    src: "/realisations/chantiers/pac-facade-brique.jpg",
-    alt: "Groupe extérieur de pompe à chaleur Air/Eau installé contre une façade en brique",
-    title: "Installation d’un groupe extérieur de pompe à chaleur Air/Eau",
+    src: "/realisations/chantiers/pac-air-eau-monobloc-r290.jpg",
+    alt: "Pompe à chaleur Air/Eau monobloc haute température au R290, ballon d’eau chaude sanitaire et ballon tampon en local technique",
+    title: "Pose d’une pompe à chaleur Air/Eau monobloc (haute température au R290) avec ballon d’eau chaude sanitaire",
+    caption: "",
+  },
+  {
+    src: "/realisations/chantiers/pac-monobloc-ht-ballon-ecs.jpg",
+    alt: "Pompe à chaleur monobloc haute température et ballon d’eau chaude sanitaire 200 L en local technique",
+    title: "Pose d’une pompe à chaleur monobloc haute température ainsi que d’un ballon d’eau chaude sanitaire 200 L",
     caption: "",
   },
   {
@@ -52,21 +58,9 @@ const GALLERY = [
     caption: "Installation d’une pompe à chaleur monobloc Thaleos au R290 ainsi que d’un ballon d’eau chaude Atlantic.",
   },
   {
-    src: "/realisations/chantiers/pac-exterieure-sur-plots.jpg",
-    alt: "Unité extérieure de la pompe à chaleur Thomson Energy",
-    title: "Pompe à chaleur air-eau Thomson",
-    caption: "Installation d’une pompe à chaleur air-eau Thomson pour alimenter un circuit de chauffage hydraulique.",
-  },
-  {
-    src: "/realisations/chantiers/chauffage-plafond-bas.jpg",
-    alt: "Module de chauffage hydraulique, ballon et vase d’expansion",
-    title: "Module de chauffage hydraulique",
-    caption: "Installation d’un module de chauffage hydraulique et d’un ballon dédié à l’eau chaude sanitaire.",
-  },
-  {
-    src: "/realisations/chantiers/pac-et-panneaux-solaires.jpg",
-    alt: "Groupe extérieur anthracite de pompe à chaleur Air/Eau",
-    title: "Pompe à chaleur Air/Eau groupe extérieur",
+    src: "/realisations/chantiers/pac-air-air-daikin.jpg",
+    alt: "Unité intérieure murale Daikin Siesta et sa télécommande réglée à 23 °C",
+    title: "Mise en place d’une pompe à chaleur Air/Air Daikin",
     caption: "",
   },
   {
@@ -74,6 +68,31 @@ const GALLERY = [
     alt: "Thermostat Honeywell Home devant un appareil de chauffage Chappée",
     title: "Thermostat programmable",
     caption: "Installation et réglage d’un thermostat programmable pour piloter le chauffage selon des plages horaires.",
+  },
+  {
+    src: "/realisations/chantiers/chauffage-plafond-bas.jpg",
+    alt: "Module de chauffage hydraulique, ballon et vase d’expansion",
+    title: "Module de chauffage hydraulique",
+    caption: "Installation d’un module de chauffage hydraulique et d’un ballon dédié à l’eau chaude sanitaire.",
+  },
+
+  {
+    src: "/realisations/chantiers/pac-facade-brique.jpg",
+    alt: "Groupe extérieur de pompe à chaleur Air/Eau installé contre une façade en brique",
+    title: "Installation d’un groupe extérieur de pompe à chaleur Air/Eau",
+    caption: "",
+  },
+  {
+    src: "/realisations/chantiers/pac-exterieure-sur-plots.jpg",
+    alt: "Unité extérieure de la pompe à chaleur Thomson Energy",
+    title: "Pompe à chaleur air-eau Thomson",
+    caption: "Installation d’une pompe à chaleur air-eau Thomson pour alimenter un circuit de chauffage hydraulique.",
+  },
+  {
+    src: "/realisations/chantiers/pac-et-panneaux-solaires.jpg",
+    alt: "Groupe extérieur anthracite de pompe à chaleur Air/Eau",
+    title: "Pompe à chaleur Air/Eau groupe extérieur",
+    caption: "",
   },
   {
     src: "/realisations/chantiers/ballon-espace-etroit.jpg",
@@ -92,24 +111,6 @@ const GALLERY = [
     alt: "Ballon d’eau chaude Atlantic et module intérieur de pompe à chaleur Chappée",
     title: "Pompe à chaleur air-eau et eau chaude sanitaire",
     caption: "Installation d’une pompe à chaleur air-eau Chappée et d’un ballon d’eau chaude sanitaire Atlantic.",
-  },
-  {
-    src: "/realisations/chantiers/pac-air-air-daikin.jpg",
-    alt: "Unité intérieure murale Daikin Siesta et sa télécommande réglée à 23 °C",
-    title: "Mise en place d’une pompe à chaleur Air/Air Daikin",
-    caption: "",
-  },
-  {
-    src: "/realisations/chantiers/pac-air-eau-monobloc-r290.jpg",
-    alt: "Pompe à chaleur Air/Eau monobloc haute température au R290, ballon d’eau chaude sanitaire et ballon tampon en local technique",
-    title: "Pose d’une pompe à chaleur Air/Eau monobloc (haute température au R290) avec ballon d’eau chaude sanitaire",
-    caption: "",
-  },
-  {
-    src: "/realisations/chantiers/pac-monobloc-ht-ballon-ecs.jpg",
-    alt: "Pompe à chaleur monobloc haute température et ballon d’eau chaude sanitaire 200 L en local technique",
-    title: "Pose d’une pompe à chaleur monobloc haute température ainsi que d’un ballon d’eau chaude sanitaire 200 L",
-    caption: "",
   },
 ];
 
