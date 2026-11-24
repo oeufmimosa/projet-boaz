@@ -41,15 +41,15 @@ const CHANTIER = {
 const GALLERY = [
   {
     src: "/realisations/chantiers/pac-facade-brique.jpg",
-    alt: "Groupe extérieur de pompe à chaleur air/eau installé contre une façade en brique",
-    title: "Installation d’un groupe extérieur de pompe à chaleur air/eau",
-    caption: "Pose et raccordement du groupe extérieur d’une pompe à chaleur air/eau sur la terrasse, contre la façade en brique du logement.",
+    alt: "Groupe extérieur de pompe à chaleur Air/Eau installé contre une façade en brique",
+    title: "Installation d’un groupe extérieur de pompe à chaleur Air/Eau",
+    caption: "",
   },
   {
     src: HERO_IMAGE,
     alt: "Module intérieur de pompe à chaleur monobloc Thaleos et ballon d’eau chaude Atlantic",
-    title: "Pompe à chaleur monobloc Thaleos Mont-Blanc",
-    caption: "Installation d’une pompe à chaleur française monobloc de la marque Thaleos Mont-Blanc, au R290, ainsi que d’un ballon d’eau chaude sanitaire Atlantic.",
+    title: "Installation d’une pompe à chaleur française monobloc de la marque Thaleos Mont-Blanc",
+    caption: "Installation d’une pompe à chaleur monobloc Thaleos au R290 ainsi que d’un ballon d’eau chaude Atlantic.",
   },
   {
     src: "/realisations/chantiers/pac-exterieure-sur-plots.jpg",
@@ -65,9 +65,9 @@ const GALLERY = [
   },
   {
     src: "/realisations/chantiers/pac-et-panneaux-solaires.jpg",
-    alt: "Groupe extérieur anthracite de pompe à chaleur air/eau",
-    title: "Pompe à chaleur air/eau — groupe extérieur",
-    caption: "Mise en place du groupe extérieur d’une pompe à chaleur air/eau et raccordement au circuit de chauffage du logement.",
+    alt: "Groupe extérieur anthracite de pompe à chaleur Air/Eau",
+    title: "Pompe à chaleur Air/Eau groupe extérieur",
+    caption: "",
   },
   {
     src: "/realisations/chantiers/thermostat-ambiance.jpg",
@@ -78,20 +78,38 @@ const GALLERY = [
   {
     src: "/realisations/chantiers/ballon-espace-etroit.jpg",
     alt: "Pompe à chaleur monobloc Thaleos Mont-Blanc en remplacement d’une chaudière fioul",
-    title: "Remplacement d’une chaudière fioul par une PAC monobloc Thaleos",
-    caption: "Installation d’une pompe à chaleur monobloc Thaleos Mont-Blanc au R290 en remplacement d’une chaudière fioul.",
+    title: "Installation d’une pompe à chaleur monobloc Thaleos Mont-Blanc",
+    caption: "Installation d’une pompe à chaleur monobloc au R290 en remplacement d’une chaudière fioul.",
   },
   {
     src: "/realisations/chantiers/circuit-hydraulique.jpg",
     alt: "Modules Watts, manomètres et tuyauteries isolées bleues",
-    title: "Pompe à chaleur air-eau avec kit bi-zone Universal Watts",
-    caption: "Installation d’une pompe à chaleur air-eau équipée d’un kit bi-zone Universal Watts pour alimenter un plancher chauffant et des radiateurs.",
+    title: "Installation d’une pompe à chaleur Air/Eau avec kit bi-zone Universal Watts",
+    caption: "",
   },
   {
     src: "/realisations/chantiers/eau-chaude-buanderie.jpg",
     alt: "Ballon d’eau chaude Atlantic et module intérieur de pompe à chaleur Chappée",
     title: "Pompe à chaleur air-eau et eau chaude sanitaire",
     caption: "Installation d’une pompe à chaleur air-eau Chappée et d’un ballon d’eau chaude sanitaire Atlantic.",
+  },
+  {
+    src: "/realisations/chantiers/pac-air-air-daikin.jpg",
+    alt: "Unité intérieure murale Daikin Siesta et sa télécommande réglée à 23 °C",
+    title: "Mise en place d’une pompe à chaleur Air/Air Daikin",
+    caption: "",
+  },
+  {
+    src: "/realisations/chantiers/pac-air-eau-monobloc-r290.jpg",
+    alt: "Pompe à chaleur Air/Eau monobloc haute température au R290, ballon d’eau chaude sanitaire et ballon tampon en local technique",
+    title: "Pose d’une pompe à chaleur Air/Eau monobloc (haute température au R290) avec ballon d’eau chaude sanitaire",
+    caption: "",
+  },
+  {
+    src: "/realisations/chantiers/pac-monobloc-ht-ballon-ecs.jpg",
+    alt: "Pompe à chaleur monobloc haute température et ballon d’eau chaude sanitaire 200 L en local technique",
+    title: "Pose d’une pompe à chaleur monobloc haute température ainsi que d’un ballon d’eau chaude sanitaire 200 L",
+    caption: "",
   },
 ];
 
@@ -179,7 +197,9 @@ export default function RealisationsPage() {
                   </div>
                   <figcaption className="p-5">
                     <h3 className="font-display text-lg font-bold text-primary-800">{photo.title}</h3>
-                    <p className="mt-2 text-body-sm text-text-muted">{photo.caption}</p>
+                    {photo.caption ? (
+                      <p className="mt-2 text-body-sm text-text-muted">{photo.caption}</p>
+                    ) : null}
                   </figcaption>
                 </figure>
               </li>
