@@ -23,35 +23,33 @@ export const metadata: Metadata = {
   },
 };
 
-const COMPARISON = [
-  {
-    label: "Avant",
-    src: "/realisations/chantiers/chauffage-avant.jpg",
-    alt: "Chaudière murale et vase d’expansion de l’installation d’origine",
-    caption: "Chauffage central hydraulique alimenté par une chaudière murale.",
-    labelColor: "bg-primary-900 text-text-inverse",
-  },
-  {
-    label: "Après",
-    src: "/realisations/chantiers/chauffage-apres.jpg",
-    alt: "Module intérieur Chappée avec ballon tampon et vase d’expansion",
-    caption: "Remplacement de la chaudière par une pompe à chaleur air-eau Chappée avec ballon tampon.",
-    labelColor: "bg-accent-500 text-primary-900",
-  },
-];
+const CHANTIER = {
+  title:
+    "Installation d’une pompe à chaleur Air/Eau de marque Atlantic en remplacement d’une chaudière fioul",
+  photos: [
+    {
+      src: "/realisations/chantiers/pac-atlantic-local-technique.jpg",
+      alt: "Pompe à chaleur Atlantic installée en local technique, avec ballon d’eau chaude sanitaire et vase d’expansion",
+    },
+    {
+      src: "/realisations/chantiers/pac-atlantic-exterieur.jpg",
+      alt: "Groupe extérieur Atlantic de la pompe à chaleur air/eau, posé au sol contre un mur en pierre",
+    },
+  ],
+};
 
 const GALLERY = [
   {
     src: "/realisations/chantiers/pac-facade-brique.jpg",
-    alt: "Unité extérieure de pompe à chaleur avec ventilateur frontal",
-    title: "Pompe à chaleur aérothermique",
-    caption: "Installation d’une pompe à chaleur aérothermique, qui capte la chaleur de l’air pour assurer le chauffage.",
+    alt: "Groupe extérieur de pompe à chaleur air/eau installé contre une façade en brique",
+    title: "Installation d’un groupe extérieur de pompe à chaleur air/eau",
+    caption: "Pose et raccordement du groupe extérieur d’une pompe à chaleur air/eau sur la terrasse, contre la façade en brique du logement.",
   },
   {
     src: HERO_IMAGE,
-    alt: "Ballon d’eau chaude Atlantic, ballon tampon et vase d’expansion",
-    title: "Ballon tampon et eau chaude sanitaire",
-    caption: "Installation d’un ballon d’eau chaude sanitaire Atlantic et raccordement d’un ballon tampon au circuit de chauffage.",
+    alt: "Module intérieur de pompe à chaleur monobloc Thaleos et ballon d’eau chaude Atlantic",
+    title: "Pompe à chaleur monobloc Thaleos Mont-Blanc",
+    caption: "Installation d’une pompe à chaleur française monobloc de la marque Thaleos Mont-Blanc, au R290, ainsi que d’un ballon d’eau chaude sanitaire Atlantic.",
   },
   {
     src: "/realisations/chantiers/pac-exterieure-sur-plots.jpg",
@@ -67,9 +65,9 @@ const GALLERY = [
   },
   {
     src: "/realisations/chantiers/pac-et-panneaux-solaires.jpg",
-    alt: "Unité extérieure anthracite de la pompe à chaleur aérothermique",
-    title: "Pompe à chaleur aérothermique",
-    caption: "Pose et raccordement d’une pompe à chaleur aérothermique pour le chauffage.",
+    alt: "Groupe extérieur anthracite de pompe à chaleur air/eau",
+    title: "Pompe à chaleur air/eau — groupe extérieur",
+    caption: "Mise en place du groupe extérieur d’une pompe à chaleur air/eau et raccordement au circuit de chauffage du logement.",
   },
   {
     src: "/realisations/chantiers/thermostat-ambiance.jpg",
@@ -79,15 +77,15 @@ const GALLERY = [
   },
   {
     src: "/realisations/chantiers/ballon-espace-etroit.jpg",
-    alt: "Ballon tampon et vase d’expansion du circuit de chauffage",
-    title: "Ballon tampon pour chauffage hydraulique",
-    caption: "Installation d’un ballon tampon pour augmenter le volume d’eau du circuit de chauffage.",
+    alt: "Pompe à chaleur monobloc Thaleos Mont-Blanc en remplacement d’une chaudière fioul",
+    title: "Remplacement d’une chaudière fioul par une PAC monobloc Thaleos",
+    caption: "Installation d’une pompe à chaleur monobloc Thaleos Mont-Blanc au R290 en remplacement d’une chaudière fioul.",
   },
   {
     src: "/realisations/chantiers/circuit-hydraulique.jpg",
     alt: "Modules Watts, manomètres et tuyauteries isolées bleues",
-    title: "Pompe à chaleur bi-zone",
-    caption: "Installation d’une pompe à chaleur avec un kit bi-zone pour alimenter un plancher chauffant et des radiateurs.",
+    title: "Pompe à chaleur air-eau avec kit bi-zone Universal Watts",
+    caption: "Installation d’une pompe à chaleur air-eau équipée d’un kit bi-zone Universal Watts pour alimenter un plancher chauffant et des radiateurs.",
   },
   {
     src: "/realisations/chantiers/eau-chaude-buanderie.jpg",
@@ -137,15 +135,15 @@ export default function RealisationsPage() {
         <Container>
           <div className="mx-auto max-w-4xl">
             <h2 className="font-display text-3xl font-bold text-primary-800 sm:text-4xl">
-              Un chauffage rénové, avant et après
+              {CHANTIER.title}
             </h2>
             <div className="mt-6 grid grid-cols-2 gap-2 sm:mt-8 sm:gap-5">
-              {COMPARISON.map((photo) => (
+              {CHANTIER.photos.map((photo) => (
                 <figure
                   key={photo.src}
                   className="relative min-w-0 overflow-hidden rounded-lg border border-border bg-surface shadow-sm"
                 >
-                  <div className="relative aspect-[3/4] bg-primary-100">
+                  <div className="relative aspect-[4/5] bg-primary-100">
                     <Image
                       src={photo.src}
                       alt={photo.alt}
@@ -154,14 +152,6 @@ export default function RealisationsPage() {
                       className="object-cover"
                     />
                   </div>
-                  <figcaption className="p-3 text-body-sm text-text-muted sm:p-5 sm:text-body">
-                    <span
-                      className={`absolute left-2 top-2 rounded-full px-3 py-1 text-body-sm font-semibold shadow-sm sm:left-4 sm:top-4 ${photo.labelColor}`}
-                    >
-                      {photo.label}
-                    </span>
-                    {photo.caption}
-                  </figcaption>
                 </figure>
               ))}
             </div>
